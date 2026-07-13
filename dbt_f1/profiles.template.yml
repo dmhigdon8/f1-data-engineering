@@ -1,0 +1,15 @@
+# Copy this file to ~/.dbt/profiles.yml (or point DBT_PROFILES_DIR at this directory).
+# Values can be replaced by environment variables via the env_var Jinja helper.
+
+f1:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}"
+      user: "{{ env_var('POSTGRES_USER', 'f1') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'f1pass') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'f1') }}"
+      schema: staging
+      threads: 4

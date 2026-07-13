@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Landing zone for raw Jolpica API payloads."
+    schema: raw
+    tables:
+      - name: jolpica_payloads
+        description: "One row per extracted endpoint+season payload (JSONB)."
+        columns:
+          - name: id
+            tests: [unique, not_null]
+          - name: endpoint
+            tests: [not_null]
+          - name: season
+            tests: [not_null]
+          - name: payload
+            tests: [not_null]

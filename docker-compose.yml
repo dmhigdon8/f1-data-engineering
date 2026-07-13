@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: f1_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-f1}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-f1pass}
+      POSTGRES_DB: ${POSTGRES_DB:-f1}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-f1} -d ${POSTGRES_DB:-f1}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  extractor:
+    build: .
+    container_name: f1_extractor
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+    volumes:
+      - ./ingest:/app/ingest
+      - ./raw:/app/raw
+    command: ["python", "-m", "ingest.extract", "--help"]
+
+volumes:
+  pgdata:

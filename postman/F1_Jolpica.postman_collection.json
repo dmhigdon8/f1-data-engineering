@@ -1,0 +1,108 @@
+{
+  "info": {
+    "_postman_id": "f1-jolpica-collection",
+    "name": "Jolpica F1 API",
+    "description": "Sandbox collection for exploring the Jolpica F1 (Ergast-compatible) API. Set the `base_url` and `season` collection variables on the Variables tab.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "https://api.jolpi.ca/ergast/f1" },
+    { "key": "season",   "value": "2024" },
+    { "key": "round",    "value": "1" },
+    { "key": "driver",   "value": "max_verstappen" }
+  ],
+  "item": [
+    {
+      "name": "Seasons list",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/seasons.json?limit=100",
+          "host": ["{{base_url}}"],
+          "path": ["seasons.json"],
+          "query": [{ "key": "limit", "value": "100" }]
+        }
+      }
+    },
+    {
+      "name": "Races for a season",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/{{season}}/races.json?limit=100",
+          "host": ["{{base_url}}"],
+          "path": ["{{season}}", "races.json"],
+          "query": [{ "key": "limit", "value": "100" }]
+        }
+      }
+    },
+    {
+      "name": "Race results for one round",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/{{season}}/{{round}}/results.json",
+          "host": ["{{base_url}}"],
+          "path": ["{{season}}", "{{round}}", "results.json"]
+        }
+      }
+    },
+    {
+      "name": "Driver standings",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/{{season}}/driverStandings.json",
+          "host": ["{{base_url}}"],
+          "path": ["{{season}}", "driverStandings.json"]
+        }
+      }
+    },
+    {
+      "name": "Constructor standings",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/{{season}}/constructorStandings.json",
+          "host": ["{{base_url}}"],
+          "path": ["{{season}}", "constructorStandings.json"]
+        }
+      }
+    },
+    {
+      "name": "Single driver career results",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/drivers/{{driver}}/results.json?limit=1000",
+          "host": ["{{base_url}}"],
+          "path": ["drivers", "{{driver}}", "results.json"],
+          "query": [{ "key": "limit", "value": "1000" }]
+        }
+      }
+    },
+    {
+      "name": "Qualifying results for one round",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/{{season}}/{{round}}/qualifying.json",
+          "host": ["{{base_url}}"],
+          "path": ["{{season}}", "{{round}}", "qualifying.json"]
+        }
+      }
+    },
+    {
+      "name": "Lap times for one round",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/{{season}}/{{round}}/laps.json?limit=2000",
+          "host": ["{{base_url}}"],
+          "path": ["{{season}}", "{{round}}", "laps.json"],
+          "query": [{ "key": "limit", "value": "2000" }]
+        }
+      }
+    }
+  ]
+}
