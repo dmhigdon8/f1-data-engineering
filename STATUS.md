@@ -1,95 +1,73 @@
 # F1 Project — Session Status
 
-**Last session:** May 17, 2026 (early hours)
+**Last session:** July 13, 2026
 **Owner:** Daniel Higdon (macOS 26.4.1, Intel Mac)
+**Repo:** https://github.com/dmhigdon8/f1-data-engineering (private)
 
 ---
 
 ## Where we left off
 
-Pipeline is verified end-to-end for the 2024-only single-season scope. Then expanded scope to **2014-2025 (hybrid era)** and added a parallel **sprint race** fact table. Extract + load are complete for the new scope; **dbt build for the expanded data hasn't been run yet**.
+Full local pipeline is working end to end for all 12 seasons (2014–2025), and AWS bootstrap is now complete — all 65 raw JSON files are in S3. The project is in a stable, working state; what's left is optional scaling.
 
-### ✓ Done since last STATUS
+### ✓ Done
+- Xcode CLT, Homebrew 5.1.6, `python@3.12`, `awscli`, `libpq`, Docker Desktop, Postman
+- `dbt-core` + `dbt-postgres` via pipx (pinned to Python 3.12)
+- Project folder: `~/Desktop/Projects/f1-data-engineering`
+- Docker Postgres 16 running on **host port 5433** (remapped from 5432)
+- Schemas created (`raw`, `staging`, `marts`) + landing table `raw.jolpica_payloads`
+- Extraction: all 65 raw JSON files for seasons 2014–2025 pulled (races, drivers, results, qualifying, standings for all 12 seasons; sprint for 2021–2025 only, correctly — sprints didn't exist before then)
+- Load: `raw.jolpica_payloads` truncated and reloaded from all 65 files. Verified row counts — drivers/qualifying/races/results/standings = 12 each, sprint = 5.
+- dbt build: all 4 table models + 4 view models built clean, 34/34 tests passed, on the full dataset
+- Sanity-checked `fct_race_results` — top career wins (Hamilton 83, Verstappen 71, Rosberg 20...) look correct
+- Git initialized, first commit made, pushed to GitHub (`main` branch, using a PAT over HTTPS — Keychain should now have it saved)
+- Installed the Claude Code extension in Cursor and used it to fix a real bug: `ingest/load.py` had no dedup/upsert logic. Added `sql/init/02_raw_payloads_unique.sql` (unique constraint on `(endpoint, season)`) and changed the loader's INSERT to `ON CONFLICT (endpoint, season) DO UPDATE`. Migration applied to the existing Postgres volume by hand (`psql ... -f sql/init/02_raw_payloads_unique.sql`), since `01_schemas.sql`-style init scripts only run on first container creation. Verified idempotency by running `ingest.load` twice in a row — counts stayed at 12/12/12/12/12/5, no duplication. Re-ran `dbt build` after — still 34/34 tests passing.
+- **AWS bootstrap (complete):**
+  - AWS account created on the Free plan (6 months / $200 credits) — sufficient for this project since it only needs S3 + IAM, neither of which is restricted on the free tier.
+  - IAM user `f1-pipeline` created, programmatic access only (no console access).
+  - Least-privilege customer-managed policy `F1PipelineS3Access` created and attached directly to the user, scoped to a single bucket: `s3:CreateBucket`/`s3:ListBucket`/`s3:GetBucketLocation` on the bucket ARN, `s3:PutObject`/`s3:GetObject` on `<bucket>/*`.
+  - Access key created and stored in `.env` (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET`, `AWS_REGION=us-east-1`). `.env` is gitignored — confirmed via `.gitignore` (`.env`, `.env.local`, `*.env`).
+  - No `aws configure` needed — `ingest/config.py` calls `load_dotenv()`, which pushes `.env` values into real process env vars, and `boto3.client("s3", ...)` in `ingest/s3_client.py` picks up `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` from the environment automatically via its default credential chain.
+  - Bucket `dmhigdon8-f1-data-raw` created in `us-east-1` via `docker compose run --rm extractor python -m ingest.s3_client ensure-bucket`.
+  - All 65 raw JSON files uploaded via `docker compose run --rm extractor python -m ingest.s3_client upload`, landing at `s3://dmhigdon8-f1-data-raw/raw/jolpica/<endpoint>/season=<YYYY>/<endpoint>_<YYYY>.json`. Log confirmed "Done. 65 files uploaded." with no failures.
 
-Single-season verification (April-era work):
-- Built and ran the 2024 pipeline end-to-end (`docker compose build extractor`, extract, load, `dbt build`)
-- 25 dbt nodes built clean (3 view + 3 table models + 19 tests), all PASS
-- Verified `staging_marts.fct_race_results` against real-world 2024 final standings — ordering matched exactly (VER → NOR → LEC → PIA → SAI → RUS → HAM → PER → ALO → GAS); totals were ~5-10% low because sprint points weren't being ingested
+### ⬜ Still to do
+1. Optional: scale further (more endpoints, incremental loads) now that AWS is in place
+2. Optional: rotate the `f1-pipeline` IAM access key, since the secret value was visible in on-screen screenshots during setup (low risk given the policy is scoped to one bucket, but easy to tidy up — create a new key, update `.env`, deactivate the old one in IAM)
 
-Expansion to multi-season + sprints:
-- `.env`: `SEASON_START=2014`, `SEASON_END=2025`
-- `ingest/extract.py`: added `sprint` endpoint to `ENDPOINTS` dict; added `HISTORICALLY_PARTIAL = {"sprint": 2021}` and a guard in `extract_season()` so pre-2021 seasons skip sprint cleanly with an INFO log line (no API call wasted)
-- `dbt_f1/models/staging/stg_sprint_results.sql`: new view — mirror of `stg_results.sql` but filters `endpoint = 'sprint'` and unnests `race->'SprintResults'` instead of `race->'Results'`
-- `dbt_f1/models/marts/fct_sprint_results.sql`: new table — mirror of `fct_race_results.sql`; **`result_key` is prefixed with `'sprint-'`** so it never collides with a regular race result for the same driver+season+round
-- `dbt_f1/models/marts/_schema.yml`: added unique/not_null/relationships tests for `fct_sprint_results` (mirroring `fct_race_results`)
-- `ingest/load.py`: **no changes needed** — already endpoint-agnostic (globs `raw/*.json`, regex matches `sprint_YYYY.json` cleanly)
-- Truncated `raw.jolpica_payloads`, cleared `raw/*.json`, re-extracted all 12 seasons
-- Loaded **65 JSON files** into `raw.jolpica_payloads`:
-  - 12 seasons × 5 endpoints (drivers, qualifying, races, results, standings) = 60
-  - 5 seasons of sprint (2021-2025) = 5
-
-### ⬜ Still to do, in order
-
-1. From inside `dbt_f1/`, run `dbt build` to rebuild all models against the expanded raw data and create `fct_sprint_results`. Expect roughly: dim_driver ~200 rows, dim_race ~280 rows, fct_race_results ~9-10k rows, fct_sprint_results ~500 rows.
-2. Sanity-check 2024 totals — should now match real-world final standings exactly:
-   - Verstappen 437 / 9 wins
-   - Norris 374 / 4 wins
-   - Leclerc 356 / 3 wins
-3. Sample sprint-only query (most sprint wins, sprint points leaders by season, etc.)
-4. Optional: revisit `fct_sprint_results.is_points_finish` — currently uses `finish_position <= 8` (2022+ convention). 2021 only paid top 3. If precision matters for 2021 analyses, make this season-aware.
-5. **Step 9 (deferred)**: AWS bootstrap — IAM user, `aws configure`, set `AWS_S3_BUCKET` in `.env`, run `s3_client.py ensure-bucket` then `upload`.
-6. **Step 10 (deferred)**: `git init`, first commit, push to GitHub.
-
-### Known quirks / gotchas (carry forward + new)
-
-Original quirks (still apply):
+### Known quirks / gotchas
 - System `python3` is 3.14.4, but dbt runs inside its own pipx venv pinned to 3.12 — don't "fix" this.
-- Host Postgres port is **5433** (not 5432). Host-side connection strings use `:5433`. Inside Docker, the extractor uses `:5432` (set by `POSTGRES_PORT=5432` in `docker-compose.yml` for the extractor service).
-- Finder silently drops dotfiles when copying folders — use `cp -a` or zip first.
-- `dbt-postgres` is not standalone — install `dbt-core` via pipx first, then `pipx inject dbt-core dbt-postgres`.
-
-New quirks discovered this session:
-- **`~/.dbt/profiles.yml` is env-var-driven, not hardcoded** (despite what the old STATUS doc claimed). It uses Jinja `env_var()` with fallback defaults. The pipx-installed `dbt` binary does NOT auto-load the project `.env`, so the **fallback defaults are what dbt actually uses**. The fallback for `POSTGRES_PORT` has been updated to `'5433'` so dbt works without sourcing `.env`.
-- **zsh interactive shells don't honor `#` comments by default.** Paste command blocks without comment lines, or run `setopt INTERACTIVE_COMMENTS` first.
-- **`cd dbt_f1 && dbt build && cd ..` fails if you're already inside `dbt_f1/`.** From inside, just run `dbt build`.
-- **`raw.jolpica_payloads` has no unique constraint on `(endpoint, season)`.** Re-running `ingest.load` will create duplicate rows for previously loaded files. Always `truncate raw.jolpica_payloads restart identity cascade;` before a re-load, or build a real upsert into the loader.
-- **Sprint pre-2021**: extract.py skips with `HISTORICALLY_PARTIAL` guard — no `sprint_2014.json` through `sprint_2020.json` files exist. This is by design, not a missing-data bug.
-- **Sprint points scoring varies by era**: 2021 = top 3 (3/2/1). 2022+ = top 8 (8/7/6/5/4/3/2/1). `fct_sprint_results.is_points_finish` currently uses top-8 — fine for most analyses but biases 2021 high.
-- **Marts schema is `staging_marts`, not `marts`.** dbt concatenates the profile's default schema (`staging`) with the marts-models `+schema: marts` override. So queries reference `staging_marts.fct_race_results`, `staging_marts.fct_sprint_results`, etc.
+- Host port is **5433** (not the default 5432). Every host-side connection string uses `:5433`. Inside Docker, the extractor still uses `:5432`.
+- `ingest/load.py` is now idempotent (see above) — reloading no longer duplicates rows. If the schema changes again, remember new files in `sql/init/` only auto-apply to a *fresh* Postgres volume; apply them manually to an existing one with `psql ... -f sql/init/<file>.sql`.
+- Docker occasionally pulls a newer `postgres:16` image and recreates the container on `docker compose up`. This is harmless — the data lives in the named `pgdata` volume, which persists across container recreation (would only be lost via `docker compose down -v` or an explicit volume removal).
+- The dbt marts schema is **not** literally named `marts` in Postgres — due to `dbt_project.yml`'s schema config, models land in `staging_marts` (and staging models in `staging_staging`). Query `staging_marts.dim_driver`, `staging_marts.fct_race_results`, etc., not `marts.*`.
+- No `gh` CLI on this machine — GitHub pushes use HTTPS + a Personal Access Token (password auth is disabled). Token should be cached in Keychain after the first push.
+- Finder silently drops dotfiles when copying folders — use `cp -a` or zip first. Also, Finder hides dotfiles like `.env` by default; toggle visibility with **Cmd+Shift+.**, and open them in a code editor (Cursor/VS Code), not double-clicked into TextEdit, to avoid rich-text mangling.
+- pipx + dbt: `dbt-postgres` alone is not a CLI app. Install `dbt-core` first, then `pipx inject dbt-core dbt-postgres`.
+- The `extractor` Docker image already has `boto3`/`click`/etc. from `requirements.txt`, so ad hoc S3 commands run via `docker compose run --rm extractor python -m ingest.s3_client <cmd>` — no separate local Python env needed for AWS work.
 
 ---
 
-## To resume tomorrow
+## To resume next time
 
 1. Open Docker Desktop (wait for whale icon to settle).
-2. Open Terminal, `cd` to the project folder.
-3. Start the db (if not already running):
+2. Open Terminal, `cd ~/Desktop/Projects/f1-data-engineering`.
+3. Start the db:
    ```bash
    docker compose up -d postgres
    docker compose ps     # want Up (healthy)
    ```
-4. Run the dbt build (from inside the `dbt_f1` directory):
+4. Paste this file's contents into the new chat with Claude. Then say what you want to work on next — e.g. "let's talk about scaling to more endpoints" or "help me rotate the AWS access key."
+
+---
+
+## Before logging off for the night
+
+1. Stop the Postgres container (data persists in the `pgdata` volume either way):
    ```bash
-   cd dbt_f1
-   dbt build
+   cd ~/Desktop/Projects/f1-data-engineering
+   docker compose down
    ```
-5. Once green, run the validation query:
-   ```bash
-   psql "postgresql://f1:f1pass@localhost:5433/f1" -c "
-   select
-     d.full_name,
-     sum(r.points) + coalesce(sum(s.points), 0) as total_points,
-     count(*) filter (where r.is_winner) as race_wins,
-     count(distinct s.race_key) filter (where s.is_winner) as sprint_wins
-   from staging_marts.fct_race_results r
-   left join staging_marts.fct_sprint_results s
-     on r.season = s.season and r.round_num = s.round_num and r.driver_id = s.driver_id
-   join staging_marts.dim_driver d using (driver_id)
-   where r.season = 2024
-   group by d.full_name
-   order by total_points desc
-   limit 10;
-   "
-   ```
-   Expect Verstappen 437, Norris 374, Leclerc 356.
-6. Paste this file's contents into the new chat with Claude. Then say: "Pick up at step 1 of 'Still to do'."
+2. Quit Docker Desktop to free up RAM/CPU.
+   - Note: `postgres` has `restart: unless-stopped`, so if you quit Docker Desktop *without* running `docker compose down` first, it'll auto-restart the container next time Docker Desktop launches.
+3. Nothing else in this project runs in the background — `extractor` only runs on-demand, dbt runs and exits, and the only cloud resource now is the S3 bucket (`dmhigdon8-f1-data-raw`), which costs nothing to leave sitting idle at this file count/size.

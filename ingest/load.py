@@ -26,6 +26,10 @@ logging.basicConfig(
 INSERT_SQL = """
 INSERT INTO raw.jolpica_payloads (endpoint, season, round_num, payload)
 VALUES (%s, %s, %s, %s)
+ON CONFLICT (endpoint, season) DO UPDATE SET
+    round_num  = EXCLUDED.round_num,
+    payload    = EXCLUDED.payload,
+    fetched_at = now()
 """
 
 
