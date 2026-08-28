@@ -6,9 +6,9 @@ End-to-end pipeline: Jolpica F1 API → local raw JSON → AWS S3 (raw zone) →
 
 ---
 
-## 0. Audit your machine first (macOS)
+## 0. Audit your machine first (macOS or Linux)
 
-Before installing anything, find out what you already have. From this project folder in Terminal:
+`check_tools.sh` detects your OS and checks for what it needs either way. Before installing anything, find out what you already have. From this project folder in Terminal:
 
 ```bash
 cd ~/Downloads/f1-data-engineering   # or wherever you dropped it
@@ -17,22 +17,28 @@ bash check_tools.sh
 
 Paste the output back and we'll fill in only the gaps. What the script checks:
 
-| Tool            | Why you need it                                          |
-|-----------------|----------------------------------------------------------|
-| Homebrew        | Package manager that installs everything else on macOS.  |
-| git             | Version control.                                         |
-| Python 3.11+    | Runs the extractor and dbt.                              |
-| Docker Desktop  | Runs Postgres locally without installing it on your Mac. |
-| psql            | CLI for inspecting Postgres. Bundled with Postgres tools. |
-| AWS CLI v2      | Authenticates you to AWS and uploads to S3.              |
-| dbt-postgres    | Turns raw SQL into a tested, version-controlled warehouse.|
-| Postman         | GUI for poking at the Jolpica API before you write code. |
+| Tool                        | Why you need it                                            |
+|-----------------------------|-------------------------------------------------------------|
+| Homebrew (macOS) / apt (Linux) | Package manager that installs everything else.           |
+| git                         | Version control.                                             |
+| Python 3.11+                | Runs the extractor and dbt.                                  |
+| Docker Desktop (macOS) / Docker Engine (Linux) | Runs Postgres locally without installing it directly. |
+| psql                        | CLI for inspecting Postgres. Bundled with Postgres tools.    |
+| AWS CLI v2                  | Authenticates you to AWS and uploads to S3.                  |
+| dbt-postgres                | Turns raw SQL into a tested, version-controlled warehouse.   |
+| Postman                     | GUI for poking at the Jolpica API before you write code.     |
+
+On Linux, the script also checks that your user is in the `docker` group, since running `docker` without `sudo` requires it.
 
 ---
 
 ## 1. Install what's missing
 
-### 1a. Homebrew (if the check says MISSING)
+Pick the section for your OS.
+
+### macOS
+
+#### 1a. Homebrew (if the check says MISSING)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -40,7 +46,7 @@ Paste the output back and we'll fill in only the gaps. What the script checks:
 
 After it finishes, follow the printed instructions to add brew to your PATH (usually one `eval "$(/opt/homebrew/bin/brew shellenv)"` line added to `~/.zprofile`).
 
-### 1b. Everything else, one-shot
+#### 1b. Everything else, one-shot
 
 ```bash
 # Core CLIs
@@ -59,7 +65,7 @@ python3 -m pip install dbt-postgres==1.8.*
 
 **After installing Docker Desktop:** open it once from Launchpad so the daemon starts. `docker info` should then work in your terminal.
 
-### 1c. Update what's already installed
+#### 1c. Update what's already installed
 
 ```bash
 brew update            # refresh Homebrew's package list
@@ -67,7 +73,7 @@ brew upgrade           # upgrade all brew formulas + casks
 python3 -m pip install --upgrade dbt-postgres
 ```
 
-### 1d. Sign in to the tools
+#### 1d. Sign in to the tools
 
 ```bash
 # Git — one-time config
@@ -81,7 +87,78 @@ aws configure
 aws sts get-caller-identity   # proves the creds work
 ```
 
-Don't have an AWS account yet? Sign up at aws.amazon.com (free tier covers S3 usage for this project). In the AWS console, create an IAM user with the `AmazonS3FullAccess` policy for learning purposes — tighten scope later.
+Don't have an AWS account yet? Sign up at aws.amazon.com — the Free plan (6 months / $200 credits) is enough for this project, since it only needs S3 + IAM, neither of which is restricted on that plan. In the AWS console, create an IAM user with **programmatic access only** (no console password), and attach a least-privilege customer-managed policy scoped to a single bucket instead of `AmazonS3FullAccess`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BucketLevel",
+      "Effect": "Allow",
+      "Action": ["s3:CreateBucket", "s3:ListBucket", "s3:GetBucketLocation"],
+      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME"
+    },
+    {
+      "Sid": "ObjectLevel",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:GetObject"],
+      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+    }
+  ]
+}
+```
+
+This is what's actually attached to the `f1-pipeline` IAM user in this project. You don't strictly need `aws configure` either — `ingest/config.py` calls `load_dotenv()`, which pushes `.env` values into real env vars, and boto3 picks up `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` from there automatically. `aws configure` is still handy for using the `aws` CLI directly (e.g. `aws s3 ls`) as a sanity check.
+
+---
+
+### Linux (Ubuntu/Debian)
+
+#### 1a. Core packages via apt
+
+```bash
+sudo apt update
+sudo apt install -y git python3 python3-pip python3-venv pipx curl libpq-dev unzip
+pipx ensurepath
+```
+
+#### 1b. Docker Engine (not Docker Desktop)
+
+```bash
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+```
+
+Log all the way out and back in (or reboot) — group membership doesn't apply to your current session. Confirm with `docker info` (no `sudo` needed) and `docker compose version`.
+
+#### 1c. AWS CLI v2
+
+The `apt` version is often outdated, so use the official installer:
+
+```bash
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+rm -rf awscliv2.zip aws/
+```
+
+#### 1d. dbt
+
+Matches the pinned-Python approach this project already uses on macOS (see the "known quirks" note in `STATUS.md` about system Python drifting ahead of what dbt supports):
+
+```bash
+pipx install dbt-core
+pipx inject dbt-core dbt-postgres
+```
+
+#### 1e. Postman (optional)
+
+Only needed for manually poking at the Jolpica API — not required to run the pipeline. Download the `.deb`/AppImage from postman.com/downloads, or skip it and use `postman/F1_Jolpica.postman_collection.json` as reference only.
+
+#### 1f. Sign in to the tools
+
+Same as the macOS section above — `git config --global ...` and either fill in `.env` directly or run `aws configure`. Same least-privilege IAM policy JSON applies.
 
 ---
 
@@ -109,11 +186,13 @@ mkdir -p ~/.dbt
 cp dbt_f1/profiles.template.yml ~/.dbt/profiles.yml
 ```
 
+**Gotcha:** `docker-compose.yml` maps the container's Postgres port 5432 to **host port 5433** (`"5433:5432"`), to avoid clashing with any Postgres already on your machine. `profiles.template.yml` defaults `POSTGRES_PORT` to `5432` if the env var isn't set. Either export `POSTGRES_PORT=5433` in your shell before running `dbt`, or just hardcode `port: 5433` directly in `~/.dbt/profiles.yml` after copying it — the latter is simpler and is what this project actually runs with. Every host-side `psql`/`dbt` connection uses `:5433`; only *inside* the Docker network (container-to-container) does it stay `:5432`.
+
 ---
 
 ## 3. Run the pipeline
 
-Everything below assumes Docker Desktop is running.
+Everything below assumes your Docker daemon is running (Docker Desktop on macOS, `dockerd` on Linux).
 
 ### 3a. Start Postgres in Docker
 
@@ -122,11 +201,11 @@ docker compose up -d postgres
 docker compose logs -f postgres   # Ctrl-C once you see "database system is ready"
 ```
 
-That spun up a Postgres 16 container on `localhost:5432` and ran `sql/init/01_schemas.sql` to create the `raw`, `staging`, and `marts` schemas.
+That spun up a Postgres 16 container, reachable from the host at `localhost:5433` (see the port gotcha above), and ran `sql/init/01_schemas.sql` to create the `raw`, `staging`, and `marts` schemas.
 
 Verify:
 ```bash
-psql "postgresql://f1:f1pass@localhost:5432/f1" -c "\dn"
+psql "postgresql://f1:f1pass@localhost:5433/f1" -c "\dn"
 ```
 
 ### 3b. Build the extractor image and pull data
@@ -151,7 +230,7 @@ aws s3 ls "s3://$(grep AWS_S3_BUCKET .env | cut -d= -f2)/raw/jolpica/" --recursi
 
 ```bash
 docker compose run --rm extractor python -m ingest.load
-psql "postgresql://f1:f1pass@localhost:5432/f1" \
+psql "postgresql://f1:f1pass@localhost:5433/f1" \
   -c "select endpoint, season, count(*) from raw.jolpica_payloads group by 1,2 order by 1,2;"
 ```
 
@@ -166,21 +245,21 @@ dbt docs generate && dbt docs serve   # opens a lineage graph in your browser
 cd ..
 ```
 
-If `dbt build` succeeds you'll have real tables in the `marts` schema:
+If `dbt build` succeeds you'll have real tables — **note:** despite `dbt_project.yml` saying `+schema: marts`, dbt prefixes custom schemas with the profile's target schema (`staging`), so the models actually land in `staging_marts`, not `marts`. Same pattern gives `staging_staging` for the staging views. Query accordingly:
 ```bash
-psql "postgresql://f1:f1pass@localhost:5432/f1" -c "\dt marts.*"
+psql "postgresql://f1:f1pass@localhost:5433/f1" -c "\dt staging_marts.*"
 ```
 
 ### 3f. Try a real analysis query
 
 ```bash
-psql "postgresql://f1:f1pass@localhost:5432/f1" <<'SQL'
+psql "postgresql://f1:f1pass@localhost:5433/f1" <<'SQL'
 select d.full_name,
        count(*) filter (where f.is_winner) as wins,
        count(*) filter (where f.is_podium) as podiums,
        sum(f.points) as total_points
-from marts.fct_race_results f
-join marts.dim_driver d using (driver_id)
+from staging_marts.fct_race_results f
+join staging_marts.dim_driver d using (driver_id)
 where f.season = 2024
 group by d.full_name
 order by total_points desc
@@ -205,12 +284,14 @@ Postman is useful for *understanding* an API before automating it. When you find
 
 ```
 f1-data-engineering/
-├── check_tools.sh                # macOS toolchain audit
+├── check_tools.sh                # macOS/Linux toolchain audit
 ├── docker-compose.yml            # Postgres + extractor services
 ├── Dockerfile                    # Python 3.12 image for the extractor
 ├── requirements.txt              # Python deps
 ├── .env.example / .env           # secrets (real .env is gitignored)
-├── sql/init/01_schemas.sql       # runs on first Postgres boot
+├── sql/init/
+│   ├── 01_schemas.sql            # runs on first Postgres boot (fresh volume only)
+│   └── 02_raw_payloads_unique.sql # unique constraint; apply by hand to an existing volume
 ├── ingest/
 │   ├── config.py                 # env-driven Settings
 │   ├── extract.py                # Jolpica API -> raw/*.json
@@ -220,8 +301,8 @@ f1-data-engineering/
 │   ├── dbt_project.yml
 │   ├── profiles.template.yml     # copy to ~/.dbt/profiles.yml
 │   └── models/
-│       ├── staging/              # views that flatten JSONB
-│       └── marts/                # dim_driver, dim_race, fct_race_results (+ tests)
+│       ├── staging/              # views that flatten JSONB (lands in schema staging_staging)
+│       └── marts/                # dim_driver, dim_race, fct_race_results (+ tests) (lands in schema staging_marts)
 ├── postman/F1_Jolpica.postman_collection.json
 └── raw/                          # extractor drops JSON here (gitignored)
 ```
@@ -254,8 +335,10 @@ docker image prune           # reclaim disk
 
 ## 8. Troubleshooting
 
-- **`dbt debug` says connection refused** → Docker Desktop isn't running, or the Postgres container hasn't finished booting. Re-run `docker compose up -d postgres` and watch logs.
-- **`docker: command not found`** → Docker Desktop isn't installed or hasn't been launched once. Open it from Launchpad, wait for the whale icon to stop animating.
-- **`pip install dbt-postgres` fails with a psycopg2 build error** → make sure `libpq` is installed and linked (`brew link --force libpq`); or install into a venv: `python3 -m venv .venv && source .venv/bin/activate && pip install dbt-postgres`.
-- **S3 `AccessDenied`** → the IAM user attached to your AWS CLI creds doesn't have S3 permissions. Attach `AmazonS3FullAccess` to the user for now.
+- **`dbt debug` says connection refused** → the Postgres container hasn't finished booting, or you're on the wrong port. Re-run `docker compose up -d postgres`, watch logs, and confirm you're connecting to `5433` (host) not `5432` (that's only the in-container port — see the gotcha in section 2).
+- **`\dt marts.*` or `select ... from marts.foo` returns nothing** → the schema is actually `staging_marts` (and `staging_staging` for staging models), not `marts` — see the note in section 3e.
+- **macOS: `docker: command not found`** → Docker Desktop isn't installed or hasn't been launched once. Open it from Launchpad, wait for the whale icon to stop animating.
+- **Linux: `docker: command not found` or daemon unreachable** → make sure Docker Engine is installed and running (`sudo systemctl status docker`). If `docker info` fails with a permission error specifically, your user isn't in the `docker` group yet — `sudo usermod -aG docker $USER`, then fully log out and back in (not just a new terminal tab).
+- **`pip install dbt-postgres` fails with a psycopg2 build error** → make sure the Postgres client headers are installed: `brew link --force libpq` on macOS, or `sudo apt install libpq-dev` on Linux. Or install into a venv/pipx instead of system Python.
+- **S3 `AccessDenied`** → the IAM user attached to your AWS CLI creds/`.env` doesn't have S3 permissions, or the least-privilege policy's bucket ARN doesn't match `AWS_S3_BUCKET` exactly (typo, or you renamed the bucket). Compare the policy's `Resource` field against `.env`.
 - **Jolpica rate-limit (HTTP 429)** → the extractor's `tenacity` retry handles it, but consider pulling fewer seasons at once.
