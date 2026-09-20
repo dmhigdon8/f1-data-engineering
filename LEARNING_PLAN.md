@@ -15,7 +15,103 @@
 
 **Cross-cutting (not a separate vanity track):** systems literacy — how machines actually work (processes, files, memory, networking, containers) so you stop missing implications when tools, AI, or cloud abstractions move. **Practice gym:** Dell terminal (fewer GUIs hiding the stack). **Target skill:** portable Unix / container / data-stack judgment that also holds on **Mac at work** (most employers). Linux-only details only when needed to run the Dell, or when the *idea* clearly carries over.
 
+### Dual purpose (career first, public proof second)
+
+**Primary:** professional skills that generalize — warehouse thinking, SQL judgment, dbt, verified AI use, ingestion contracts. Your resume spine is airlines / data / tech; sports is the *domain gym* that sharpens the same muscles you’d use on any messy operational data.
+
+**Secondary (allowed fantasy, sequenced late):** a public swing — X/Twitter and/or YouTube around **advanced sports analytics** — as audience practice and a visible proof of concept for a pivot. Sports (and betting as a *personal* interest) supply motivation and questions; they are not a reason to skip grain, tests, or verification.
+
+**How both stay aligned:** every “content” idea must be downstream of a real mart query you could defend. The interesting end-state sketch:
+
+```text
+ingest → warehouse (tested) → analytics artifact (SQL/dbt)
+       → LLM draft (facts pinned from query output)
+       → human gate → optional post to X / script for YouTube
+```
+
+That pipeline teaches the same job-relevant skills as airline/ops analytics (trustworthy numbers → narrative → distribution). It is **not** “LLM invents takes → auto-post.” Auto-posting without a fact gate trains the wrong muscle and can hurt a professional brand.
+
+**Betting / odds:** fine as hobby context and as *event questions* (“was this line moved by injuries?”). Do **not** early-optimize for odds ingestion, tip bots, or “beat the book” products — weak skill ROI, noisy data, platform/ToS/career risk. If odds ever enter, treat them as another source with the same contracts as F1/MLB, after multi-sport marts already work.
+
 Sports is the domain glue: **F1 first (already working), then MLB, then NFL**, same patterns each time.
+
+---
+
+## How learning works here (and what AI can / cannot do)
+
+This is the honest contract — not a pep talk.
+
+### Can an agent actually coach you dynamically?
+
+**Yes, partially — if this section is in context and you hold the line too.**
+
+| I *can* do | I *cannot* reliably do |
+|------------|------------------------|
+| Encode learning-science habits into this plan and follow them when you (or `STATUS.md`) point here | Guarantee every future chat/model remembers without you pasting / linking this |
+| Spot *behavioral* lean-patterns in a thread (“describe outcome → demand exact steps → skip attempt”) and switch to teach/pair mode | Read your mind across sessions, or know you’re leaning if you hide that you’re copy-pasting |
+| Force a **proof** (you attempt, you explain grain, you run a check) before dumping a full solution | Make struggle feel pleasant; desirable difficulty *feels* worse short-term (that’s the point) |
+| Teach **AI skill** as a first-class craft (prompts, gates, when not to use me) | Replace deliberate practice — watching me code is performance theater, not storage strength |
+| Adapt mode (teach / pair / ship) when you name the mode or when triggers fire | Be “dynamic” if you always ask for finished answers and never accept pushback |
+
+**Bottom line:** Writing this into the plan is real leverage. “Dynamic forever by magic” is not. Your job: paste or link this section when starting learning sessions, and say “teach mode” or “I’m leaning — check me” when you notice it. My job: use the triggers below instead of being a polite autocomplete.
+
+### Learning science we actually use (not vibes)
+
+Drawn from robust findings (Ericsson deliberate practice; Bjork desirable difficulties / spacing / retrieval; generation effect; learning ≠ short-term fluency):
+
+1. **Retrieval > re-reading** — cold explain grain / rewrite a drill from memory before opening the answer file.  
+2. **Desirable difficulty** — effortful but solvable; if you can’t start, we scaffold one notch — we don’t hand the whole staircase.  
+3. **Generation first** — you produce an attempt (even wrong) before AI’s solution; generation strengthens memory more than recognizing a right answer.  
+4. **Spacing & interleaving** — revisit old drills days later; mix grain / window / anti-join rather than binge one pattern.  
+5. **Feedback on the attempt** — compare your query to a reference; diagnose *why* it failed (strategy), not only fix the typo.  
+6. **Learning vs performance** — feeling fluent after I explain something is cheap; delayed cold recall is the real test.  
+7. **Deliberate practice** — specific goal, full attention, immediate feedback, slightly beyond current skill — not passive “exposure” to the repo.
+
+### AI skills to build (goal #3 made concrete)
+
+| Level | Skill | Looks like |
+|-------|--------|------------|
+| A | **Task framing** | You state goal, constraints, grain, and what “done” means before asking for code |
+| B | **Context packing** | You paste error + relevant file + 3 sample rows — not “fix my dbt” |
+| C | **Verification gates** | You refuse to merge/run anything you can’t restate; you demand a proof plan |
+| D | **Mode control** | You choose teach / pair / ship; you accept pushback in teach/pair |
+| E | **Anti-capture** | You notice when AI is doing the thinking; you stop and retrieve, or ask for a Socratic path |
+| F | **Transfer** | You use the same gates at work on Mac without this repo’s babysitting |
+
+### Modes (say which — or I infer from triggers)
+
+| Mode | When | What I do | What you do |
+|------|------|-----------|-------------|
+| **Teach** | New concept, first time on a pattern | Questions, hints, partial scaffolds; withhold full answer until you’ve attempted | Struggle productively; write the attempt |
+| **Pair** | You have a sketch / stuck mid-way | Alternate: you try → I critique → you revise; we build the proof together | Stay in the driver’s seat for the next edit |
+| **Ship** | Ops chore, known pattern, time-box | Direct implementation with brief “why” | Still skim and can explain the change |
+
+Default for learning blocks: **teach → pair**. **Ship** only when you explicitly want speed or the task is pure plumbing.
+
+### Lean-too-hard triggers → what I should say
+
+If you do something like:
+
+- “I know what I want vaguely — just give me the exact steps/commands”  
+- “Write the whole model/drill; I’ll learn by reading it”  
+- Paste nothing / try nothing, ask for the finished artifact  
+- Ask for the same explanation twice without attempting in between  
+- Want auto-tweet / auto-pipeline before you can defend the numbers  
+
+…I should **not** silently comply. Preferred pushback shape:
+
+> “Easy description, missing attempt. Teach/pair mode: you draft the first version (or the proof query). I’ll critique and we’ll tighten until it runs. If you truly need ship mode for time, say so — but that won’t build the skill.”
+
+Then we agree a **proof**: e.g. you write SQL that fails closed; or you explain grain in one sentence and predict row counts before running.
+
+### How this stays “dynamic” week to week
+
+- **In-session:** triggers + modes above.  
+- **Across sessions:** `STATUS.md` notes “lean events” or “cold checks passed” so the next chat continues the arc.  
+- **In drills:** answer files exist for feedback *after* attempt — not as the first open.  
+- **Weekly:** one **cold retrieval** (no AI, no answer file): explain `fct_race_results` grain or rewrite last week’s drill header + approach from memory.
+
+If this section and `STATUS.md` aren’t loaded, assume the contract is dormant — wake it by linking here.
 
 ---
 
@@ -45,10 +141,11 @@ Space Traders stays optional: great for API polling / rate limits / game-state f
 |----------|--------|------------------------|-------------------|
 | 1 | SQL | `sql/drills/`, ad-hoc on `staging_marts.*`, interview-style prompts on your own tables | You can answer grain, window, and gap questions without guessing |
 | 2 | dbt | `dbt_f1/` → later `dbt_sports/` or multi-project | Incremental models, tests that catch real bugs, docs people could trust |
-| 3 | AI | Workflow on this repo + small applied experiments | You use AI to accelerate, verify, and document — not to skip understanding |
+| 3 | AI (craft + anti-capture) | Teach/pair/ship modes; verification gates; lean-triggers in “How learning works here” | You steer AI; AI doesn’t silently do your thinking; you can name your mode |
 | 4 | DSA | Coursera Algorithmic Toolbox + LeetCode, 3–5 problems/week | Patterns stick; you can explain Big-O and map patterns to pipeline code |
 | 5 | Ingestion | `ingest/` for F1, then MLB/NFL extractors | Idempotent loads, clear raw contracts, incremental / season-partitioned pulls |
 | — | Systems (portable) | Terminal-first on Dell while doing 1–5; prefer concepts that also hold on Mac | You can explain *why* a failure/slowdown happened on Unix-like machines generally — not only recite Ubuntu commands |
+| — | Learning hygiene | Retrieval, spacing, generation-first, cold checks | Delayed recall works; fluency-after-watching-AI doesn’t fool you |
 
 ---
 
@@ -176,7 +273,7 @@ Same contracts every time. Do **not** invent a new architecture for baseball.
 
 1. **F1 deepen** — more Jolpica endpoints you don’t have yet (qualifying, pit stops, lap times if available / licensed). Prefer endpoints that create interesting grains.  
 2. **MLB** — start narrow: schedules + game results for one season (e.g. Stats API or a stable open source).  
-3. **NFL** — schedules + weekly results; avoid betting odds rabbit holes early.
+3. **NFL** — schedules + weekly results; **defer betting odds** until marts + a publishable analytics loop exist (see Dual purpose).
 
 ### Repo layout target (evolve toward)
 
@@ -210,28 +307,43 @@ sql/drills/
 
 ## Phase 4 — AI: get mileage without outsourcing thinking
 
-Treat AI as a **force multiplier with verification gates**, not as the source of truth.
+Treat AI as a **force multiplier with verification gates**, not as the source of truth.  
+Skills A–F and teach/pair/ship modes live in **How learning works here** — this phase is where you practice them on purpose.
 
 ### Weekly AI practice (tied to this repo)
 
 | Use | Do this | Verification gate |
 |-----|---------|-------------------|
-| Draft dbt models | “Here’s source YAML + 3 raw rows; draft `stg_…`” | You rewrite grain + tests before merge |
+| Draft dbt models | “Here’s source YAML + 3 raw rows; draft `stg_…`” — **after** you state grain | You rewrite grain + tests before merge |
 | Explain plans | Paste `EXPLAIN ANALYZE` + ask for indexed approach | Re-run explain; keep only measured wins |
-| SQL drills | Ask for *alternate* solutions (window vs group) | You can teach both approaches |
-| Debugging | Paste dbt error + model + `_schema.yml` | You can state root cause in one sentence |
+| SQL drills | Attempt first; then ask for *alternate* solutions (window vs group) | You can teach both approaches cold later |
+| Debugging | Paste dbt error + model + `_schema.yml`; your one-sentence hypothesis first | You can state root cause without the model rewriting itself |
 | Docs | Generate model descriptions | You trim hallucinations; no invented columns |
 | Systems check | “Explain what Docker/Postgres did here” | You reject answers you can’t restate with `ps`/`docker`/`df` evidence |
+| Anti-capture drill | Once/week: ask AI for help, then close the chat and redo from memory | Cold redo works within ~10 minutes |
 
-### Small applied AI projects (pick one after Phase 2)
+### Small applied AI projects (pick after Phase 2; order matters)
 
 1. **Warehouse Q&A** — RAG over `dbt docs` / schema YAML so you can ask “grain of fct_race_results?”  
-2. **Narrative generator** — given a race fact row set, draft a race report; evaluate factual errors  
+2. **Narrative generator (career + content bridge)** — given a **pinned** race/season fact row set from SQL, draft a short analysis post or voice-over outline; you score factual errors before anything public  
 3. **Anomaly assistant** — flag odd pit/points outliers; you label true/false positives  
 
-Avoid jumping into “predict the championship” ML until SQL/dbt grain is boringly solid — otherwise you’ll debug features that were wrong upstream.
+### Phase 4b — Publishable loop (optional side-hustle swing; after 4.2 works cold)
 
-**Exit:** A short `AI_WORKFLOW.md` in this repo listing prompts you reuse + gates you refuse to skip.
+Only once you can produce a narrative that survives your own fact-check:
+
+| Step | What | Career skill it proves |
+|------|------|------------------------|
+| 4b.1 | Recurring “artifact”: one SQL view or dbt exposure that answers a sharp sports question weekly | Productizing analytics, not one-off notebooks |
+| 4b.2 | Script: pull artifact → LLM draft with **numbers injected as data**, not remembered | Grounded generation / anti-hallucination pattern (same idea as ops reporting) |
+| 4b.3 | Human gate checklist (grain, sample rows, “would I bet my name on this number?”) | Stakeholder trust; brand safety |
+| 4b.4 | Optional: post to X via API **after** gate passes; later: YouTube from the same artifact | Distribution automation — last mile, not the foundation |
+
+**Reasonable?** Yes — as a late applied AI + ingestion story. **Consistent with core goals?** Yes — if X/YouTube never outranks SQL/dbt depth. Skipping to “ingest → LLM → tweet” first would optimize for content theater and under-train the skills that make a pivot credible.
+
+Avoid jumping into “predict the championship” ML or tip-generation until SQL/dbt grain is boringly solid — otherwise you’ll debug features (and public takes) that were wrong upstream.
+
+**Exit:** A short `AI_WORKFLOW.md` in this repo listing prompts you reuse + gates you refuse to skip. If 4b is active: one example weekly artifact + draft that you actually fact-checked (posted or not).
 
 ---
 
@@ -261,13 +373,13 @@ Assuming ~6–8 focused hours/week, **default on the Dell terminal:**
 
 | Block | Time | Focus |
 |-------|------|--------|
-| Mon/Tue | 1.5h | SQL drill on warehouse (`psql` on Dell) |
-| Wed | 1.5h | dbt feature (test, incremental, macro, or CI) |
-| Thu | 1h | Ingestion ticket **or** systems hook from the table above (whichever the work surfaces) |
-| Fri | 1h | AI-assisted review of the week’s PR + update docs (+ one under-the-hood verification) |
-| Weekend | 1–1.5h | DSA (Coursera or LeetCode) |
+| Mon/Tue | 1.5h | SQL drill on warehouse (`psql` on Dell) — **attempt before opening answer** |
+| Wed | 1.5h | dbt feature (test, incremental, macro, or CI) — teach/pair default |
+| Thu | 1h | Ingestion ticket **or** systems hook (whichever the work surfaces) |
+| Fri | 1h | AI-assisted review + **one anti-capture / cold retrieval** (no answer file) |
+| Weekend | 1–1.5h | DSA (Coursera or LeetCode) — interleaved patterns when possible |
 
-Protect SQL + dbt as first-class; systems literacy tags along when the pipeline creates the question; ingestion and AI support them; DSA stays a steady parallel.
+Protect SQL + dbt as first-class; systems literacy tags along when the pipeline creates the question; AI craft is practiced with gates, not as “do it for me”; DSA stays a steady parallel.
 
 ---
 
@@ -278,17 +390,21 @@ Protect SQL + dbt as first-class; systems literacy tags along when the pipeline 
 - dbt: intermediate model + stronger tests + docs generated  
 - AWS key rotated; Dell workflow boring  
 - You can explain Docker volume vs `raw/` vs S3 without looking it up  
+- At least 3 **cold retrievals** logged (grain or prior drill approach without AI)  
 
 **By ~60 days**
 - At least one incremental model in production path  
 - CI runs `dbt build` on PRs (and you can say how CI’s Postgres differs from Dell’s)  
 - Second sport skeleton (MLB recommended): extract + raw + 1 fact  
+- You can name teach vs pair vs ship and have used lean-trigger pushback at least once on purpose  
 
 **By ~90 days**
 - Multi-sport mart you can query for “compare competitive balance” style SQL  
-- AI workflow doc + one small applied experiment  
+- `AI_WORKFLOW.md` + one small applied experiment (narrative-from-SQL preferred over tip bots)  
 - DSA: Algorithmic Toolbox meaningfully advanced; LeetCode pattern coverage documented  
 - Comfortable debugging a novel failure by *inspecting the machine* before asking AI  
+- Optional: first **fact-gated** draft post from a warehouse artifact (public or private) — Phase 4b.1–4b.3, posting API still optional  
+- AI skill: you catch yourself leaning and ask for proof-mode without being reminded every time  
 
 ---
 
@@ -300,7 +416,12 @@ Protect SQL + dbt as first-class; systems literacy tags along when the pipeline 
 - Don’t accept AI-generated models without stating grain + writing a test.  
 - Don’t turn the Dell into a second curriculum that crowds out SQL/dbt — systems study is the *lens*, not the main event.  
 - Don’t optimize for Linux-only trivia that won’t transfer to a work Mac.  
-- Don’t hide from the terminal with GUIs when you’re on a learning block.
+- Don’t hide from the terminal with GUIs when you’re on a learning block.  
+- Don’t build “ingest → LLM → auto-tweet” before drills + tests make the numbers trustworthy.  
+- Don’t let betting-tip / odds products hijack the roadmap — analytics credibility first; hobby betting stays personal.  
+- Don’t prioritize audience metrics over skill depth; the pivot story is *the warehouse you can explain*, not follower count.  
+- Don’t treat “AI explained it and I nodded” as learning — require retrieval or a proof.  
+- Don’t punish agents for teach-mode pushback; if you want ship mode, say so explicitly.
 
 ---
 
@@ -310,7 +431,8 @@ Protect SQL + dbt as first-class; systems literacy tags along when the pipeline 
 2. ~~Create `sql/drills/002_gap_to_leader.sql`~~ — done.  
 3. ~~Add singular dbt test for duplicate driver-race rows~~ — done (`assert_no_duplicate_driver_race`).  
 4. **On the Dell:** run drills 001–002 with `psql`, run `dbt test --select assert_no_duplicate_driver_race`, and write one short “under the hood” note (process / state / failure mode).  
-5. Add drill `003_…` from Phase 1 themes (windows / gaps / anti-joins).  
-6. Schedule next sport only after (4–5) are done cold.
+5. Add drill `003_…` from Phase 1 themes (windows / gaps / anti-joins) — **your attempt first**, then compare.  
+6. When starting learning chats: link **How learning works here** (or say “teach mode”) so the lean-triggers are active.  
+7. Schedule next sport only after (4–5) are done cold.
 
 You’re on the **Dell XPS (Ubuntu)**. Prefer that machine for learning sessions; Mac remains the backup.
