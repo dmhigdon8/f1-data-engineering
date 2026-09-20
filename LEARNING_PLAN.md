@@ -6,20 +6,21 @@
 **Primary repo:** [f1-data-engineering](https://github.com/dmhigdon8/f1-data-engineering) (grow this)  
 **Supporting repos:** [LeetCode](https://github.com/dmhigdon8/LeetCode), [Coursera](https://github.com/dmhigdon8/Coursera) (DSA), [Space-Traders](https://github.com/dmhigdon8/Space-Traders) (optional ingestion sandbox)
 
-**Goal order (your tops):**
-1. SQL problem-solving  
-2. dbt — understand and get real mileage  
-3. AI — understand and get real mileage  
-4. DSA in Python  
-5. Data ingestion  
+**Goal order (confirmed stack — do not invert):**
+1. **SQL problem-solving** — heaviest near-term investment  
+2. **dbt** — real mileage (tests, models, incremental, CI) tied to the same warehouse  
+3. **AI infrastructure** — verified AI craft *on top of* trustworthy SQL/dbt (gates, grounded generation, workflows) — not chat theater  
+4. **Leverage → X / YouTube** — fact-gated sports analytics content as side-hustle / pivot proof (**last**; Phase 4b only)  
+5. DSA in Python — weekend light / interview-driven, never ahead of 1–2  
+6. Data ingestion — grows the warehouse when 1–2 are boring; not a distraction from drills  
 
 **Cross-cutting (not a separate vanity track):** systems literacy — how machines actually work (processes, files, memory, networking, containers) so you stop missing implications when tools, AI, or cloud abstractions move. **Practice gym:** Dell terminal (fewer GUIs hiding the stack). **Target skill:** portable Unix / container / data-stack judgment that also holds on **Mac at work** (most employers). Linux-only details only when needed to run the Dell, or when the *idea* clearly carries over.
 
-### Dual purpose (career first, public proof second)
+### Dual purpose (career first, public proof last)
 
-**Primary:** professional skills that generalize — warehouse thinking, SQL judgment, dbt, verified AI use, ingestion contracts. Your resume spine is airlines / data / tech; sports is the *domain gym* that sharpens the same muscles you’d use on any messy operational data.
+**Primary:** professional skills that generalize — especially **SQL + dbt**, then solid **AI infrastructure** with verification. Your resume spine is airlines / data / tech; sports is the *domain gym* that sharpens the same muscles you’d use on any messy operational data.
 
-**Secondary (allowed fantasy, sequenced late):** a public swing — X/Twitter and/or YouTube around **advanced sports analytics** — as audience practice and a visible proof of concept for a pivot. Sports (and betting as a *personal* interest) supply motivation and questions; they are not a reason to skip grain, tests, or verification.
+**Secondary (sequenced last):** a public swing — X/Twitter and/or YouTube around **advanced sports analytics** — only after the warehouse numbers and AI gates are trustworthy. Motivation from sports/betting is fine; distribution is not allowed to jump the queue ahead of SQL/dbt/AI depth.
 
 **How both stay aligned:** every “content” idea must be downstream of a real mart query you could defend. The interesting end-state sketch:
 
@@ -124,7 +125,7 @@ Honest critique of the plan you’re standing on — including ways *I* can fail
 | Hole | Why it bites | Tighten |
 |------|----------------|---------|
 | **Planning > practicing** | You’ve already refined a strong map. More roadmap feels like progress; it isn’t storage strength. | Freeze plan edits unless a hole blocks next week’s work. Default next message = Dell proof, not another philosophy pass. |
-| **Too many parallel tops** | SQL + dbt + AI + DSA + ingestion + systems + content = shallow on all. | **Near-term lane (2–4 weeks):** SQL drills + one dbt/test improvement + cold checks. Everything else is *allowed only if* the primary lane is green that week. |
+| **Too many parallel tops** | SQL + dbt + AI + DSA + ingestion + systems + content = shallow on all. | **Near-term lane:** heavy **SQL + dbt** only (+ cold checks). AI infra next; X/YouTube last. DSA/ingest only if 1–2 are green. |
 | **Assumed transfer to airline work** | Sports gym ≠ automatic on-the-job judgment unless you force the bridge. | Once/week: 5-line “work transfer” note — *where would this grain/test/window show up in ops/airline data?* |
 | **Committed drills ≠ skill** | Files in git can be AI-authored or copy-run once. | Score **cold** recall (pass/fail) in `STATUS.md`. A drill “counts” only after a delayed redo without the answer file. |
 | **Resume translation gap** | Hiring managers may see “F1 hobby” not “warehouse craft.” | Practice saying the project in **employer language**: sources, tests, incremental, CI, grain, idempotent loads — sports is the dataset, not the identity. |
@@ -134,15 +135,17 @@ Honest critique of the plan you’re standing on — including ways *I* can fail
 
 ### What “good enough” looks like near-term (tighten the 90-day fog)
 
+**Stack reminder:** SQL + dbt → AI infrastructure → X/YouTube. Do not invert.
+
 For the next **2–4 weeks**, success is only:
 
 1. Drills 001–002 run on Dell + singular test green  
 2. ≥3 new drills **you** authored (attempt → answer), including one cold-redone later  
 3. One meaningful dbt hardening (extra test or grain documentation)  
 4. Weekly cold check logged in `STATUS.md`  
-5. Zero new sports / odds / tweet pipelines  
+5. Zero AI infra builds beyond using teach/pair gates; **zero** X/YouTube / odds pipelines  
 
-Long-term (after that lane is boring): reopen Phase 2–4b. Don’t pre-live in Phase 4b.
+After that lane is boring: Phase 2 dbt depth → Phase 4 AI infrastructure → Phase 4b content leverage.
 
 ---
 
@@ -209,11 +212,12 @@ Space Traders stays optional: great for API polling / rate limits / game-state f
 |----------|--------|------------------------|-------------------|
 | 1 | SQL | `sql/drills/`, ad-hoc on `staging_marts.*`, interview-style prompts on your own tables | You can answer grain, window, and gap questions without guessing |
 | 2 | dbt | `dbt_f1/` → later `dbt_sports/` or multi-project | Incremental models, tests that catch real bugs, docs people could trust |
-| 3 | AI (craft + anti-capture) | Teach/pair/ship modes; verification gates; lean-triggers in “How learning works here” | You steer AI; AI doesn’t silently do your thinking; you can name your mode |
-| 4 | DSA | Coursera Algorithmic Toolbox + LeetCode, 3–5 problems/week | Patterns stick; you can explain Big-O and map patterns to pipeline code |
-| 5 | Ingestion | `ingest/` for F1, then MLB/NFL extractors | Idempotent loads, clear raw contracts, incremental / season-partitioned pulls |
-| — | Systems (portable) | Terminal-first on Dell while doing 1–5; prefer concepts that also hold on Mac | You can explain *why* a failure/slowdown happened on Unix-like machines generally — not only recite Ubuntu commands |
-| — | Learning hygiene | Retrieval, spacing, generation-first, cold checks | Delayed recall works; fluency-after-watching-AI doesn’t fool you |
+| 3 | AI infrastructure | Gates, grounded generation, `AI_WORKFLOW.md`, warehouse-tied tooling — **after** 1–2 | You steer AI; outputs are pinned to query results; lean-triggers respected |
+| 4 | X / YouTube leverage | Phase 4b only — artifact → fact-gated draft → optional post | Public proof without outsourcing truth; never ahead of 1–3 |
+| 5 | DSA | Coursera + LeetCode, light weekly | Patterns stick; doesn’t steal SQL/dbt hours |
+| 6 | Ingestion | `ingest/` for F1, then MLB/NFL when 1–2 are boring | Idempotent loads, clear raw contracts |
+| — | Systems (portable) | Terminal-first on Dell while doing 1–2 | Portable Unix/container judgment (Mac @ work too) |
+| — | Learning hygiene | Retrieval, spacing, generation-first, cold checks | Delayed recall works; fluency-after-AI doesn’t fool you |
 
 ---
 

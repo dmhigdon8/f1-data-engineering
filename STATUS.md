@@ -17,13 +17,11 @@ Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1
 
 **Primary machine for learning:** Dell XPS 14 Ubuntu (`~/f1-data-engineering`) — terminal-first for direct contact. Skills aimed at **portable Unix/container judgment** (also holds on Mac at work); Linux-only details only as needed to run the Dell. Mac remains secondary/convenience.
 
-**North star:** career-general skills first (airlines/data background → sharper DE/analytics judgment). Side-hustle / pivot content is allowed later via fact-gated narratives from the warehouse — not auto-tweet theater early.
+**North star:** **SQL + dbt heavy first** → then **AI infrastructure** (verified) → then leverage into **X/YouTube**. Career-general skills lead; side hustle is last-mile proof, not the queue-jumper.
 
-**AI / learning contract:** default **teach → pair** on learning work; ship only when named. If Daniel asks for exact steps with no attempt, agent should push for a proof together — see LEARNING_PLAN “How learning works here.”
+**Plan status:** stack confirmed. Near-term lane = SQL drills + dbt hardening + cold checks only. Next = Dell execution.
 
-**Plan status:** dual-purpose + learn-with-AI contract approved (PR #2). **Near-term lane locked:** SQL drills + one dbt hardening + cold checks only (see LEARNING_PLAN “Holes…tighten” + Training partner protocol). Next is execute on Dell, not more planning.
-
-**Training partner summon:** `Dell · teach mode · training partner · next proof: … · hold me to How learning works here + near-term lane`
+**Training partner summon:** `Dell · teach mode · training partner · next proof: … · hold me to How learning works here + SQL/dbt near-term lane`
 
 **In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003 (attempt before answer).
 
