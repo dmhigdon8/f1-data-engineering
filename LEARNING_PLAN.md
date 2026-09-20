@@ -13,7 +13,7 @@
 4. DSA in Python  
 5. Data ingestion  
 
-**Cross-cutting (not a separate vanity track):** systems literacy on the Dell — how the machine actually works (processes, files, memory, networking, containers) so you stop missing implications when tools, AI, or cloud abstractions move. The Dell exists so the **terminal forces direct contact** with that layer. Learn it *in service of* better judgment on this stack and whatever comes next — not Linux for its own sake.
+**Cross-cutting (not a separate vanity track):** systems literacy — how machines actually work (processes, files, memory, networking, containers) so you stop missing implications when tools, AI, or cloud abstractions move. **Practice gym:** Dell terminal (fewer GUIs hiding the stack). **Target skill:** portable Unix / container / data-stack judgment that also holds on **Mac at work** (most employers). Linux-only details only when needed to run the Dell, or when the *idea* clearly carries over.
 
 Sports is the domain glue: **F1 first (already working), then MLB, then NFL**, same patterns each time.
 
@@ -22,7 +22,7 @@ Sports is the domain glue: **F1 first (already working), then MLB, then NFL**, s
 ## Design principle
 
 One warehouse, many sports — not three disconnected toy projects.  
-One primary machine (Dell/Linux) for depth — not three half-understood environments.
+Dell for **depth of contact** with the stack; Mac stays fluent so work environments don’t feel foreign. Same mental model on both.
 
 ```text
 APIs / files
@@ -48,43 +48,58 @@ Space Traders stays optional: great for API polling / rate limits / game-state f
 | 3 | AI | Workflow on this repo + small applied experiments | You use AI to accelerate, verify, and document — not to skip understanding |
 | 4 | DSA | Coursera Algorithmic Toolbox + LeetCode, 3–5 problems/week | Patterns stick; you can explain Big-O and map patterns to pipeline code |
 | 5 | Ingestion | `ingest/` for F1, then MLB/NFL extractors | Idempotent loads, clear raw contracts, incremental / season-partitioned pulls |
-| — | Systems (Dell) | Terminal-first on Ubuntu while doing 1–5; short “what just happened under the hood?” notes | You can explain *why* a command/failure/slowdown happened, not only *what* to type next |
+| — | Systems (portable) | Terminal-first on Dell while doing 1–5; prefer concepts that also hold on Mac | You can explain *why* a failure/slowdown happened on Unix-like machines generally — not only recite Ubuntu commands |
 
 ---
 
-## Systems literacy — attached to real work (Dell default)
+## Systems literacy — portable first, Dell as the gym
 
-**Why this is here:** GUI-heavy machines hide the stack. That feels fast until something breaks, scales, or an AI suggestion skips a layer you can’t see. The Dell + terminal is the gym for that missing layer — so you reason better about Postgres, Docker, dbt, AWS, and future tools.
+**Why this is here:** GUI-heavy workflows hide the stack. That feels fast until something breaks, scales, or an AI suggestion skips a layer you can’t see. The Dell + terminal is the **practice surface** (direct contact). The skill you keep is **portable** — same reasoning on a work Mac, a cloud VM, or CI.
 
-**Rule:** every systems concept must earn its place by showing up in *this* pipeline. No “learn systemd because textbooks say so.”
+**Rule:** every systems concept must earn its place by (a) showing up in *this* pipeline, and (b) **carrying to Mac/work** unless it’s a narrow Dell ops detail.
+
+### Portable vs Linux-only (keep the ratio honest)
+
+| Prefer learning (carries to Mac @ work) | Dell/Linux-only (ok when needed, don’t make it the goal) |
+|----------------------------------------|----------------------------------------------------------|
+| Shell, pipes, env/`PATH`, exit codes | `apt` package names, Ubuntu release quirks |
+| Processes & ports (`ps`, who listens where) | Deep `systemd` unit authoring |
+| Files, permissions, disk full (`df`, paths) | Desktop/ricing, kernel compiles |
+| Docker concepts: image / container / volume / publish port | Docker Engine vs Docker Desktop *install* differences (know they exist; same compose mental model) |
+| Client → server (e.g. `psql` → Postgres), connection strings | `usermod`/`newgrp` docker-group one-offs |
+| What state survives reboot (volumes, S3, git) | Distro-specific service names beyond “how do I start Docker here?” |
+
+When a Dell fix is Linux-specific, ask: **“What’s the Mac/work analogue of this idea?”** (e.g. `systemctl status docker` → “is the Docker daemon running?” — Desktop whale vs Engine service.)
 
 ### Habit (5–15 min, when something is already happening)
 
 After a real step (compose up, dbt build, extract, slow query), ask once:
 
-1. **What process owns this?** (`ps`, `docker compose ps`, `systemctl status docker`)  
+1. **What process owns this?** (`ps`, `docker compose ps`; on Dell also `systemctl status docker` if the daemon is the question)  
 2. **Where does state live?** (named volume vs bind mount vs S3 vs `raw/` on disk)  
 3. **What would fail if the machine rebooted / network dropped / disk filled?**  
+4. **Would this explanation still work on a Mac at work?** If not, restate it in portable terms.
 
-Optional: one short note in `STATUS.md` or a drill header — “implication I almost missed.”
+Optional: one short note in `STATUS.md` or a drill header — “implication I almost missed” / “Mac analogue: …”.
 
 ### Map systems → pipeline moments (do these when the work creates them)
 
-| When you’re doing… | Look underneath | Judgment you’re training |
-|--------------------|-----------------|---------------------------|
-| `docker compose up` / Postgres healthy | daemon vs container vs volume; host port **5433** vs container **5432**; `restart: unless-stopped` | Where data survives; what “the DB is up” actually means |
+| When you’re doing… | Look underneath (portable core) | Judgment you’re training |
+|--------------------|---------------------------------|---------------------------|
+| `docker compose up` / Postgres healthy | daemon vs container vs volume; host port **5433** vs container **5432**; restart policy | Where data survives; what “the DB is up” actually means (same on Mac Desktop or Linux Engine) |
 | `psql` / SQL drills / `EXPLAIN ANALYZE` | client → TCP → server process; query plan vs “SQL looks fine” | Cost, indexes, when the machine (not the query text) is the bottleneck |
-| `dbt build` | Python env (`pipx`/`PATH`), profiles, schemas (`staging_marts` quirk), materializations as tables/views in Postgres | Abstractions compile to real objects; misconfig is a *machine* story |
+| `dbt build` | Python env (`pipx`/`PATH`), profiles, schemas (`staging_marts` quirk), materializations as tables/views | Abstractions compile to real objects; misconfig is a *machine* story on any OS |
 | Extract → `raw/` → S3 → load | filesystem paths, credentials, network egress, idempotent writes | Durability and trust boundaries (local disk ≠ bucket ≠ warehouse) |
-| Resource weirdness (slow, OOM, full disk) | `df -h`, `free -h`, `docker system df`, which cgroup/container is fat | Capacity thinking before you buy more cloud or add Spark |
+| Resource weirdness (slow, OOM, full disk) | `df -h`, memory pressure, `docker system df` | Capacity thinking before you buy more cloud or add Spark |
 
 ### What *not* to do with systems study
 
 - Don’t pause SQL/dbt for a months-long OS curriculum.  
 - Don’t dual-boot rabbit holes, kernel compiles, or ricing the desktop.  
-- Don’t treat Mac GUI workflows as equivalent practice — use Mac when needed; **prefer Dell terminal for learning sessions.**
+- Don’t optimize for **Ubuntu trivia** that won’t help on a work Mac.  
+- Don’t treat Mac GUI workflows as equivalent *practice* — use Mac when needed; **prefer Dell terminal for learning sessions** so you still get the direct contact.
 
-**Exit (ongoing):** you can narrate the F1 path in systems language: *process → files/volumes → network → Postgres objects → query cost* — and use that narration when AI or docs feel thin.
+**Exit (ongoing):** you can narrate the F1 path in portable systems language: *process → files/volumes → network → Postgres objects → query cost* — and reuse that narration on Mac at work when AI or docs feel thin.
 
 ---
 
@@ -93,10 +108,10 @@ Optional: one short note in `STATUS.md` or a drill header — “implication I a
 You’re basically here already. Finish the operational debt so learning isn’t blocked by machine/secrets churn.
 
 - [ ] Rotate `f1-pipeline` AWS key; stop sharing one key across machines forever  
-- [x] Confirm Dell as primary raw-data **and** systems-learning machine  
+- [x] Confirm Dell as primary raw-data **and** systems-practice machine (portable skills; Mac at work stays in scope)  
 - [ ] Add `.gitattributes` (`* text=auto`)  
 - [ ] One-command bootstrap notes kept truthful for Mac + Dell  
-- [ ] On Dell: be able to explain Docker Engine + `pgdata` volume + host port 5433 without notes  
+- [ ] Explain Docker + `pgdata` volume + host port 5433 in **portable** terms (daemon running? where does data live? which port on the host?) — works on Mac or Dell 
 
 **Exit:** Fresh clone on Dell → extract → load → `dbt build` green without tribal knowledge — and you can say where each layer’s state lives.
 
@@ -284,6 +299,7 @@ Protect SQL + dbt as first-class; systems literacy tags along when the pipeline 
 - Don’t let Space Traders or a new repo steal the dbt muscle — optional side quest only.  
 - Don’t accept AI-generated models without stating grain + writing a test.  
 - Don’t turn the Dell into a second curriculum that crowds out SQL/dbt — systems study is the *lens*, not the main event.  
+- Don’t optimize for Linux-only trivia that won’t transfer to a work Mac.  
 - Don’t hide from the terminal with GUIs when you’re on a learning block.
 
 ---
