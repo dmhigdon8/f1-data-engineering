@@ -1,10 +1,21 @@
 # F1 Project — Session Status
 
-**Last session:** September 19, 2026
+**Last session:** September 20, 2026
 **Owner:** Daniel Higdon — now working across two machines:
   - **Mac:** macOS 26.6.2, Intel Mac (T2), path `~/Desktop/Projects/f1-data-engineering`
   - **Dell:** Dell XPS 14 (2026) Ubuntu Developer Edition, Core Ultra X7 358H, 64GB RAM, 1TB SSD, Ubuntu 24.04.5 LTS, path `~/f1-data-engineering`
 **Repo:** https://github.com/dmhigdon8/f1-data-engineering (private)
+
+---
+
+## Learning plan
+
+Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine:
+
+- Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md)
+- Phase 1 SQL drills: [`sql/drills/`](sql/drills/) (see [`sql/drills/README.md`](sql/drills/README.md))
+
+**In progress (Phase 1):** grain + gap-to-leader drills committed; singular dbt test `assert_no_duplicate_driver_race` added. Next: run the drills against a live warehouse on Mac or Dell, then keep the 3-drills/week cadence.
 
 ---
 
@@ -66,6 +77,16 @@ Homebrew, git, gh, python@3.12, awscli, libpq/psql, Docker Desktop, Postman all 
 3. `docker compose up -d postgres` then `docker compose ps` (want `Up (healthy)`).
 
 Either way: paste this file's contents into a new chat with Claude, say which machine you're on, then say what you want to work on next.
+
+**Learning track (Phase 1):** with Postgres up and `dbt build` green, run the SQL drills:
+
+```bash
+psql "postgresql://f1:f1pass@localhost:5433/f1" -f sql/drills/001_grain_fct_race_results.sql
+psql "postgresql://f1:f1pass@localhost:5433/f1" -f sql/drills/002_gap_to_leader.sql
+cd dbt_f1 && dbt test --select assert_no_duplicate_driver_race
+```
+
+Then add drill `003_…` from [`LEARNING_PLAN.md`](LEARNING_PLAN.md) Phase 1 themes (windows / gaps / anti-joins).
 
 ---
 
