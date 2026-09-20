@@ -1,6 +1,6 @@
 # F1 Project — Session Status
 
-**Last session:** September 19, 2026
+**Last session:** September 20, 2026
 **Owner:** Daniel Higdon — now working across two machines:
   - **Mac:** macOS 26.6.2, Intel Mac (T2), path `~/Desktop/Projects/f1-data-engineering`
   - **Dell:** Dell XPS 14 (2026) Ubuntu Developer Edition, Core Ultra X7 358H, 64GB RAM, 1TB SSD, Ubuntu 24.04.5 LTS, path `~/f1-data-engineering`
@@ -8,14 +8,25 @@
 
 ---
 
+## Learning plan
+
+Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine — plus **systems literacy on the Dell** as a cross-cutting lens (not a separate hobby track):
+
+- Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md)
+- Phase 1 SQL drills: [`sql/drills/`](sql/drills/) (see [`sql/drills/README.md`](sql/drills/README.md))
+
+**Primary machine for learning:** Dell XPS 14 Ubuntu (`~/f1-data-engineering`) — terminal-first for direct contact. Skills aimed at **portable Unix/container judgment** (also holds on Mac at work); Linux-only details only as needed to run the Dell. Mac remains secondary/convenience.
+
+**In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003.
+
+---
+
 ## Where we left off
 
 The project is now fully working, independently, on **both** the Mac and the new Dell — same pipeline, same repo, verified with matching clean `dbt build` results on each. This session's news is the Dell coming online; the Mac was already rebuilt and verified in the prior session (Sept 10).
 
-### The Dell has arrived and is set up (new this session)
-Per the cross-platform hardware plan (see the personal context brief), the Dell XPS 14 Ubuntu Developer Edition arrived and is now fully set up and verified — the second of the three planned machines (Mac, Dell, Windows PC) to come online.
-
-**Proposed going forward:** the Dell becomes the primary machine for raw datasets (matches the original cross-platform plan — a dedicated Linux box for this kind of work rather than the Mac). Not yet formally locked in with Daniel; flagging it here again as a decision to confirm, not confirmed.
+### The Dell is primary for learning (confirmed)
+Dell XPS 14 Ubuntu Developer Edition is the primary machine for **raw data** and for **learning sessions** — terminal-first so systems meaning (processes, volumes, ports, PATH, failure modes) stays attached to real pipeline work. Mac remains the backup / travel machine. Windows PC still planned later; not started.
 
 ### ✓ Done — Dell (this session, first full setup on this machine)
 - apt-based toolchain: `git`, `gh` (browser-based auth via `gh auth login`, then `gh repo clone`), `python3.12`, `awscli`, `libpq-dev` **and** `postgresql-client` (the latter needed separately for the actual `psql` binary — `libpq-dev` alone only gives the client library)
@@ -31,10 +42,11 @@ Homebrew, git, gh, python@3.12, awscli, libpq/psql, Docker Desktop, Postman all 
 
 ### ⬜ Still to do
 1. Rotate the `f1-pipeline` AWS IAM access key — still not done, now reused unchanged across **three** places (password manager, Mac `.env`, Dell `.env`), which raises the case for doing this soon rather than later
-2. Formally decide/confirm: Dell as primary machine for raw datasets (proposed above, not yet locked in)
+2. ~~Formally decide/confirm: Dell as primary machine for raw datasets~~ — **confirmed** (also primary for systems-learning / terminal-first sessions)
 3. Windows PC — third and last machine in the cross-platform plan, not yet started: WSL2 + Docker Desktop (WSL2 backend), git/gh identity setup, confirm it can clone and run the pipeline
 4. Broader cross-platform checklist, not yet started on any machine: `.gitattributes` (`* text=auto`) to normalize line endings across all three OSes; 1Password CLI (`op run`/`op inject`) for shared secrets instead of hand-copied `.env` files; a declarative env bootstrap (`requirements.txt`/`pyproject.toml` + a short setup script) so a new machine can get running with one command
 5. Optional: scale further (more endpoints, incremental loads) now that AWS is in place on two machines
+6. On Dell: run SQL drills 001–002 + singular dbt test live; add one under-the-hood note (see LEARNING_PLAN systems habit)
 
 ### Known quirks / gotchas
 - **Dell/Linux-specific:** `libpq-dev` does **not** include the `psql` binary — install `postgresql-client` explicitly for that.
@@ -66,6 +78,17 @@ Homebrew, git, gh, python@3.12, awscli, libpq/psql, Docker Desktop, Postman all 
 3. `docker compose up -d postgres` then `docker compose ps` (want `Up (healthy)`).
 
 Either way: paste this file's contents into a new chat with Claude, say which machine you're on, then say what you want to work on next.
+
+**Learning track (Phase 1, Dell):** with Postgres up and `dbt build` green, run the SQL drills in the terminal:
+
+```bash
+cd ~/f1-data-engineering
+psql "postgresql://f1:f1pass@localhost:5433/f1" -f sql/drills/001_grain_fct_race_results.sql
+psql "postgresql://f1:f1pass@localhost:5433/f1" -f sql/drills/002_gap_to_leader.sql
+cd dbt_f1 && dbt test --select assert_no_duplicate_driver_race
+```
+
+Then: one short under-the-hood note (what process / where state lives / what fails on reboot), then add drill `003_…` from [`LEARNING_PLAN.md`](LEARNING_PLAN.md) Phase 1 themes.
 
 ---
 
