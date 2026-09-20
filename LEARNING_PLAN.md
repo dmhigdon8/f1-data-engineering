@@ -115,6 +115,74 @@ If this section and `STATUS.md` aren’t loaded, assume the contract is dormant 
 
 ---
 
+## Holes in this approach (and how we tighten)
+
+Honest critique of the plan you’re standing on — including ways *I* can fail you as a partner.
+
+### Real holes
+
+| Hole | Why it bites | Tighten |
+|------|----------------|---------|
+| **Planning > practicing** | You’ve already refined a strong map. More roadmap feels like progress; it isn’t storage strength. | Freeze plan edits unless a hole blocks next week’s work. Default next message = Dell proof, not another philosophy pass. |
+| **Too many parallel tops** | SQL + dbt + AI + DSA + ingestion + systems + content = shallow on all. | **Near-term lane (2–4 weeks):** SQL drills + one dbt/test improvement + cold checks. Everything else is *allowed only if* the primary lane is green that week. |
+| **Assumed transfer to airline work** | Sports gym ≠ automatic on-the-job judgment unless you force the bridge. | Once/week: 5-line “work transfer” note — *where would this grain/test/window show up in ops/airline data?* |
+| **Committed drills ≠ skill** | Files in git can be AI-authored or copy-run once. | Score **cold** recall (pass/fail) in `STATUS.md`. A drill “counts” only after a delayed redo without the answer file. |
+| **Resume translation gap** | Hiring managers may see “F1 hobby” not “warehouse craft.” | Practice saying the project in **employer language**: sources, tests, incremental, CI, grain, idempotent loads — sports is the dataset, not the identity. |
+| **Side-hustle gravity** | Betting love + X dopamine can yank you to NFL/odds/content before Phase 1 depth. | Content and odds stay gated behind Phase 4b rules. If excitement spikes, channel it into a sharper *SQL question*, not a new ingest. |
+| **DSA may be the wrong near-term parallel** | DE/analytics roles often weight SQL/dbt/product sense over LeetCode; contest grind can steal hours from the warehouse. | Keep DSA as **weekend light** unless a specific interview loop demands it. Don’t let Coursera outrank drills. |
+| **Partner continuity** | Agents forget; you start fresh chats. | Session open/close ritual below. No ritual → no training partner, just a chatbot. |
+
+### What “good enough” looks like near-term (tighten the 90-day fog)
+
+For the next **2–4 weeks**, success is only:
+
+1. Drills 001–002 run on Dell + singular test green  
+2. ≥3 new drills **you** authored (attempt → answer), including one cold-redone later  
+3. One meaningful dbt hardening (extra test or grain documentation)  
+4. Weekly cold check logged in `STATUS.md`  
+5. Zero new sports / odds / tweet pipelines  
+
+Long-term (after that lane is boring): reopen Phase 2–4b. Don’t pre-live in Phase 4b.
+
+---
+
+## Training partner protocol (near-term + long-term)
+
+You asked for a partner, not a vending machine. Here’s the working agreement.
+
+### Near-term (Phase 1 lane — weeks ahead)
+
+| Cadence | What we do |
+|---------|------------|
+| **Session open** | You say: machine (Dell), mode (teach/pair/ship), and the **one** proof for this block. Link or mention “How learning works here.” |
+| **During** | I default teach→pair. I call lean-triggers. We end with something *you* can re-run without me. |
+| **Session close** | You (or I, if you ask ship-for-docs) update `STATUS.md`: what ran, cold check pass/fail, one under-the-hood or work-transfer line, next proof. |
+| **Weekly review** (15 min) | Three questions only: (1) What can I explain cold? (2) Where did I lean on AI? (3) What’s the single next drill/dbt proof? |
+
+**Near-term partner job:** keep you in the SQL/dbt gym, block scope creep, force retrieval.
+
+### Long-term (after Phase 1 is boring)
+
+| Horizon | Partner focus |
+|---------|----------------|
+| Phase 2 | dbt depth with proofs (tests that hurt, incremental, CI) — still generation-first |
+| Phase 3 | Second sport **narrow** — one fact, three drills; kill architecture tourism |
+| Phase 4 / 4b | AI craft + optional public artifact — fact gates before audience |
+| Career | Mock “explain this PR to a hiring manager”; map sports work → airline/ops stories |
+| Pivot evidence | Portfolio = warehouse you can defend live, not follower counts |
+
+**Long-term partner job:** raise the bar on explanation quality, transfer, and public/professional brand safety — not cheerleading every new idea.
+
+### How to summon this
+
+Paste into a new chat:
+
+> Dell · teach mode · training partner · next proof: [e.g. run 001–002 / author 003] · hold me to LEARNING_PLAN “How learning works here” + near-term lane.
+
+If you don’t say that, I may still help — but I won’t assume coach mode.
+
+---
+
 ## Design principle
 
 One warehouse, many sports — not three disconnected toy projects.  
@@ -379,7 +447,7 @@ Assuming ~6–8 focused hours/week, **default on the Dell terminal:**
 | Fri | 1h | AI-assisted review + **one anti-capture / cold retrieval** (no answer file) |
 | Weekend | 1–1.5h | DSA (Coursera or LeetCode) — interleaved patterns when possible |
 
-Protect SQL + dbt as first-class; systems literacy tags along when the pipeline creates the question; AI craft is practiced with gates, not as “do it for me”; DSA stays a steady parallel.
+Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft / DSA only ride along if the primary lane is green that week. After Phase 1 is boring, reopen the fuller rhythm.
 
 ---
 
