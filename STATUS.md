@@ -10,12 +10,14 @@
 
 ## Learning plan
 
-Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine:
+Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine — plus **systems literacy on the Dell** as a cross-cutting lens (not a separate hobby track):
 
 - Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md)
 - Phase 1 SQL drills: [`sql/drills/`](sql/drills/) (see [`sql/drills/README.md`](sql/drills/README.md))
 
-**In progress (Phase 1):** grain + gap-to-leader drills committed; singular dbt test `assert_no_duplicate_driver_race` added. Next: run the drills against a live warehouse on Mac or Dell, then keep the 3-drills/week cadence.
+**Primary machine for learning:** Dell XPS 14 Ubuntu (`~/f1-data-engineering`) — terminal-first so the stack stays visible. Mac is secondary/convenience.
+
+**In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003.
 
 ---
 
@@ -23,10 +25,8 @@ Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1
 
 The project is now fully working, independently, on **both** the Mac and the new Dell — same pipeline, same repo, verified with matching clean `dbt build` results on each. This session's news is the Dell coming online; the Mac was already rebuilt and verified in the prior session (Sept 10).
 
-### The Dell has arrived and is set up (new this session)
-Per the cross-platform hardware plan (see the personal context brief), the Dell XPS 14 Ubuntu Developer Edition arrived and is now fully set up and verified — the second of the three planned machines (Mac, Dell, Windows PC) to come online.
-
-**Proposed going forward:** the Dell becomes the primary machine for raw datasets (matches the original cross-platform plan — a dedicated Linux box for this kind of work rather than the Mac). Not yet formally locked in with Daniel; flagging it here again as a decision to confirm, not confirmed.
+### The Dell is primary for learning (confirmed)
+Dell XPS 14 Ubuntu Developer Edition is the primary machine for **raw data** and for **learning sessions** — terminal-first so systems meaning (processes, volumes, ports, PATH, failure modes) stays attached to real pipeline work. Mac remains the backup / travel machine. Windows PC still planned later; not started.
 
 ### ✓ Done — Dell (this session, first full setup on this machine)
 - apt-based toolchain: `git`, `gh` (browser-based auth via `gh auth login`, then `gh repo clone`), `python3.12`, `awscli`, `libpq-dev` **and** `postgresql-client` (the latter needed separately for the actual `psql` binary — `libpq-dev` alone only gives the client library)
