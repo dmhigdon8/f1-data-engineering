@@ -15,6 +15,24 @@
 
 **Cross-cutting (not a separate vanity track):** systems literacy — how machines actually work (processes, files, memory, networking, containers) so you stop missing implications when tools, AI, or cloud abstractions move. **Practice gym:** Dell terminal (fewer GUIs hiding the stack). **Target skill:** portable Unix / container / data-stack judgment that also holds on **Mac at work** (most employers). Linux-only details only when needed to run the Dell, or when the *idea* clearly carries over.
 
+### Dual purpose (career first, public proof second)
+
+**Primary:** professional skills that generalize — warehouse thinking, SQL judgment, dbt, verified AI use, ingestion contracts. Your resume spine is airlines / data / tech; sports is the *domain gym* that sharpens the same muscles you’d use on any messy operational data.
+
+**Secondary (allowed fantasy, sequenced late):** a public swing — X/Twitter and/or YouTube around **advanced sports analytics** — as audience practice and a visible proof of concept for a pivot. Sports (and betting as a *personal* interest) supply motivation and questions; they are not a reason to skip grain, tests, or verification.
+
+**How both stay aligned:** every “content” idea must be downstream of a real mart query you could defend. The interesting end-state sketch:
+
+```text
+ingest → warehouse (tested) → analytics artifact (SQL/dbt)
+       → LLM draft (facts pinned from query output)
+       → human gate → optional post to X / script for YouTube
+```
+
+That pipeline teaches the same job-relevant skills as airline/ops analytics (trustworthy numbers → narrative → distribution). It is **not** “LLM invents takes → auto-post.” Auto-posting without a fact gate trains the wrong muscle and can hurt a professional brand.
+
+**Betting / odds:** fine as hobby context and as *event questions* (“was this line moved by injuries?”). Do **not** early-optimize for odds ingestion, tip bots, or “beat the book” products — weak skill ROI, noisy data, platform/ToS/career risk. If odds ever enter, treat them as another source with the same contracts as F1/MLB, after multi-sport marts already work.
+
 Sports is the domain glue: **F1 first (already working), then MLB, then NFL**, same patterns each time.
 
 ---
@@ -176,7 +194,7 @@ Same contracts every time. Do **not** invent a new architecture for baseball.
 
 1. **F1 deepen** — more Jolpica endpoints you don’t have yet (qualifying, pit stops, lap times if available / licensed). Prefer endpoints that create interesting grains.  
 2. **MLB** — start narrow: schedules + game results for one season (e.g. Stats API or a stable open source).  
-3. **NFL** — schedules + weekly results; avoid betting odds rabbit holes early.
+3. **NFL** — schedules + weekly results; **defer betting odds** until marts + a publishable analytics loop exist (see Dual purpose).
 
 ### Repo layout target (evolve toward)
 
@@ -223,15 +241,28 @@ Treat AI as a **force multiplier with verification gates**, not as the source of
 | Docs | Generate model descriptions | You trim hallucinations; no invented columns |
 | Systems check | “Explain what Docker/Postgres did here” | You reject answers you can’t restate with `ps`/`docker`/`df` evidence |
 
-### Small applied AI projects (pick one after Phase 2)
+### Small applied AI projects (pick after Phase 2; order matters)
 
 1. **Warehouse Q&A** — RAG over `dbt docs` / schema YAML so you can ask “grain of fct_race_results?”  
-2. **Narrative generator** — given a race fact row set, draft a race report; evaluate factual errors  
+2. **Narrative generator (career + content bridge)** — given a **pinned** race/season fact row set from SQL, draft a short analysis post or voice-over outline; you score factual errors before anything public  
 3. **Anomaly assistant** — flag odd pit/points outliers; you label true/false positives  
 
-Avoid jumping into “predict the championship” ML until SQL/dbt grain is boringly solid — otherwise you’ll debug features that were wrong upstream.
+### Phase 4b — Publishable loop (optional side-hustle swing; after 4.2 works cold)
 
-**Exit:** A short `AI_WORKFLOW.md` in this repo listing prompts you reuse + gates you refuse to skip.
+Only once you can produce a narrative that survives your own fact-check:
+
+| Step | What | Career skill it proves |
+|------|------|------------------------|
+| 4b.1 | Recurring “artifact”: one SQL view or dbt exposure that answers a sharp sports question weekly | Productizing analytics, not one-off notebooks |
+| 4b.2 | Script: pull artifact → LLM draft with **numbers injected as data**, not remembered | Grounded generation / anti-hallucination pattern (same idea as ops reporting) |
+| 4b.3 | Human gate checklist (grain, sample rows, “would I bet my name on this number?”) | Stakeholder trust; brand safety |
+| 4b.4 | Optional: post to X via API **after** gate passes; later: YouTube from the same artifact | Distribution automation — last mile, not the foundation |
+
+**Reasonable?** Yes — as a late applied AI + ingestion story. **Consistent with core goals?** Yes — if X/YouTube never outranks SQL/dbt depth. Skipping to “ingest → LLM → tweet” first would optimize for content theater and under-train the skills that make a pivot credible.
+
+Avoid jumping into “predict the championship” ML or tip-generation until SQL/dbt grain is boringly solid — otherwise you’ll debug features (and public takes) that were wrong upstream.
+
+**Exit:** A short `AI_WORKFLOW.md` in this repo listing prompts you reuse + gates you refuse to skip. If 4b is active: one example weekly artifact + draft that you actually fact-checked (posted or not).
 
 ---
 
@@ -286,9 +317,10 @@ Protect SQL + dbt as first-class; systems literacy tags along when the pipeline 
 
 **By ~90 days**
 - Multi-sport mart you can query for “compare competitive balance” style SQL  
-- AI workflow doc + one small applied experiment  
+- AI workflow doc + one small applied experiment (narrative-from-SQL preferred over tip bots)  
 - DSA: Algorithmic Toolbox meaningfully advanced; LeetCode pattern coverage documented  
 - Comfortable debugging a novel failure by *inspecting the machine* before asking AI  
+- Optional: first **fact-gated** draft post from a warehouse artifact (public or private) — Phase 4b.1–4b.3, posting API still optional  
 
 ---
 
@@ -300,7 +332,10 @@ Protect SQL + dbt as first-class; systems literacy tags along when the pipeline 
 - Don’t accept AI-generated models without stating grain + writing a test.  
 - Don’t turn the Dell into a second curriculum that crowds out SQL/dbt — systems study is the *lens*, not the main event.  
 - Don’t optimize for Linux-only trivia that won’t transfer to a work Mac.  
-- Don’t hide from the terminal with GUIs when you’re on a learning block.
+- Don’t hide from the terminal with GUIs when you’re on a learning block.  
+- Don’t build “ingest → LLM → auto-tweet” before drills + tests make the numbers trustworthy.  
+- Don’t let betting-tip / odds products hijack the roadmap — analytics credibility first; hobby betting stays personal.  
+- Don’t prioritize audience metrics over skill depth; the pivot story is *the warehouse you can explain*, not follower count.
 
 ---
 

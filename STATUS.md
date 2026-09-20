@@ -10,12 +10,14 @@
 
 ## Learning plan
 
-Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine — plus **systems literacy on the Dell** as a cross-cutting lens (not a separate hobby track):
+Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine — plus **portable systems literacy** (Dell as practice gym) and a sequenced **public analytics proof** option (X/YouTube) that stays downstream of trustworthy marts:
 
-- Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md)
+- Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md) (see Dual purpose + Phase 4b)
 - Phase 1 SQL drills: [`sql/drills/`](sql/drills/) (see [`sql/drills/README.md`](sql/drills/README.md))
 
 **Primary machine for learning:** Dell XPS 14 Ubuntu (`~/f1-data-engineering`) — terminal-first for direct contact. Skills aimed at **portable Unix/container judgment** (also holds on Mac at work); Linux-only details only as needed to run the Dell. Mac remains secondary/convenience.
+
+**North star:** career-general skills first (airlines/data background → sharper DE/analytics judgment). Side-hustle / pivot content is allowed later via fact-gated narratives from the warehouse — not auto-tweet theater early.
 
 **In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003.
 
