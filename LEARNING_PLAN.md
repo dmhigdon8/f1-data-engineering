@@ -176,13 +176,27 @@ You asked for a partner, not a vending machine. Here’s the working agreement.
 
 **Long-term partner job:** raise the bar on explanation quality, transfer, and public/professional brand safety — not cheerleading every new idea.
 
-### How to summon this
+### How to start a learning chat (what “training partner” means)
 
-Paste into a new chat:
+There is **no special app or CLI called summon**. Two different places:
 
-> Dell · teach mode · training partner · next proof: [e.g. run 001–002 / author 003] · hold me to LEARNING_PLAN “How learning works here” + near-term lane.
+| Place | What it is | What you do there |
+|-------|------------|-------------------|
+| **Dell terminal** | Your Ubuntu machine, folder `~/f1-data-engineering` | Run Docker, `psql`, `dbt`, git — the *proofs* |
+| **Cursor chat / Cloud Agent** | The AI thread (this kind of conversation), with repo `dmhigdon8/f1-data-engineering` selected | Ask for coaching; paste the starter line so I use teach/pair mode |
 
-If you don’t say that, I may still help — but I won’t assume coach mode.
+**Starter line** = the first message you type into a **new Cursor chat** (IDE Agent, Chat, or cursor.com/agents — same idea). It is not a shell command.
+
+Example — open a new chat on the F1 repo and paste:
+
+```text
+Dell · teach mode · training partner · next proof: run sql drills 001 and 002 · hold me to LEARNING_PLAN “How learning works here” + SQL/dbt near-term lane
+```
+
+That tells the agent: you’re on the Dell, you want coaching (not “just do it”), what’s in scope this session, and which plan sections to follow. Then you run the actual `psql` / `dbt` commands **in the Dell terminal** (or ask the agent to guide you step-by-step while you type them).
+
+If you skip the starter line, you still get help — but the agent may default to shipping answers instead of training you.
+
 
 ---
 
