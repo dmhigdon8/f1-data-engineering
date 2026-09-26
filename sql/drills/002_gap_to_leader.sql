@@ -35,10 +35,10 @@ select
     points,
     status,
     finish_time,
-    -- positions behind the winner (null finish_position = DNF / unclassified)
-    finish_position
-        - min(finish_position) filter (where finish_position is not null)
-            over () as positions_behind_leader,
+    -- positions behind the winner (null finish_position = DNF / unclassified).
+    -- MIN skips nulls in Postgres and Snowflake, so a null cannot become the leader.
+    -- Snowflake has no aggregate FILTER; use MIN/MAX, or CASE / COUNT_IF for conditional counts.
+    finish_position - min(finish_position) over () as positions_behind_leader,
     -- points behind the highest scorer in this race
     max(points) over () - points as points_behind_leader,
     -- dense rank among classified finishers
@@ -55,8 +55,7 @@ order by finish_position nulls last, driver_id;
 --     driver_id,
 --     finish_position,
 --     finish_position
---         - min(finish_position) filter (where finish_position is not null)
---             over (partition by season, round_num) as positions_behind_leader,
+--         - min(finish_position) over (partition by season, round_num) as positions_behind_leader,
 --     max(points) over (partition by season, round_num) - points as points_behind_leader
 -- from staging_marts.fct_race_results
 -- where season = 2024

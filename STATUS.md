@@ -30,7 +30,12 @@ Dell · teach mode · training partner · next proof: run sql drills 001 and 002
 
 **Plan status:** stack = SQL+dbt → AI infra → X/YouTube. Near-term = drills + dbt hardening. Next = Dell execution.
 
+
 **In progress (Phase 1):** drills 001–002 + singular test in-repo. Next: run live on Dell, under-the-hood note, drill 003 (attempt first).
+
+**Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
+
+**In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003 (attempt before answer).
 
 ---
 

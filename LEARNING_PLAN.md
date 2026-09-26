@@ -89,6 +89,21 @@ Drawn from robust findings (Ericsson deliberate practice; Bjork desirable diffic
 
 Default for learning blocks: **teach → pair**. **Ship** only when you explicitly want speed or the task is pure plumbing.
 
+### Grading phase (technical-screen bar)
+
+When Daniel asks for a grade, correctness is necessary and not sufficient. He is practicing SQL he would write in a job screen. Grade the attempt, then give specific feedback on quality, structure, and style. Name the line or pattern. Say what a stronger screen answer would change and why.
+
+Cover these, skipping any that the attempt already does well:
+
+| Lens | What to say |
+|------|-------------|
+| **Correctness** | Grain, filters, nulls, ties, and whether the result actually answers the question |
+| **Structure** | CTEs that match the steps of the argument; no extra union/padding/join when a simpler shape proves the same thing; window vs join chosen on purpose |
+| **Style** | Names a reviewer can read aloud; explicit `ORDER BY` when order is part of the answer; no dead expressions; Postgres-only syntax called out against the Snowflake form he uses at work |
+| **Screen narration** | One sentence he could say out loud: grain, why this pattern, what would break it |
+
+Still withhold a full rewrite until the critique is done. Offer a tighter version of *his* query when the gap is structural, so the comparison is visible.
+
 ### Lean-too-hard triggers → what I should say
 
 If you do something like:
