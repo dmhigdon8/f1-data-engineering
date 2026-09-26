@@ -21,6 +21,8 @@ Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1
 
 **AI / learning contract:** default **teach → pair** on learning work; ship only when named. If Daniel asks for exact steps with no attempt, agent should push for a proof together — see LEARNING_PLAN “How learning works here.”
 
+**Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
+
 **In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003 (attempt before answer).
 
 ---
