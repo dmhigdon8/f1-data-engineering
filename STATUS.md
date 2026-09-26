@@ -10,16 +10,28 @@
 
 ## Learning plan
 
-Sports-centered roadmap (SQL → dbt → AI → DSA → ingestion), with this F1 warehouse as the spine — plus **portable systems literacy** (Dell as practice gym), a sequenced **public analytics proof** option (X/YouTube), and an explicit **learn-with-AI contract** (retrieval, teach/pair/ship, lean-triggers):
+Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure → X/YouTube**, portable systems literacy on Dell, and a learn-with-AI / training-partner contract:
 
-- Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md) (Dual purpose, How learning works here, Phase 4b)
-- Phase 1 SQL drills: [`sql/drills/`](sql/drills/) (see [`sql/drills/README.md`](sql/drills/README.md))
+- Full plan: [`LEARNING_PLAN.md`](LEARNING_PLAN.md)
+- Phase 1 SQL drills: [`sql/drills/`](sql/drills/)
 
-**Primary machine for learning:** Dell XPS 14 Ubuntu (`~/f1-data-engineering`) — terminal-first for direct contact. Skills aimed at **portable Unix/container judgment** (also holds on Mac at work); Linux-only details only as needed to run the Dell. Mac remains secondary/convenience.
+**Primary machine for learning:** Dell XPS 14 Ubuntu (`~/f1-data-engineering`) — terminal-first. Portable skills for Mac at work.
 
-**North star:** career-general skills first (airlines/data background → sharper DE/analytics judgment). Side-hustle / pivot content is allowed later via fact-gated narratives from the warehouse — not auto-tweet theater early.
+**How to start a learning session:**
+1. On the **Dell**, terminal → `cd ~/f1-data-engineering` (run commands here).
+2. In **Cursor**, open a new chat/agent on repo `dmhigdon8/f1-data-engineering`.
+3. Paste this as your **first message** (not a shell command):
 
-**AI / learning contract:** default **teach → pair** on learning work; ship only when named. If Daniel asks for exact steps with no attempt, agent should push for a proof together — see LEARNING_PLAN “How learning works here.”
+```text
+Dell · teach mode · training partner · next proof: run sql drills 001 and 002 · hold me to LEARNING_PLAN “How learning works here” + SQL/dbt near-term lane
+```
+
+**AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
+
+**Plan status:** stack = SQL+dbt → AI infra → X/YouTube. Near-term = drills + dbt hardening. Next = Dell execution.
+
+
+**In progress (Phase 1):** drills 001–002 + singular test in-repo. Next: run live on Dell, under-the-hood note, drill 003 (attempt first).
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
 
