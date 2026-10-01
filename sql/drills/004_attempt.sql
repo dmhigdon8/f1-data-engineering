@@ -18,6 +18,10 @@ with base as (select
 select
 	base.*
 	, sum(streak_flag) over (partition by driver_id, streak_flag order by season, round_num) as podium_streak_length
+	, first_value(season) over (partition by driver_id, streak_flag order by season, round_num) as streak_start_season
+	, last_value(season) over (partition by driver_id, streak_flag order by season, round_num) as streak_end_season
+	, first_value(round_num) over (partition by driver_id, streak_flag order by season, round_num) as streak_start_round
+	, last_value(round_num) over (partition by driver_id, streak_flag order by season, round_num) as streak_end_round
 
 from base
 
