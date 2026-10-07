@@ -160,8 +160,8 @@ For the next **2–4 weeks**, success is only:
 4. Weekly cold check logged in `STATUS.md`  
 5. Zero AI infra builds beyond using teach/pair gates; **zero** X/YouTube / odds pipelines  
 
-After that lane is boring: Phase 2 dbt depth → Phase 4 AI infrastructure → Phase 4b content leverage.
-
+fter that lane is boring: Phase 2 dbt depth → Phase 4 AI infrastructure → Phase 4b content leverage.
+Q
 ---
 
 ## Training partner protocol (near-term + long-term)
@@ -372,7 +372,7 @@ Same contracts every time. Do **not** invent a new architecture for baseball.
 
 ### Suggested order
 
-1. **F1 deepen** — more Jolpica endpoints you don’t have yet (qualifying, pit stops, lap times if available / licensed). Prefer endpoints that create interesting grains.  
+1. **F1 deepen** — qualifying is in dbt (`stg_qualifying` view, `fct_qualifying_results` table, 5,089 rows, tests not written yet). Next: standings (raw JSON already loaded; extra nested list), then pit stops and lap times. Prefer endpoints that create interesting grains.  
 2. **MLB** — start narrow: schedules + game results for one season (e.g. Stats API or a stable open source).  
 3. **NFL** — schedules + weekly results; **defer betting odds** until marts + a publishable analytics loop exist (see Dual purpose).
 
@@ -527,6 +527,8 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 ---
 
 ## Immediate next actions (start here)
+
+**Current warehouse add:** `staging_staging.stg_qualifying` and `staging_marts.fct_qualifying_results`. Same `result_key` recipe as `fct_race_results`, so a drill can join qualifying to the race on that key. Tests for the new models are still deferred. Next model is standings, not a new sport.
 
 1. ~~Create `sql/drills/001_grain_fct_race_results.sql`~~ — done.  
 2. ~~Create `sql/drills/002_gap_to_leader.sql`~~ — done.  
