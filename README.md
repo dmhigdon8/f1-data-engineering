@@ -302,7 +302,8 @@ f1-data-engineering/
 │   ├── profiles.template.yml     # copy to ~/.dbt/profiles.yml
 │   └── models/
 │       ├── staging/              # views that flatten JSONB (lands in schema staging_staging)
-│       └── marts/                # dim_driver, dim_race, fct_race_results (+ tests) (lands in schema staging_marts)
+│       │   └── stg_qualifying.sql
+│       └── marts/                # dim_driver, dim_race, fct_race_results, fct_qualifying_results (lands in schema staging_marts)
 ├── postman/F1_Jolpica.postman_collection.json
 └── raw/                          # extractor drops JSON here (gitignored)
 ```
@@ -314,7 +315,7 @@ f1-data-engineering/
 You'll get the most out of this project if you extend it yourself. Suggested order:
 
 1. **Incremental extracts** — change `ingest/extract.py` to only pull the latest round instead of whole seasons. Track "last pulled round" in a small Postgres table.
-2. **Add pit stops and lap times** — new endpoints in `ENDPOINTS`, new staging + marts models.
+2. **Qualifying is modeled** — `stg_qualifying` and `fct_qualifying_results` (no dbt tests yet). Next new feed is standings (already in `raw.jolpica_payloads`), then pit stops and lap times.
 3. **Constructor dimension** — add `dim_constructor`, join to `fct_race_results`.
 4. **dbt tests that matter** — add `accepted_values` on `status`, a custom test that grid_position between 1 and 24.
 5. **Orchestration** — schedule the extractor with a simple cron, or level up to Apache Airflow / Prefect / Dagster.

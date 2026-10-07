@@ -30,6 +30,8 @@ Dell · teach mode · training partner · next proof: run sql drills 001 and 002
 
 **Plan status:** stack = SQL+dbt → AI infra → X/YouTube. Near-term = drills + dbt hardening. Next = Dell execution.
 
+**Qualifying fact (2026-10-06):** `dbt run --select stg_qualifying fct_qualifying_results` from `dbt_f1/` built `staging_staging.stg_qualifying` and `staging_marts.fct_qualifying_results` (5,089 rows). No dbt tests yet. Next model is standings. SQL drills can join it to `fct_race_results` on `result_key`.
+
 
 **In progress (Phase 1):** drills 001–002 + singular test in-repo. Next: run live on Dell, under-the-hood note, drill 003 (attempt first).
 
