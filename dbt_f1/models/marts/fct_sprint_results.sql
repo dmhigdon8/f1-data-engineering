@@ -1,6 +1,6 @@
 {{ config(materialized='table') }}
 
-with results as (select * from {{ ref('stg_sprint_results') }})
+with results as (select * from {{ ref('stg_sprint') }})
 select
     md5('sprint-' || season::text || '-' || round_num::text || '-' || driver_id) as result_key,
     md5(season::text || '-' || round_num::text)                                  as race_key,

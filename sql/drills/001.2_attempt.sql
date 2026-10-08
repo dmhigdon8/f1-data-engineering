@@ -3,7 +3,7 @@
 		count(*) as rows
 		, count(distinct (season, round_num, driver_id)) as d_rows
 
-from staging_marts.fct_race_results)
+from marts.fct_race_results)
 
 
  , step2 as (select
@@ -12,7 +12,7 @@ from staging_marts.fct_race_results)
  	, driver_id
  	, count(*) as n
 
- from staging_marts.fct_race_results
+ from marts.fct_race_results
 
  group by season, round_num, driver_id
  having count(*) > 1)

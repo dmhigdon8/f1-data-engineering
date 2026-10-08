@@ -245,9 +245,9 @@ dbt docs generate && dbt docs serve   # opens a lineage graph in your browser
 cd ..
 ```
 
-If `dbt build` succeeds you'll have real tables — **note:** despite `dbt_project.yml` saying `+schema: marts`, dbt prefixes custom schemas with the profile's target schema (`staging`), so the models actually land in `staging_marts`, not `marts`. Same pattern gives `staging_staging` for the staging views. Query accordingly:
+If `dbt build` succeeds you'll have real tables in `marts` and views in `staging`. `macros/generate_schema_name.sql` tells dbt to use those folder schema names as written.
 ```bash
-psql "postgresql://f1:f1pass@localhost:5433/f1" -c "\dt staging_marts.*"
+psql "postgresql://f1:f1pass@localhost:5433/f1" -c "\dt marts.*"
 ```
 
 ### 3f. Try a real analysis query
@@ -258,8 +258,8 @@ select d.full_name,
        count(*) filter (where f.is_winner) as wins,
        count(*) filter (where f.is_podium) as podiums,
        sum(f.points) as total_points
-from staging_marts.fct_race_results f
-join staging_marts.dim_driver d using (driver_id)
+from marts.fct_race_results f
+join marts.dim_driver d using (driver_id)
 where f.season = 2024
 group by d.full_name
 order by total_points desc
@@ -301,9 +301,8 @@ f1-data-engineering/
 │   ├── dbt_project.yml
 │   ├── profiles.template.yml     # copy to ~/.dbt/profiles.yml
 │   └── models/
-│       ├── staging/              # views that flatten JSONB (lands in schema staging_staging)
-│       │   └── stg_qualifying.sql
-│       └── marts/                # dim_driver, dim_race, fct_race_results, fct_qualifying_results (lands in schema staging_marts)
+│       ├── staging/              # stg_<endpoint> views (schema staging)
+│       └── marts/                # dim_<singular>, fct_<event> tables (schema marts)
 ├── postman/F1_Jolpica.postman_collection.json
 └── raw/                          # extractor drops JSON here (gitignored)
 ```
@@ -315,8 +314,8 @@ f1-data-engineering/
 You'll get the most out of this project if you extend it yourself. Suggested order:
 
 1. **Incremental extracts** — change `ingest/extract.py` to only pull the latest round instead of whole seasons. Track "last pulled round" in a small Postgres table.
-2. **Qualifying is modeled** — `stg_qualifying` and `fct_qualifying_results` (no dbt tests yet). Next new feed is standings (already in `raw.jolpica_payloads`), then pit stops and lap times.
-3. **Constructor dimension** — add `dim_constructor`, join to `fct_race_results`.
+2. **Qualifying, driver standings, and constructors are modeled** — `stg_qualifying` / `fct_qualifying_results`, `stg_standings` / `fct_driver_standings`, and `stg_constructors` / `dim_constructor` (20 teams, no dbt tests yet). Join facts to `dim_constructor` on `constructor_id`.
+3. **Pit stops and lap times** — next new feeds. Both are per round, so `ingest/extract.py` has to loop rounds before the dbt models can be written.
 4. **dbt tests that matter** — add `accepted_values` on `status`, a custom test that grid_position between 1 and 24.
 5. **Orchestration** — schedule the extractor with a simple cron, or level up to Apache Airflow / Prefect / Dagster.
 6. **Swap Postgres for Redshift or Snowflake** — only dbt `profiles.yml` changes; rest of the project is identical.
@@ -337,7 +336,6 @@ docker image prune           # reclaim disk
 ## 8. Troubleshooting
 
 - **`dbt debug` says connection refused** → the Postgres container hasn't finished booting, or you're on the wrong port. Re-run `docker compose up -d postgres`, watch logs, and confirm you're connecting to `5433` (host) not `5432` (that's only the in-container port — see the gotcha in section 2).
-- **`\dt marts.*` or `select ... from marts.foo` returns nothing** → the schema is actually `staging_marts` (and `staging_staging` for staging models), not `marts` — see the note in section 3e.
 - **macOS: `docker: command not found`** → Docker Desktop isn't installed or hasn't been launched once. Open it from Launchpad, wait for the whale icon to stop animating.
 - **Linux: `docker: command not found` or daemon unreachable** → make sure Docker Engine is installed and running (`sudo systemctl status docker`). If `docker info` fails with a permission error specifically, your user isn't in the `docker` group yet — `sudo usermod -aG docker $USER`, then fully log out and back in (not just a new terminal tab).
 - **`pip install dbt-postgres` fails with a psycopg2 build error** → make sure the Postgres client headers are installed: `brew link --force libpq` on macOS, or `sudo apt install libpq-dev` on Linux. Or install into a venv/pipx instead of system Python.

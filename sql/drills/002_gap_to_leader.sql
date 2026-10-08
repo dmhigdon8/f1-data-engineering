@@ -7,11 +7,11 @@
     display string from Jolpica, not a reliable interval.)
 
   Assumed grain:
-    Input: one row per driver per race in staging_marts.fct_race_results.
+    Input: one row per driver per race in marts.fct_race_results.
     Output: one row per driver for the chosen race, with window columns.
 
   Tables used:
-    staging_marts.fct_race_results
+    marts.fct_race_results
 
   Tip:
     Change the season/round filters below. Example uses 2024 round 1 (Bahrain).
@@ -19,7 +19,7 @@
 
 with race as (
     select *
-    from staging_marts.fct_race_results
+    from marts.fct_race_results
     where season = 2024
       and round_num = 1
 )
@@ -57,6 +57,6 @@ order by finish_position nulls last, driver_id;
 --     finish_position
 --         - min(finish_position) over (partition by season, round_num) as positions_behind_leader,
 --     max(points) over (partition by season, round_num) - points as points_behind_leader
--- from staging_marts.fct_race_results
+-- from marts.fct_race_results
 -- where season = 2024
 -- order by round_num, finish_position nulls last;

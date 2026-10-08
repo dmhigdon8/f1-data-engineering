@@ -12,7 +12,7 @@ select
     , first_value(points) over (order by points desc) - points as pts_gap_to_leader
     , finish_position - first_value(finish_position) over (order by finish_position asc) as position_gap_to_leader
 
-from staging_marts.fct_race_results
+from marts.fct_race_results
 
 where
 	season = 2024

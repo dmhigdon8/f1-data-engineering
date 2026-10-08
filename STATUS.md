@@ -30,7 +30,13 @@ Dell · teach mode · training partner · next proof: run sql drills 001 and 002
 
 **Plan status:** stack = SQL+dbt → AI infra → X/YouTube. Near-term = drills + dbt hardening. Next = Dell execution.
 
-**Qualifying fact (2026-10-06):** `dbt run --select stg_qualifying fct_qualifying_results` from `dbt_f1/` built `staging_staging.stg_qualifying` and `staging_marts.fct_qualifying_results` (5,089 rows). No dbt tests yet. Next model is standings. SQL drills can join it to `fct_race_results` on `result_key`.
+**Qualifying fact (2026-10-06):** `stg_qualifying` and `fct_qualifying_results` (5,089 rows). No dbt tests yet. SQL drills can join it to `fct_race_results` on `result_key`.
+
+**Driver standings (2026-10-07):** `stg_standings` and `fct_driver_standings` (268 rows, one championship snapshot per season). Staging models are named `stg_<endpoint>`; marts stay `dim_<singular>` and `fct_<event>`.
+
+**Constructor dimension (2026-10-07):** `stg_constructors` and `dim_constructor` (20 rows). Built from the constructor object nested in the `results` payload, not a separate endpoint. Join facts on `constructor_id`. Next feed is pit stops and lap times, and both require the extractor to loop rounds.
+
+**Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
 **In progress (Phase 1):** drills 001–002 + singular test in-repo. Next: run live on Dell, under-the-hood note, drill 003 (attempt first).
@@ -78,7 +84,7 @@ Homebrew, git, gh, python@3.12, awscli, libpq/psql, Docker Desktop, Postman all 
 - Host port is **5433** (not the default 5432) on every machine. Every host-side connection string uses `:5433`. Inside Docker, the extractor still uses `:5432`.
 - `ingest/load.py` is idempotent — reloading doesn't duplicate rows. If the schema changes again, new files in `sql/init/` only auto-apply to a *fresh* Postgres volume; apply manually to an existing one with `psql ... -f sql/init/<file>.sql`.
 - Docker occasionally pulls a newer `postgres:16` image and recreates the container on `docker compose up`. Harmless — data lives in the named `pgdata` volume, which persists across container recreation (only lost via `docker compose down -v` or explicit volume removal).
-- The dbt marts schema is **not** literally named `marts` in Postgres — due to `dbt_project.yml`'s schema config, models land in `staging_marts` (and staging models in `staging_staging`). Query `staging_marts.dim_driver`, `staging_marts.fct_race_results`, etc., not `marts.*`.
+- dbt models land in `staging` (views) and `marts` (tables). Query `marts.fct_race_results`, `marts.dim_driver`, and `staging.stg_results`.
 - Mac only: Finder silently drops dotfiles when copying folders — use `cp -a` or zip first. Finder also hides dotfiles like `.env` by default; toggle visibility with **Cmd+Shift+.**, and edit in a code editor or `nano`, not TextEdit (rich-text mangling).
 - pipx + dbt: `dbt-postgres` alone is not a CLI app. Install `dbt-core` first, then `pipx inject dbt-core dbt-postgres` (both version-pinned and quoted, per above).
 - The `extractor` Docker image already has `boto3`/`click`/etc. from `requirements.txt`, so ad hoc S3 commands run via `docker compose run --rm extractor python -m ingest.s3_client <cmd>` — no separate local Python env needed for AWS work.

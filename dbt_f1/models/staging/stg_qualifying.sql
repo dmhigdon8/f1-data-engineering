@@ -20,7 +20,7 @@ flattened as (
     from pages,
          jsonb_array_elements(payload->'pages')                            as page,
          jsonb_array_elements(page->'MRData'->'RaceTable'->'Races')        as race,
-         jsonb_array_elements(race->'QualifyingResults')                             as res
+         jsonb_array_elements(race->'QualifyingResults')                   as res
 )
 select *
 from flattened

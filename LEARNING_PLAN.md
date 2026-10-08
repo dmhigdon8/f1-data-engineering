@@ -239,7 +239,7 @@ Space Traders stays optional: great for API polling / rate limits / game-state f
 
 | Priority | Skill | Where you practice it | “Done looks like” |
 |----------|--------|------------------------|-------------------|
-| 1 | SQL | `sql/drills/`, ad-hoc on `staging_marts.*`, interview-style prompts on your own tables | You can answer grain, window, and gap questions without guessing |
+| 1 | SQL | `sql/drills/`, ad-hoc on `marts.*`, interview-style prompts on your own tables | You can answer grain, window, and gap questions without guessing |
 | 2 | dbt | `dbt_f1/` → later `dbt_sports/` or multi-project | Incremental models, tests that catch real bugs, docs people could trust |
 | 3 | AI infrastructure | Gates, grounded generation, `AI_WORKFLOW.md`, warehouse-tied tooling — **after** 1–2 | You steer AI; outputs are pinned to query results; lean-triggers respected |
 | 4 | X / YouTube leverage | Phase 4b only — artifact → fact-gated draft → optional post | Public proof without outsourcing truth; never ahead of 1–3 |
@@ -286,7 +286,7 @@ Optional: one short note in `STATUS.md` or a drill header — “implication I a
 |--------------------|---------------------------------|---------------------------|
 | `docker compose up` / Postgres healthy | daemon vs container vs volume; host port **5433** vs container **5432**; restart policy | Where data survives; what “the DB is up” actually means (same on Mac Desktop or Linux Engine) |
 | `psql` / SQL drills / `EXPLAIN ANALYZE` | client → TCP → server process; query plan vs “SQL looks fine” | Cost, indexes, when the machine (not the query text) is the bottleneck |
-| `dbt build` | Python env (`pipx`/`PATH`), profiles, schemas (`staging_marts` quirk), materializations as tables/views | Abstractions compile to real objects; misconfig is a *machine* story on any OS |
+| `dbt build` | Python env (`pipx`/`PATH`), profiles, schemas (`staging` views, `marts` tables), materializations as tables/views | Abstractions compile to real objects; misconfig is a *machine* story on any OS |
 | Extract → `raw/` → S3 → load | filesystem paths, credentials, network egress, idempotent writes | Durability and trust boundaries (local disk ≠ bucket ≠ warehouse) |
 | Resource weirdness (slow, OOM, full disk) | `df -h`, memory pressure, `docker system df` | Capacity thinking before you buy more cloud or add Spark |
 
@@ -345,7 +345,7 @@ Build a `sql/drills/` folder of **problems against your own warehouse**, not onl
 
 ## Phase 2 — Make dbt do real work (not just `SELECT *` staging)
 
-Current shape: staging (`stg_drivers/races/results/sprint_results`) + marts (`dim_*`, `fct_*`). Next skills, in order:
+Current shape: staging is `stg_<endpoint>` (`stg_drivers`, `stg_races`, `stg_results`, `stg_sprint`, `stg_qualifying`, `stg_standings`) plus `stg_constructors` (built from the `results` payload, because constructors are not their own endpoint). Marts are `dim_<singular>` (`dim_driver`, `dim_race`, `dim_constructor`) plus `fct_<event>`. Next skills, in order:
 
 | Step | dbt skill | Concrete F1 task |
 |------|-----------|------------------|
@@ -358,7 +358,7 @@ Current shape: staging (`stg_drivers/races/results/sprint_results`) + marts (`di
 | 2g | Packages | `dbt_utils` (`surrogate_key`, `deduplicate`) — use deliberately, don’t carpet-import |
 | 2h | CI | GitHub Action: `dbt parse` + `dbt build` against Docker Postgres on PR |
 
-Also fix/document the schema naming quirk (`staging_marts` vs `marts`) so future-you queries the right place — or set `+schema` cleanly so marts land in `marts`.
+Schema names are clean: `macros/generate_schema_name.sql` uses the custom schema as written, so models land in `staging` and `marts`.
 
 **Systems hook (Phase 2):** when you add CI and incremental models, explicitly contrast *local Dell Docker Postgres* vs *ephemeral CI Postgres* — same dbt project, different lifetime of state. That’s the abstraction worth owning.
 
@@ -372,7 +372,7 @@ Same contracts every time. Do **not** invent a new architecture for baseball.
 
 ### Suggested order
 
-1. **F1 deepen** — qualifying is in dbt (`stg_qualifying` view, `fct_qualifying_results` table, 5,089 rows, tests not written yet). Next: standings (raw JSON already loaded; extra nested list), then pit stops and lap times. Prefer endpoints that create interesting grains.  
+1. **F1 deepen** — qualifying, driver standings, and `dim_constructor` (20 teams, joined to the facts on `constructor_id`) are in dbt. Tests for those models are not written yet. Next: pit stops and lap times. Both need a round-level extract; the current extractor only templates `{season}`.  
 2. **MLB** — start narrow: schedules + game results for one season (e.g. Stats API or a stable open source).  
 3. **NFL** — schedules + weekly results; **defer betting odds** until marts + a publishable analytics loop exist (see Dual purpose).
 
@@ -528,7 +528,7 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 
 ## Immediate next actions (start here)
 
-**Current warehouse add:** `staging_staging.stg_qualifying` and `staging_marts.fct_qualifying_results`. Same `result_key` recipe as `fct_race_results`, so a drill can join qualifying to the race on that key. Tests for the new models are still deferred. Next model is standings, not a new sport.
+**Current warehouse add:** qualifying (`staging.stg_qualifying`, `marts.fct_qualifying_results`), driver standings (`staging.stg_standings`, `marts.fct_driver_standings`, 268 rows), and constructors (`staging.stg_constructors`, `marts.dim_constructor`, 20 rows). `stg_constructors` reads the `results` endpoint and `select distinct`s the nested constructor object. Qualifying shares `result_key` with `fct_race_results`. Facts join `dim_constructor` on `constructor_id`. Tests for these models are still deferred. Next feed is pit stops and lap times, which need a round-level extract. Not a new sport.
 
 1. ~~Create `sql/drills/001_grain_fct_race_results.sql`~~ — done.  
 2. ~~Create `sql/drills/002_gap_to_leader.sql`~~ — done.  

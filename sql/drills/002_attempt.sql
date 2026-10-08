@@ -1,4 +1,4 @@
-with winner as (select season, race_name, is_winner, driver_id, points, finish_time, finish_position from staging_marts.fct_race_results where season = 2024 and round_num = 1 and is_winner)
+with winner as (select season, race_name, is_winner, driver_id, points, finish_time, finish_position from marts.fct_race_results where season = 2024 and round_num = 1 and is_winner)
 
 
 select
@@ -15,7 +15,7 @@ select
 	, a.finish_position - w.finish_position as driver_finish_position_gap_to_winner
 
 
-from staging_marts.fct_race_results a
+from marts.fct_race_results a
 	left join winner w on a.season=w.season and a.race_name=w.race_name
 
 where

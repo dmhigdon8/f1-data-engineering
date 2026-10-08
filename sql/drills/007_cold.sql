@@ -3,7 +3,7 @@ with race as (
 		season
 		, round_num
 
-	from staging_marts.fct_race_results
+	from marts.fct_race_results
 
 	where season = 2024)
 
@@ -12,7 +12,7 @@ with race as (
 		season
 		, round_num
 
-	from staging_marts.fct_sprint_results
+	from marts.fct_sprint_results
 
 	where season = 2024)
 

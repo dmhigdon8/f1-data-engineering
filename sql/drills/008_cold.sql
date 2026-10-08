@@ -4,7 +4,7 @@ with base as (select
 	, is_podium
 	, lag(is_podium) over (partition by driver_id order by round_num) as prev_podium_flag
 
-from staging_marts.fct_race_results
+from marts.fct_race_results
 
 where
 	season = 2024)
