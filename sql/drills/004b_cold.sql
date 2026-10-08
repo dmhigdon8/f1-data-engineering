@@ -4,7 +4,7 @@ with base as (select
 	, is_points_finish
 	, lag(is_points_finish) over (partition by driver_id order by round_num) as prev_points_finish
 
-from staging_marts.fct_race_results
+from marts.fct_race_results
 
 where 
 	season = 2024)

@@ -1,11 +1,11 @@
 with gp as (select distinct
 	driver_id
 	
-from staging_marts.fct_race_results
+from marts.fct_race_results
 
 where season = 2024)
 
-, sprints as (select distinct driver_id from staging_marts.fct_sprint_results where season = 2024)
+, sprints as (select distinct driver_id from marts.fct_sprint_results where season = 2024)
 
 
 select

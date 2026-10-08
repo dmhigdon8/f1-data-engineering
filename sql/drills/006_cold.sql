@@ -2,7 +2,7 @@ with base as (select
 	driver_id
 	, sum(points) as points
 
-from staging_marts.fct_race_results
+from marts.fct_race_results
 
 where season = 2024
 

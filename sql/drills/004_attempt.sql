@@ -6,7 +6,7 @@ with ordered as (
         , is_podium
         , lag(is_podium) over (partition by driver_id order by season, round_num) as prev_podium
         , lead(is_podium) over (partition by driver_id order by season, round_num) as next_podium
-    from staging_marts.fct_race_results
+    from marts.fct_race_results
 )
 
 , streaks as (select

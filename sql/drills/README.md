@@ -5,7 +5,7 @@ Interview-style / warehouse-native SQL practice against this project's Postgres 
 Conventions:
 - One file per drill: `NNN_short_slug.sql`
 - Header comment: question, assumed grain, tables used
-- Prefer querying `staging_marts.*` (see STATUS.md naming quirk) unless schemas are cleaned up
+- Query `marts.*` for facts and dimensions, and `staging.*` for the flatten views
 - Commit a working answer; optional `-- alternate:` solutions welcome
 - **Learning rule:** attempt the question (or write your own draft in a scratch file) *before* reading the committed answer — then diff. Cold-redo a prior drill weekly without opening the file.
 
