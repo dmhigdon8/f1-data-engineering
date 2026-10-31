@@ -104,6 +104,8 @@ Cover these, skipping any that the attempt already does well:
 
 Still withhold a full rewrite until the critique is done. Offer a tighter version of *his* query when the gap is structural, so the comparison is visible.
 
+**Feedback loop.** A grade that stays in the chat does not coach the next session. After every grade, update the skill log in `STATUS.md` before the session ends: pattern, verdict (`strong`, `shaky`, `untested`), the evidence (drill file), and the one nit if any. Append one dated line to the grade trail and rewrite the path line if the next proof changed. Do not assign a numeric score. The next proof targets the shakiest pattern a screen would actually ask. A syllabus item comes after that, not instead of it. The same nit on two grades in a row is shaky even if both results passed: the next grade treats that nit as a fail until it is gone. A pattern is `strong` only after a correct cold redo on a later day, not after one assisted pass. Read `sql/quiz/log.md` at session open. A phone `pass` or `repaired` does not move the skill log.
+
 ### Lean-too-hard triggers → what I should say
 
 If you do something like:
@@ -123,9 +125,10 @@ Then we agree a **proof**: e.g. you write SQL that fails closed; or you explain 
 ### How this stays “dynamic” week to week
 
 - **In-session:** triggers + modes above.  
-- **Across sessions:** `STATUS.md` notes “lean events” or “cold checks passed” so the next chat continues the arc.  
+- **Across sessions:** the skill log in `STATUS.md` is the record of what is strong, shaky, or untested. Read it before assigning the next proof. Update it after every grade.  
 - **In drills:** answer files exist for feedback *after* attempt — not as the first open.  
 - **Weekly:** one **cold retrieval** (no AI, no answer file): explain `fct_race_results` grain or rewrite last week’s drill header + approach from memory.
+- **After the SQL/dbt lane:** Phase 4 “AI usage coach” triggers below. They do nothing until that lane is done, and only if this file is loaded.
 
 If this section and `STATUS.md` aren’t loaded, assume the contract is dormant — wake it by linking here.
 
@@ -152,16 +155,21 @@ Honest critique of the plan you’re standing on — including ways *I* can fail
 
 **Stack reminder:** SQL + dbt → AI infrastructure → X/YouTube. Do not invert.
 
+**Decision (2026-10-28):** A final-round no, with a solid technical, means more SQL screens are still the near-term job. The long-term craft is directing AI (skills A–F now, Phase 4 projects later), not skipping the warehouse. “Writing code is going away” does not move Cursor skills, RAG, or narrative generators ahead of the next screen. In-session AI practice is allowed and required: frame the task, attempt first, take a grade, restate the answer. Building a skill library or an AI app is Phase 4, after one real dbt hardening proof.
+
+**Decision (2026-10-30):** The current job now includes a dbt and third-party API ingestion specialist who reports to him. That does not start pit stops, a new sport, or an ingestion build. It adds a review bar beside the one grain test: he can read someone else’s model and load and say what the grain is, what a retry would duplicate, what a late or changed payload would do, and which test would catch it. He does not need to out-code that person.
+
+**What he still does himself:** on a screen, write the SQL cold. The skill log is the list, not all of SQL. At work, AI may type the query; he states the grain, the constraints, and the check, then rejects a wrong join, a dead `GROUP BY`, or a missing column. Hand-writing algorithms, forecasts, or extractors is not the bar. Knowing which approach applies, and what breaks it, is the bar. Python, stats, DSA, a semantic layer, and the sports product stay behind that. Docker and AWS stay a lens for reading his specialist’s pipeline, not a second course.
+
 For the next **2–4 weeks**, success is only:
 
-1. Drills 001–002 run on Dell + singular test green  
-2. ≥3 new drills **you** authored (attempt → answer), including one cold-redone later  
-3. One meaningful dbt hardening (extra test or grain documentation)  
-4. Weekly cold check logged in `STATUS.md`  
-5. Zero AI infra builds beyond using teach/pair gates; **zero** X/YouTube / odds pipelines  
+1. Cold multi-table SQL on the marts you have: qualifying joined to race results on `result_key`, standings points versus the sum of race points, constructor points (drill 010 is the first of these).  
+2. One dbt test that would fail on a bad grain (`dim_constructor` or `fct_qualifying_results`).  
+3. One delayed cold redo of a prior drill, with Snowflake dialect called out in the grade.  
+4. Weekly cold check logged in `STATUS.md`.  
+5. AI work limited to skills A–F inside those sessions. No Phase 4 build. No new sport. No pit stops or laps until this lane is boring.
 
-fter that lane is boring: Phase 2 dbt depth → Phase 4 AI infrastructure → Phase 4b content leverage.
-Q
+After that lane is boring: Phase 2 dbt depth → Phase 4 AI infrastructure → Phase 4b content leverage.
 ---
 
 ## Training partner protocol (near-term + long-term)
@@ -205,7 +213,7 @@ There is **no special app or CLI called summon**. Two different places:
 Example — open a new chat on the F1 repo and paste:
 
 ```text
-Dell · teach mode · training partner · next proof: run sql drills 001 and 002 · hold me to LEARNING_PLAN “How learning works here” + SQL/dbt near-term lane
+Dell · teach mode · training partner · next proof: cold islands on a later day, new event, do not hand over the finished query · 004/008/009/012/013 stay closed · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 That tells the agent: you’re on the Dell, you want coaching (not “just do it”), what’s in scope this session, and which plan sections to follow. Then you run the actual `psql` / `dbt` commands **in the Dell terminal** (or ask the agent to guide you step-by-step while you type them).
@@ -411,6 +419,22 @@ sql/drills/
 Treat AI as a **force multiplier with verification gates**, not as the source of truth.  
 Skills A–F and teach/pair/ship modes live in **How learning works here** — this phase is where you practice them on purpose.
 
+### AI usage coach (dormant until the near-term lane is done)
+
+There is no background monitor. A future session coaches AI usage only when this file is in context. It sees this repo, this chat, and `STATUS.md`. It does not see other apps, other agents, or closed chats unless the artifact or the story lands here.
+
+Until the standings-versus-race-points drill, one cold redo, and one dbt grain test are done, name a trigger in one sentence and stay on that proof. Do not leave the SQL or dbt task to build the skill.
+
+Once that lane is done, call the trigger, teach why, then teach the smallest version:
+
+| Trigger in the work | Call out | Why |
+|---------------------|----------|-----|
+| The same instructions show up a third time (a prompt, a review checklist, a “how we build a model” routine) | Make a skill: a short file a future agent loads on purpose, instead of pasting the prompt again | The repeated judgment becomes part of the repo. A skill is memory with a job, not a longer chat. |
+| Two agents do the same task, or one agent both writes and approves | Split the roles. One produces. A second only checks against a written rubric (grain, tests, “would I bet my name on this number?”) and does not rewrite | A second model is useful when its job is narrower than the first. Asking two models the same open question is two drafts, not a check. |
+| You accept an answer you cannot restate | Skills C and E, already in force | A checker framework on top of an answer you cannot explain checks the wrong thing. |
+
+Log taken or skipped triggers in `STATUS.md` so the next chat does not rediscover them. The exit artifact for this phase is still `AI_WORKFLOW.md`: the prompts you reuse, the gates you refuse to skip, and which of those became a skill or a checker role.
+
 ### Weekly AI practice (tied to this repo)
 
 | Use | Do this | Verification gate |
@@ -528,14 +552,16 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 
 ## Immediate next actions (start here)
 
-**Current warehouse add:** qualifying (`staging.stg_qualifying`, `marts.fct_qualifying_results`), driver standings (`staging.stg_standings`, `marts.fct_driver_standings`, 268 rows), and constructors (`staging.stg_constructors`, `marts.dim_constructor`, 20 rows). `stg_constructors` reads the `results` endpoint and `select distinct`s the nested constructor object. Qualifying shares `result_key` with `fct_race_results`. Facts join `dim_constructor` on `constructor_id`. Tests for these models are still deferred. Next feed is pit stops and lap times, which need a round-level extract. Not a new sport.
+**Current warehouse add:** qualifying (`staging.stg_qualifying`, `marts.fct_qualifying_results`), driver standings (`staging.stg_standings`, `marts.fct_driver_standings`, 268 rows), and constructors (`staging.stg_constructors`, `marts.dim_constructor`, 20 rows). Drill 010 (2024 constructor race points) is in [pull request #11](https://github.com/dmhigdon8/f1-data-engineering/pull/11). Tests for the new models are still deferred. Pit stops, lap times, and a new sport stay parked.
 
-1. ~~Create `sql/drills/001_grain_fct_race_results.sql`~~ — done.  
-2. ~~Create `sql/drills/002_gap_to_leader.sql`~~ — done.  
-3. ~~Add singular dbt test for duplicate driver-race rows~~ — done (`assert_no_duplicate_driver_race`).  
-4. **On the Dell:** run drills 001–002 with `psql`, run `dbt test --select assert_no_duplicate_driver_race`, and write one short “under the hood” note (process / state / failure mode).  
-5. Add drill `003_…` from Phase 1 themes (windows / gaps / anti-joins) — **your attempt first**, then compare.  
-6. When starting learning chats: link **How learning works here** (or say “teach mode”) so the lean-triggers are active.  
-7. Schedule next sport only after (4–5) are done cold.
+**Near-term lane (2026-10-28):** more technical screens, so SQL stays first. dbt’s next proof is one grain test, not another table. AI practice is skills A–F inside those sessions (frame, attempt, grade, restate). Phase 4 projects wait until that dbt proof exists.
+
+1. ~~Drills 001–009 and the singular duplicate-driver-race test~~ — done.  
+2. ~~Drill 010, constructor points join~~ — written; grade was a pass with style nits (`inner join`, named `GROUP BY` / `ORDER BY`).  
+3. **Next SQL proof:** cold islands on a later day. Drill 013 (2026-10-30) is a coached pass, 13 rows, and it counts: he wrote the running sum and put the podium filter in the following CTE. It is not `strong`. New event, no finished query, and files 004, 008, 009, 012, and 013 stay closed. Standings versus race points comes after that cold pass.  
+4. **Next dbt proof:** one `unique` / `not_null` or relationship test on `dim_constructor` or `fct_qualifying_results`. After that test exists, use it as the review bar on the specialist’s dbt and API loads. Do not build pit stops for that practice.  
+5. When starting learning chats: link **How learning works here** (or say “teach mode”).
+6. Book map for this shelf: [`LEARNING_LIBRARY.md`](LEARNING_LIBRARY.md). Do not start a reading program ahead of the islands reps. The one book to buy for the SQL lane is Practical SQL, 2nd edition.
+7. Phone retrieval: [`sql/quiz/BOT.md`](sql/quiz/BOT.md). A scheduled Cursor agent asks the card; he answers in the Cursor iPhone app. The reply is appended to `sql/quiz/log.md`. Read that log at the start of a Dell session. It does not change the skill log.
 
 You’re on the **Dell XPS (Ubuntu)**. Prefer that machine for learning sessions; Mac remains the backup.

@@ -1,6 +1,6 @@
 # F1 Project — Session Status
 
-**Last session:** September 20, 2026
+**Last session:** October 30, 2026. The learning-plan section below is the current position. The September notes further down are history.
 **Owner:** Daniel Higdon — now working across two machines:
   - **Mac:** macOS 26.6.2, Intel Mac (T2), path `~/Desktop/Projects/f1-data-engineering`
   - **Dell:** Dell XPS 14 (2026) Ubuntu Developer Edition, Core Ultra X7 358H, 64GB RAM, 1TB SSD, Ubuntu 24.04.5 LTS, path `~/f1-data-engineering`
@@ -23,12 +23,12 @@ Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure �
 3. Paste this as your **first message** (not a shell command):
 
 ```text
-Dell · teach mode · training partner · next proof: run sql drills 001 and 002 · hold me to LEARNING_PLAN “How learning works here” + SQL/dbt near-term lane
+Dell · teach mode · training partner · next proof: cold islands on a later day, new event, do not hand over the finished query · 004/008/009/012/013 stay closed · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 **AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
 
-**Plan status:** stack = SQL+dbt → AI infra → X/YouTube. Near-term = drills + dbt hardening. Next = Dell execution.
+**Plan status (2026-10-28):** stack stays SQL+dbt → AI infra → X/YouTube. More technical screens are the job, so SQL stays first. Next dbt proof is one grain test. AI practice now is skills A–F inside drill sessions, not a Phase 4 build.
 
 **Qualifying fact (2026-10-06):** `stg_qualifying` and `fct_qualifying_results` (5,089 rows). No dbt tests yet. SQL drills can join it to `fct_race_results` on `result_key`.
 
@@ -39,11 +39,30 @@ Dell · teach mode · training partner · next proof: run sql drills 001 and 002
 **Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
-**In progress (Phase 1):** drills 001–002 + singular test in-repo. Next: run live on Dell, under-the-hood note, drill 003 (attempt first).
+**In progress (Phase 1):** Islands is a coached pass, still shaky. On 2026-10-30 he wrote the running sum and put `is_podium = 1` in the following CTE for 2023 podium streaks (`sql/drills/013_islands_coached.sql`, 13 rows). That rep counts. It is not `strong`: the start-flag rule was coached in the same session. Next proof is a cold islands redo on a later day, new event, no answer file. Files 004, 008, 009, 012, and 013 stay closed. Standings versus race points is unblocked and comes after that cold pass.
+
+**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a cold islands redo on a later day, new event. Files 004, 008, 009, 012, and 013 stay closed. Standings versus race points is next, then the grain test. Strong: grain, anti-join. Blocking shaky: islands. Phone card is `sql/quiz/card.md` for 2026-10-31. Automations are not on, and `sql/quiz/log.md` is empty. A phone pass does not move the table below.
+
+**Skill log (update after every grade).** Verdicts: `strong` (correct cold redo on a later day), `shaky` (passed, nit repeated or not yet redone cold), `untested`. No numeric score. Next proof targets the shakiest screen pattern, then the syllabus. Rewrite the path line when the next proof changes. Append one line to the grade trail. Do not erase older lines. Phone quizzes in `sql/quiz/log.md` are retrieval notes. A bot `pass` does not move a row in this table.
+
+| Pattern | Verdict | Evidence | Nit still open |
+|---------|---------|----------|----------------|
+| Grain | strong | 001 redo, 005 cold | — |
+| Windows / gap to leader | shaky | 002 redo passed | Not redone cold on a later day |
+| Anti-join | strong | 014 cold 2026-10-30, 7 rows, `race_name` included | — |
+| Islands | shaky | 013 coached pass 2026-10-30, 13 rows | Running sum and the podium filter were his. Same-session coaching, so not a cold pass. Next proof is a later-day cold redo. |
+| Season rank | shaky | 006 cold passed | Not redone cold |
+| Join a fact to a dimension | shaky | 010 passed | `left join` where `inner` matched the question; dead `GROUP BY` |
+| Join two facts | shaky | 011 passed, 479 rows | `qualifying_position` omitted; dead `GROUP BY` again |
+| Two totals that should disagree (standings vs race points) | untested | — | Unblocked by 013. Assign after the cold islands redo. |
+| dbt grain test | untested | one singular test exists for race results | Not written for constructor or qualifying |
+
+**Grade trail** (append only):
+
+- 2026-10-30 — 013 islands, coached pass, 13 rows. Verdict stays shaky. He wrote the running sum and put the podium filter in the next CTE. Same-session coaching, so not cold.
+- 2026-10-30 — 014 anti-join, cold pass, 7 rows, `race_name` included. Verdict moves to strong.
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
-
-**In progress (Phase 1):** grain + gap-to-leader drills + singular dbt test are in-repo. Next on Dell: run them live (`psql` + `dbt test`), write one short under-the-hood note, then add drill 003 (attempt before answer).
 
 ---
 
