@@ -1,12 +1,10 @@
-# SQL drills
+# SQL examples
 
-Interview-style / warehouse-native SQL practice against this project's Postgres + dbt marts.
+Warehouse queries against the dbt marts in this project. Each numbered file is one question: grain, windows, anti-joins, streaks, season rank, or a join across facts and dimensions.
 
 Conventions:
-- One file per drill: `NNN_short_slug.sql`
-- Header comment: question, assumed grain, tables used
-- Query `marts.*` for facts and dimensions, and `staging.*` for the flatten views
-- Commit a working answer; optional `-- alternate:` solutions welcome
-- **Learning rule:** attempt the question (or write your own draft in a scratch file) *before* reading the committed answer — then diff. Cold-redo a prior drill weekly without opening the file.
 
-Start from [`LEARNING_PLAN.md`](../../LEARNING_PLAN.md) Phase 1 and “How learning works here.”
+- One file per example: `NNN_short_slug.sql`
+- Header comment states the question, the grain, and the tables
+- Query `marts.*` for facts and dimensions, and `staging.*` for the flattened views
+- Files named `attempt` are drafts beside the finished example

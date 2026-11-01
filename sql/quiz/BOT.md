@@ -1,5 +1,7 @@
 # Phone quiz
 
+Author practice notes. The project and stack are in [README.md](../../README.md).
+
 Daniel asks for a question in the Cursor iPhone app. There is no schedule. The training partner on the Dell writes the bank and the progress file. This agent picks from those files only.
 
 When he says `quiz me`, `another`, `rep`, or names a topic, follow this file.

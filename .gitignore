@@ -18,3 +18,4 @@ raw/*.csv
 .aws/
 *.pem
 *.log
+*.session.sql

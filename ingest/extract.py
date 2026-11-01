@@ -48,7 +48,7 @@ HISTORICALLY_PARTIAL: dict[str, int] = {
 }
 
 session = requests.Session()
-session.headers.update({"User-Agent": "f1-data-engineering/0.1 (learning project)"})
+session.headers.update({"User-Agent": "f1-data-engineering/0.1"})
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=2, max=30))

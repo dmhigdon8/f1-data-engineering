@@ -1,14 +1,16 @@
 # Learning library
 
-Topic map of books Daniel already owns, plus the few worth buying. Built 2026-10-30 from public titles, subtitles, and publisher descriptions. Not a substitute for the books, and not chapter text.
+Author practice notes. The project and stack are in [README.md](README.md).
 
-Use this with `LEARNING_PLAN.md` and the skill log in `STATUS.md`. The plan order is SQL screens, then one dbt grain test, then AI craft. A book does not jump that queue.
+Topic map of books already on the shelf, plus the few worth buying. Built 2026-10-30 from public titles, subtitles, and publisher descriptions. Not a substitute for the books, and not chapter text.
+
+Use this with `LEARNING_PLAN.md` and the skill log in `STATUS.md`. The plan order is SQL, then one dbt grain test, then AI craft. A book does not jump that queue.
 
 ## Read this first
 
-The shelf is large and almost none of it is the skill that is stuck. There is no SQL practice book. Islands, joins, and `GROUP BY` will not get better by opening linear algebra, Deep Learning, or an LLM handbook.
+The shelf is large. The current work is SQL and dbt on this warehouse. Linear algebra, deep learning, and LLM handbooks are later shelves.
 
-**This month:** coached islands on the warehouse. Do not start a reading program.
+**This month:** SQL on the warehouse. Do not start a reading program.
 
 **The one book to buy now:** Anthony DeBarros, *Practical SQL*, 2nd edition (No Starch, 2022). Postgres. Read it only after the next coached islands rep, and only chapters 7 (joins), 9 (grouping), and 13 (subqueries and window functions). Redo each idea against `marts.fct_race_results`, not as a second project.
 
@@ -35,7 +37,7 @@ The shelf is large and almost none of it is the skill that is stuck. There is no
 
 | Book | What it actually covers | Use |
 |------|-------------------------|-----|
-| *Mixed Model Arts*, Joe Reis (2026) | Grain, identifiers, time, and modeling across relational, analytics, and AI shapes. Exercises at the end of chapters. Foreword by Bill Inmon. | **Read the grain chapters when the dbt test starts.** This is the owned book that names the thing the warehouse keeps tripping on. |
+| *Mixed Model Arts*, Joe Reis (2026) | Grain, identifiers, time, and modeling across relational, analytics, and AI shapes. Exercises at the end of chapters. Foreword by Bill Inmon. | **Read the grain chapters when the dbt test starts.** Those chapters match the modeling work on this warehouse. |
 | *Essential Infrastructure as Code*, Rosemary Wang (2022) | IaC as a practice: environments, modules, testing infra changes. | After dbt CI exists. Not the test itself. |
 | *Modern Data Architectures with Python*, Brian Lipp (2023) | Python pipelines, warehouses, and lakes. | Phase 3 ingestion, after SQL and dbt are boring. |
 | *Hands-On APIs for AI and Data Science*, Ryan Day (2025) | Building and calling APIs with FastAPI. | When a model has to leave the warehouse. Not the SQL screen. |
