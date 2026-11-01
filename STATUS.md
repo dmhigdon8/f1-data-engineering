@@ -23,7 +23,7 @@ Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure �
 3. Paste this as your **first message** (not a shell command):
 
 ```text
-Dell · teach mode · training partner · next proof: cold gap-to-leader redo · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: cold season-rank redo · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 **AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
@@ -39,22 +39,22 @@ Dell · teach mode · training partner · next proof: cold gap-to-leader redo ·
 **Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
-**In progress (Phase 1):** Standings versus race points passed on the first try (`sql/drills/016_standings_vs_race_points.sql`, 24 drivers, sprint gap matches the sprint fact). It stays shaky until a later-day cold redo. The open nit is the missing `driver_id` tiebreak in `ORDER BY`. Next proof is a cold gap-to-leader redo. A dead `GROUP BY` still fails a join grade.
+**In progress (Phase 1):** Gap to leader is strong. The 2026-10-31 Abu Dhabi query was a cold pass (`sql/drills/017_gap_to_leader.sql`, 20 rows). A missing `ORDER BY` is noted and does not keep a correct pattern shaky. Next proof is a cold season-rank redo. A dead `GROUP BY` still fails a join grade.
 
-**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a cold gap-to-leader redo. Strong: grain, anti-join, islands. Standings versus race points passed once and is shaky. Open join nit: dead `GROUP BY`. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
+**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a cold season-rank redo. Strong: grain, anti-join, islands, gap to leader. Standings versus race points passed once and is shaky until a later-day redo. Open join nit: dead `GROUP BY`. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
 
 **Skill log (update after every grade).** Verdicts: `strong` (correct cold redo on a later day), `shaky` (passed, nit repeated or not yet redone cold), `untested`. No numeric score. Next proof targets the shakiest screen pattern, then the syllabus. Rewrite the path line when the next proof changes. Append one line to the grade trail. Do not erase older lines. Phone quizzes in `sql/quiz/log.md` are retrieval notes. A bot `pass` does not move a row in this table.
 
 | Pattern | Verdict | Evidence | Nit still open |
 |---------|---------|----------|----------------|
 | Grain | strong | 001 redo, 005 cold | — |
-| Windows / gap to leader | shaky | 002 redo passed | Not redone cold on a later day |
+| Windows / gap to leader | strong | 017 cold 2026-10-31, 20 rows, gaps correct | — |
 | Anti-join | strong | 014 cold 2026-10-30, 7 rows, `race_name` included | — |
 | Islands | strong | 015 cold 2026-10-31, 4 rows. Round span matched `count(*)`. | — |
 | Season rank | shaky | 006 cold passed | Not redone cold |
 | Join a fact to a dimension | shaky | 010 passed | `left join` where `inner` matched the question; dead `GROUP BY` |
 | Join two facts | shaky | 011 passed, 479 rows | `qualifying_position` omitted; dead `GROUP BY` again |
-| Two totals that should disagree (standings vs race points) | shaky | 016 passed 2026-10-31, 24 rows, sprint gap matches | `ORDER BY` is championship points only. `driver_id` was requested for ties. |
+| Two totals that should disagree (standings vs race points) | shaky | 016 passed 2026-10-31, 24 rows, sprint gap matches | Not redone cold on a later day. |
 | dbt grain test | untested | one singular test exists for race results | Not written for constructor or qualifying |
 
 **Grade trail** (append only):
@@ -63,6 +63,7 @@ Dell · teach mode · training partner · next proof: cold gap-to-leader redo ·
 - 2026-10-30 — 014 anti-join, cold pass, 7 rows, `race_name` included. Verdict moves to strong.
 - 2026-10-31 — 015 fastest-lap islands, cold pass, 4 rows. Verdict moves to strong. Length was `max(round) - min(round) + 1`, which matched `count(*)` this season.
 - 2026-10-31 — 016 standings versus race points, first pass, 24 rows. Sprint gap matches `fct_sprint_results`. Verdict stays shaky. `ORDER BY` omitted `driver_id`.
+- 2026-10-31 — 017 Abu Dhabi gap to leader, 20 rows, gaps correct. Verdict moves to strong. He overrode the missing `ORDER BY`: that miss is not a SQL skill gap.
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
 
