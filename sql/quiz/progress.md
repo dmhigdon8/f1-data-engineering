@@ -6,7 +6,7 @@ The phone agent reads this file to choose. The Dell session rewrites it at the e
 
 ## Where he is
 
-Islands and gap to leader are strong. The Abu Dhabi gaps were a cold pass. A missing `ORDER BY` is not treated as a SQL gap. Standings versus race points passed once on 2026-10-31 and stays shaky until a later-day redo. A dead `GROUP BY` still fails the next join grade. The next Dell proof is a cold season-rank redo.
+Islands and gap to leader are strong. Season rank passed on 2026-10-31 (22 drivers, ties share a rank, gap uses `max(sum(points)) over ()`) and stays shaky: he overrode strong the same night because `rank()` and the nested max were a fight. Standings versus race points passed once on 2026-10-31 and is a later-day retention check. A dead `GROUP BY` still fails the join grade after the season-rank redo. The next Dell proof is a later-day season-rank redo.
 
 ## Ask next
 
