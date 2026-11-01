@@ -23,7 +23,7 @@ Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure �
 3. Paste this as your **first message** (not a shell command):
 
 ```text
-Dell · teach mode · training partner · next proof: cold islands on a later day, new event, do not hand over the finished query · 004/008/009/012/013 stay closed · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: 2024 standings points versus summed race points, one row per driver · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 **AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
@@ -39,9 +39,9 @@ Dell · teach mode · training partner · next proof: cold islands on a later da
 **Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
-**In progress (Phase 1):** Islands is a coached pass, still shaky. On 2026-10-30 he wrote the running sum and put `is_podium = 1` in the following CTE for 2023 podium streaks (`sql/drills/013_islands_coached.sql`, 13 rows). That rep counts. It is not `strong`: the start-flag rule was coached in the same session. Next proof is a cold islands redo on a later day, new event, no answer file. Files 004, 008, 009, 012, and 013 stay closed. Standings versus race points is unblocked and comes after that cold pass.
+**In progress (Phase 1):** Islands is strong. On 2026-10-31 he wrote a cold fastest-lap streak query (`sql/drills/015_islands_cold.sql`, 4 rows) the day after the coached pass. The filter sits in the CTE after the running sum. Next proof is 2024 standings points versus summed race points. A dead `GROUP BY` still fails a join grade.
 
-**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a cold islands redo on a later day, new event. Files 004, 008, 009, 012, and 013 stay closed. Standings versus race points is next, then the grain test. Strong: grain, anti-join. Blocking shaky: islands. Phone card is `sql/quiz/card.md` for 2026-10-31. Automations are not on, and `sql/quiz/log.md` is empty. A phone pass does not move the table below. Git phone items are queued in `sql/quiz/backlog.md` from the 2026-10-30 branch mixup. Use one on a later day when a SQL miss does not need the slot. Do not ask them on 2026-10-31.
+**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is 2024 standings points versus summed race points, one row per driver. Strong: grain, anti-join, islands. Open join nit: dead `GROUP BY`. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
 
 **Skill log (update after every grade).** Verdicts: `strong` (correct cold redo on a later day), `shaky` (passed, nit repeated or not yet redone cold), `untested`. No numeric score. Next proof targets the shakiest screen pattern, then the syllabus. Rewrite the path line when the next proof changes. Append one line to the grade trail. Do not erase older lines. Phone quizzes in `sql/quiz/log.md` are retrieval notes. A bot `pass` does not move a row in this table.
 
@@ -50,17 +50,18 @@ Dell · teach mode · training partner · next proof: cold islands on a later da
 | Grain | strong | 001 redo, 005 cold | — |
 | Windows / gap to leader | shaky | 002 redo passed | Not redone cold on a later day |
 | Anti-join | strong | 014 cold 2026-10-30, 7 rows, `race_name` included | — |
-| Islands | shaky | 013 coached pass 2026-10-30, 13 rows | Running sum and the podium filter were his. Same-session coaching, so not a cold pass. Next proof is a later-day cold redo. |
+| Islands | strong | 015 cold 2026-10-31, 4 rows. Round span matched `count(*)`. | — |
 | Season rank | shaky | 006 cold passed | Not redone cold |
 | Join a fact to a dimension | shaky | 010 passed | `left join` where `inner` matched the question; dead `GROUP BY` |
 | Join two facts | shaky | 011 passed, 479 rows | `qualifying_position` omitted; dead `GROUP BY` again |
-| Two totals that should disagree (standings vs race points) | untested | — | Unblocked by 013. Assign after the cold islands redo. |
+| Two totals that should disagree (standings vs race points) | untested | — | Next proof. |
 | dbt grain test | untested | one singular test exists for race results | Not written for constructor or qualifying |
 
 **Grade trail** (append only):
 
 - 2026-10-30 — 013 islands, coached pass, 13 rows. Verdict stays shaky. He wrote the running sum and put the podium filter in the next CTE. Same-session coaching, so not cold.
 - 2026-10-30 — 014 anti-join, cold pass, 7 rows, `race_name` included. Verdict moves to strong.
+- 2026-10-31 — 015 fastest-lap islands, cold pass, 4 rows. Verdict moves to strong. Length was `max(round) - min(round) + 1`, which matched `count(*)` this season.
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
 

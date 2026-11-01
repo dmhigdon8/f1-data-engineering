@@ -37,3 +37,37 @@ repair:
 - If he says the join implies the column: ask `A join can use a column without selecting it. Is qualifying position in the output?`
 
 correction: A missing requested column fails the question even when the grain and the row count are right.
+
+## push-names-the-branch
+
+pass requires:
+- The new commit does not go to GitHub `main`.
+- `git push origin main` sends the laptop's `main`, and this commit is not on it.
+
+repair:
+- If he says the commit was rejected and is only on the laptop: ask `You had already run git push origin working. Where did that command send the commit?`
+
+correction: The push names the branch it updates. The commit was on `working`, so only a push of `working` publishes it. `main` on GitHub changes when the pull request is merged.
+
+## open-pr-follows-the-branch
+
+pass requires:
+- The same open pull request now includes the new commit.
+- `main` stays unchanged until the pull request is merged.
+
+repair:
+- If he says GitHub opens a second pull request: ask `The pull request tracks the branch. Which branch did the new commit land on?`
+- If he says `main` updates on the push: ask `What action puts the pull request's commits onto main?`
+
+correction: An open pull request follows its branch. A new commit on that branch shows up in the same request. Merging the request is what updates `main`.
+
+## checkout-does-not-fetch
+
+pass requires:
+- The files match `main` on the laptop.
+- That copy can be behind the `main` on GitHub.
+
+repair:
+- If he says the files match GitHub: ask `Which command downloads the commits GitHub has that the laptop does not?`
+
+correction: Checkout switches the folder to the laptop's `main`. `git pull` is what brings in the GitHub commits that laptop does not have yet.
