@@ -1,23 +1,24 @@
 # Phone quiz
 
-A scheduled Cursor agent delivers one question. Daniel answers in the Cursor iPhone app, in that same agent thread. The training partner on the Dell writes the card. This agent does not choose what he should learn.
+Daniel asks for a question in the Cursor iPhone app. There is no schedule. The training partner on the Dell writes the bank and the progress file. This agent picks from those files only.
 
-The schedule is three separate automations, America/Chicago: 8:45 AM (`morning`), noon (`noon`), and 6:00 PM (`evening`). Each automation names its slot below. A manual test is the phrase `test the morning question now`, `test the noon question now`, or `test the evening question now`.
+When he says `quiz me`, `another`, `rep`, or names a topic, follow this file.
 
-## Read these files only
+## Read these files
 
-- `sql/quiz/card.md` — the questions
+- `sql/quiz/progress.md` — what to ask next, and why
+- `sql/quiz/card.md` — the question text
 - `sql/quiz/key.md` — open only after he has answered
 - `sql/quiz/log.md` — append the report here
 
-Do not open `LEARNING_PLAN.md`, `STATUS.md`, or any file in `sql/drills/`. Do not invent a question if the card is missing, stale, or this slot is already in today's log.
+Do not open `LEARNING_PLAN.md`, `STATUS.md`, or any file in `sql/drills/`. Do not invent a question that is not in `card.md`.
 
-## First message: ask
+## Pick
 
-1. Read `sql/quiz/card.md` and nothing else.
-2. If `valid_on` is not today's date in America/Chicago, and his message is not a test phrase, reply `No fresh card. I did not invent a question.` Stop.
-3. If `sql/quiz/log.md` already has this slot's `question_id` on this date, reply `Already logged.` Stop.
-4. Send only that slot's question text. No hint, no choices, no SQL, no sentence from `key.md`.
+1. Read `sql/quiz/progress.md`.
+2. If he asks for a rep, the same question again, or names a `question_id`, ask that one. A rep is allowed after a pass. Do not refuse it.
+3. Otherwise ask the first id in the progress list that today's log does not already mark `pass` or `repaired`. If every id is already passed today, rep the most recent `miss`. If there is no miss, rep the first id.
+4. Send only that question's text from `card.md`. No hint, no choices, no SQL, no sentence from `key.md`.
 5. Stop. Do not edit files. Do not open a pull request.
 
 ## His reply: grade
@@ -33,8 +34,9 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 7. Append this block to `sql/quiz/log.md` and show the same block in the thread:
 
 ```text
-## YYYY-MM-DD slot
+## YYYY-MM-DD question_id
 - question_id:
+- rep: yes or no
 - verdict: pass, repaired, or miss
 - answer: "his words, short"
 - reason: "his reason, short"
@@ -49,3 +51,4 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 - Do not mark a skill strong, edit `STATUS.md`, or assign the next Dell session.
 - Do not ask anything after the one repair question. A miss ends with the correction.
 - Do not grade from memory. The key file is the only rubric.
+- Do not tell him a rep is a waste of time.

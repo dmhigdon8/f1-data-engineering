@@ -104,7 +104,7 @@ Cover these, skipping any that the attempt already does well:
 
 Still withhold a full rewrite until the critique is done. Offer a tighter version of *his* query when the gap is structural, so the comparison is visible.
 
-**Feedback loop.** A grade that stays in the chat does not coach the next session. After every grade, update the skill log in `STATUS.md` before the session ends: pattern, verdict (`strong`, `shaky`, `untested`), the evidence (drill file), and the one nit if any. Append one dated line to the grade trail and rewrite the path line if the next proof changed. Do not assign a numeric score. The next proof targets the shakiest pattern a screen would actually ask. A syllabus item comes after that, not instead of it. The same nit on two grades in a row is shaky even if both results passed: the next grade treats that nit as a fail until it is gone. A pattern is `strong` only after a correct cold redo on a later day, not after one assisted pass. Read `sql/quiz/log.md` at session open. A phone `pass` or `repaired` does not move the skill log.
+**Feedback loop.** A grade that stays in the chat does not coach the next session. After every grade, update the skill log in `STATUS.md` before the session ends: pattern, verdict (`strong`, `shaky`, `untested`), the evidence (drill file), and the one nit if any. Append one dated line to the grade trail and rewrite the path line if the next proof changed. Do not assign a numeric score. The next proof targets the shakiest pattern a screen would actually ask. A syllabus item comes after that, not instead of it. The same nit on two grades in a row is shaky even if both results passed: the next grade treats that nit as a fail until it is gone. A pattern is `strong` only after a correct cold redo on a later day, not after one assisted pass. Read `sql/quiz/log.md` at session open. A phone `pass` or `repaired` does not move the skill log. At the end of a Dell session, update `sql/quiz/progress.md`: which question to ask next, why, and any new bank item. Reps stay allowed.
 
 ### Lean-too-hard triggers → what I should say
 
@@ -213,7 +213,7 @@ There is **no special app or CLI called summon**. Two different places:
 Example — open a new chat on the F1 repo and paste:
 
 ```text
-Dell · teach mode · training partner · next proof: cold islands on a later day, new event, do not hand over the finished query · 004/008/009/012/013 stay closed · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: 2024 standings points versus summed race points, one row per driver · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 That tells the agent: you’re on the Dell, you want coaching (not “just do it”), what’s in scope this session, and which plan sections to follow. Then you run the actual `psql` / `dbt` commands **in the Dell terminal** (or ask the agent to guide you step-by-step while you type them).
@@ -558,10 +558,10 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 
 1. ~~Drills 001–009 and the singular duplicate-driver-race test~~ — done.  
 2. ~~Drill 010, constructor points join~~ — written; grade was a pass with style nits (`inner join`, named `GROUP BY` / `ORDER BY`).  
-3. **Next SQL proof:** cold islands on a later day. Drill 013 (2026-10-30) is a coached pass, 13 rows, and it counts: he wrote the running sum and put the podium filter in the following CTE. It is not `strong`. New event, no finished query, and files 004, 008, 009, 012, and 013 stay closed. Standings versus race points comes after that cold pass.  
+3. **Next SQL proof:** 2024 standings points versus summed race points, one row per driver. Drill 015 (2026-10-31) is a cold islands pass, 4 rows, and islands is `strong`. Length used the round span; it matched `count(*)` this season.  
 4. **Next dbt proof:** one `unique` / `not_null` or relationship test on `dim_constructor` or `fct_qualifying_results`. After that test exists, use it as the review bar on the specialist’s dbt and API loads. Do not build pit stops for that practice.  
 5. When starting learning chats: link **How learning works here** (or say “teach mode”).
 6. Book map for this shelf: [`LEARNING_LIBRARY.md`](LEARNING_LIBRARY.md). Do not start a reading program ahead of the islands reps. The one book to buy for the SQL lane is Practical SQL, 2nd edition.
-7. Phone retrieval: [`sql/quiz/BOT.md`](sql/quiz/BOT.md). A scheduled Cursor agent asks the card; he answers in the Cursor iPhone app. The reply is appended to `sql/quiz/log.md`. Read that log at the start of a Dell session. It does not change the skill log.
+7. Phone retrieval: [`sql/quiz/BOT.md`](sql/quiz/BOT.md). He opens the Cursor app and asks for a quiz. The agent reads [`sql/quiz/progress.md`](sql/quiz/progress.md) and asks one question from the bank. Reps are allowed. The reply is appended to `sql/quiz/log.md`. Read that log at the start of a Dell session, and update `progress.md` before the session ends. It does not change the skill log.
 
 You’re on the **Dell XPS (Ubuntu)**. Prefer that machine for learning sessions; Mac remains the backup.
