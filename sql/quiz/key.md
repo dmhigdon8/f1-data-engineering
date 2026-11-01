@@ -1,5 +1,7 @@
 # Grade key
 
+Author practice notes. The project and stack are in [README.md](../../README.md).
+
 Open this file only after Daniel answers. Do not quote it in the question.
 
 ## island-filter
@@ -71,3 +73,27 @@ repair:
 - If he says the files match GitHub: ask `Which command downloads the commits GitHub has that the laptop does not?`
 
 correction: Checkout switches the folder to the laptop's `main`. `git pull` is what brings in the GitHub commits that laptop does not have yet.
+
+## leader-max-needs-over
+
+pass requires:
+- After `group by driver_id`, a plain `max(sum(points))` is not the leader's total. It does not see the other drivers.
+- The gap needs `max(sum(points)) over ()`, an empty window over every grouped row.
+
+repair:
+- If he says the max already looks across every driver: ask `After GROUP BY driver_id, which rows can an aggregate with no OVER see?`
+- If he says it just errors: ask `The nested max needs a window to be legal. What goes in the empty OVER so the max can see every driver's total?`
+
+correction: `over ()` is the whole grouped result. That is how the max becomes the leader's points. Without it, the nested max is not a window, and Postgres rejects the nested aggregate.
+
+## rank-takes-no-argument
+
+pass requires:
+- `rank()` takes no argument.
+- The ordering goes inside the window: `rank() over (order by sum(points) desc)`.
+
+repair:
+- If he says `rank(sum(points))` is legal when the sum is already grouped: ask `Does rank accept a value argument at all, or does the sort live somewhere else?`
+- If he says the final `order by` sets the rank: ask `Does that final ORDER BY change the rank number, or only the order the rows are displayed?`
+
+correction: `rank`, `dense_rank`, and `row_number` take no argument. The order lives in `over`. `lag`, `lead`, and `ntile` do take an argument.

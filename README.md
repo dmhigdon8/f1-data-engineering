@@ -1,21 +1,75 @@
-# F1 Data Engineering — Personal Learning Project
+# F1 data engineering
 
-End-to-end pipeline: Jolpica F1 API → local raw JSON → AWS S3 (raw zone) → Postgres (Docker) → dbt models → analytics queries.
+End-to-end Formula 1 warehouse. The Jolpica API is extracted to local JSON, landed in S3, loaded into Postgres, and modeled with dbt. Analytics SQL runs on the marts.
 
-**Stack:** git · Python · Docker · Postgres · Postman · AWS S3 · dbt
+This is a personal project: one pipeline, one domain, the same shape as a small production analytics stack. Practice notes live in separate files and are not the project description.
+
+## Stack
+
+| Layer | Choice |
+| --- | --- |
+| Source | Jolpica F1 API (races, drivers, results, qualifying, sprint, driver standings) |
+| Extract | Python 3.12, `requests`, `tenacity` retries, Click CLI, Docker image |
+| Raw zone | Local JSON, then AWS S3 (`boto3`), least-privilege IAM on one bucket |
+| Load | Python, `psycopg`, idempotent insert into `raw.jolpica_payloads` |
+| Warehouse | PostgreSQL 16 in Docker Compose. Host port 5433. Schemas `raw`, `staging`, `marts` |
+| Transform | dbt 1.8 / dbt-postgres. Staging views, mart tables. Custom schema macro uses the folder name as written |
+| Tests | `unique`, `not_null`, and `relationships` on drivers, races, race results, and sprint results, plus a singular grain test on `fct_race_results` |
+| API exploration | Postman collection in `postman/` |
+| Version control | git |
+
+Constructors are parsed from the nested constructor object on results. There is no separate constructors endpoint.
+
+## Pipeline
+
+```text
+Jolpica API
+  → ingest/extract.py          raw/<endpoint>_<season>.json
+  → ingest/s3_client.py        s3://<bucket>/raw/jolpica/
+  → ingest/load.py             raw.jolpica_payloads
+  → dbt staging views          staging.stg_*
+  → dbt marts                  marts.dim_*  marts.fct_*
+```
+
+## Warehouse
+
+| Model | Grain |
+| --- | --- |
+| `staging.stg_races`, `stg_drivers`, `stg_results`, `stg_qualifying`, `stg_sprint`, `stg_standings`, `stg_constructors` | One row per source record, flattened from the raw JSON |
+| `marts.dim_driver` | One row per driver |
+| `marts.dim_race` | One row per season and round |
+| `marts.dim_constructor` | One row per constructor |
+| `marts.fct_race_results` | One row per driver per race |
+| `marts.fct_qualifying_results` | One row per driver per qualifying session |
+| `marts.fct_sprint_results` | One row per driver per sprint (2021 onward) |
+| `marts.fct_driver_standings` | One championship snapshot per driver per season |
+
+Schema tests cover `dim_driver`, `dim_race`, `fct_race_results`, and `fct_sprint_results`. Qualifying, standings, and constructors are modeled. Their schema tests are the next coverage to add.
+
+Worked SQL against these marts is in `sql/drills/`: grain checks, window functions, anti-joins, streaks, season rank, and joins across facts and dimensions.
+
+## Where to look
+
+| Path | What it is |
+| --- | --- |
+| `ingest/` | Extract, S3 upload, Postgres load |
+| `dbt_f1/` | Staging views, marts, tests, schema macro |
+| `sql/init/` | Schemas and the raw-payload unique key |
+| `sql/drills/` | Worked warehouse queries |
+| `postman/` | Jolpica request collection |
+| `STATUS.md`, `LEARNING_PLAN.md`, `LEARNING_LIBRARY.md`, `sql/quiz/` | Author practice notes |
 
 ---
 
-## 0. Audit your machine first (macOS or Linux)
+## Local setup
 
-`check_tools.sh` detects your OS and checks for what it needs either way. Before installing anything, find out what you already have. From this project folder in Terminal:
+`check_tools.sh` detects macOS or Linux and reports which tools are present. From the project folder:
 
 ```bash
-cd ~/Downloads/f1-data-engineering   # or wherever you dropped it
 bash check_tools.sh
 ```
 
-Paste the output back and we'll fill in only the gaps. What the script checks:
+What the script checks:
 
 | Tool                        | Why you need it                                            |
 |-----------------------------|-------------------------------------------------------------|
@@ -77,8 +131,8 @@ python3 -m pip install --upgrade dbt-postgres
 
 ```bash
 # Git — one-time config
-git config --global user.name  "Daniel Higdon"
-git config --global user.email "higdon.analytics@gmail.com"
+git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"
 git config --global init.defaultBranch main
 
 # AWS — you'll need an IAM user with programmatic access
@@ -145,11 +199,11 @@ rm -rf awscliv2.zip aws/
 
 #### 1d. dbt
 
-Matches the pinned-Python approach this project already uses on macOS (see the "known quirks" note in `STATUS.md` about system Python drifting ahead of what dbt supports):
+Pin the same dbt 1.8 line used with this project:
 
 ```bash
-pipx install dbt-core
-pipx inject dbt-core dbt-postgres
+pipx install "dbt-core==1.8.*"
+pipx inject dbt-core "dbt-postgres==1.8.*"
 ```
 
 #### 1e. Postman (optional)
@@ -165,23 +219,12 @@ Same as the macOS section above — `git config --global ...` and either fill in
 ## 2. One-time project bootstrap
 
 ```bash
-# 1. Start a git repo and make your first commit
-cd ~/Downloads/f1-data-engineering
-git init
-git add .
-git commit -m "scaffold f1 data engineering project"
+git clone git@github.com:dmhigdon8/f1-data-engineering.git
+cd f1-data-engineering
 
-# 2. (Optional) push to GitHub
-#    - Create an empty repo on github.com first (no README, no .gitignore)
-#    - Then:
-# git remote add origin git@github.com:<you>/f1-data-engineering.git
-# git push -u origin main
-
-# 3. Create your .env from the template and edit it
 cp .env.example .env
-open -e .env     # edit AWS_S3_BUCKET to a globally-unique name
+# Set AWS_S3_BUCKET to a globally unique name, plus the AWS keys.
 
-# 4. Point dbt at the profiles template shipped with the repo
 mkdir -p ~/.dbt
 cp dbt_f1/profiles.template.yml ~/.dbt/profiles.yml
 ```
@@ -239,7 +282,7 @@ psql "postgresql://f1:f1pass@localhost:5433/f1" \
 ```bash
 cd dbt_f1
 dbt debug         # checks that dbt can connect to Postgres
-dbt deps          # (no-op — we don't use packages yet, but habit-forming)
+dbt deps          # no packages yet; keeps the project ready for one
 dbt build         # runs models, then runs tests
 dbt docs generate && dbt docs serve   # opens a lineage graph in your browser
 cd ..
@@ -303,23 +346,22 @@ f1-data-engineering/
 │   └── models/
 │       ├── staging/              # stg_<endpoint> views (schema staging)
 │       └── marts/                # dim_<singular>, fct_<event> tables (schema marts)
+├── sql/drills/                   # worked queries against the marts
 ├── postman/F1_Jolpica.postman_collection.json
 └── raw/                          # extractor drops JSON here (gitignored)
 ```
 
 ---
 
-## 6. Learning path — what to tackle after it runs
+## 6. Next on the warehouse
 
-You'll get the most out of this project if you extend it yourself. Suggested order:
-
-1. **Incremental extracts** — change `ingest/extract.py` to only pull the latest round instead of whole seasons. Track "last pulled round" in a small Postgres table.
-2. **Qualifying, driver standings, and constructors are modeled** — `stg_qualifying` / `fct_qualifying_results`, `stg_standings` / `fct_driver_standings`, and `stg_constructors` / `dim_constructor` (20 teams, no dbt tests yet). Join facts to `dim_constructor` on `constructor_id`.
-3. **Pit stops and lap times** — next new feeds. Both are per round, so `ingest/extract.py` has to loop rounds before the dbt models can be written.
-4. **dbt tests that matter** — add `accepted_values` on `status`, a custom test that grid_position between 1 and 24.
-5. **Orchestration** — schedule the extractor with a simple cron, or level up to Apache Airflow / Prefect / Dagster.
-6. **Swap Postgres for Redshift or Snowflake** — only dbt `profiles.yml` changes; rest of the project is identical.
-7. **CI** — GitHub Actions workflow that runs `dbt build --select state:modified+` on every PR.
+1. **Incremental extracts** — pull the latest round instead of a full season, and record the last pulled round.
+2. **Schema tests** for qualifying, driver standings, and constructors. `fct_race_results` already carries `constructor_id`, and `dim_constructor` is the matching dimension.
+3. **Pit stops and lap times** — both are per round, so the extractor has to loop rounds before those models exist.
+4. **More result tests** — `accepted_values` on status, and grid position between 1 and 24.
+5. **Orchestration** — cron, or Airflow / Prefect / Dagster, once the batch is worth scheduling.
+6. **Another warehouse** — a dbt profile change is the adapter swap (Redshift or Snowflake). The extract and S3 landing stay put.
+7. **CI** — GitHub Actions running `dbt build` on pull requests.
 
 ---
 

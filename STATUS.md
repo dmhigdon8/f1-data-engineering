@@ -1,6 +1,8 @@
 # F1 Project — Session Status
 
-**Last session:** October 30, 2026. The learning-plan section below is the current position. The September notes further down are history.
+Author practice notes. The project and stack are in [README.md](README.md).
+
+**Last session:** November 1, 2026. The learning-plan section below is the current position. The September notes further down are history.
 **Owner:** Daniel Higdon — now working across two machines:
   - **Mac:** macOS 26.6.2, Intel Mac (T2), path `~/Desktop/Projects/f1-data-engineering`
   - **Dell:** Dell XPS 14 (2026) Ubuntu Developer Edition, Core Ultra X7 358H, 64GB RAM, 1TB SSD, Ubuntu 24.04.5 LTS, path `~/f1-data-engineering`
@@ -23,7 +25,7 @@ Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure �
 3. Paste this as your **first message** (not a shell command):
 
 ```text
-Dell · teach mode · training partner · next proof: later-day season-rank redo · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: cold fact-to-dimension join · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 **AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
@@ -39,9 +41,9 @@ Dell · teach mode · training partner · next proof: later-day season-rank redo
 **Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
-**In progress (Phase 1):** Season rank stays shaky. Drill 018 was a correct cold pass (22 drivers, ties share a rank, leader gap 0), and he overrode the strong verdict the same night: the result landed, the two mechanics were not fluent. Next proof is a later-day season-rank redo. A dead `GROUP BY` still fails the join grade after that.
+**In progress (Phase 1):** Season rank is strong. Drill 019 (2026-11-01) is a later-day cold pass: 22 drivers of 2022 race points, Leclerc and Perez share rank 2, leader gap 0. He confirmed strong. The first draft of the gap was `max(sum(points)) - sum(points)` with no window; the empty `over ()` is a phone revisit, not a Dell gate. Next proof is a cold fact-to-dimension join. A dead `GROUP BY` still fails that grade.
 
-**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a later-day season-rank redo. Strong: grain, anti-join, islands, gap to leader. Season rank passed on 2026-10-31 and stays shaky until a fluent later-day redo. Then two join grades, where a dead `GROUP BY` still fails. Standings versus race points is a later-day retention check, not a gate. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
+**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a cold fact-to-dimension join. Strong: grain, anti-join, islands, gap to leader, season rank. Two SQL grades remain before the dbt test: that join, then a join of two facts. A dead `GROUP BY` still fails those. Standings versus race points is a later-day retention check, not a gate. Window tricks stay on the phone bank: an empty `over ()` for the leader's max, and which functions take an argument (`rank()` does not). Those reps do not add a proof before the two joins or the dbt test. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
 
 **Skill log (update after every grade).** Verdicts: `strong` (correct cold redo on a later day), `shaky` (passed, nit repeated or not yet redone cold), `untested`. No numeric score. Next proof targets the shakiest screen pattern, then the syllabus. Rewrite the path line when the next proof changes. Append one line to the grade trail. Do not erase older lines. Phone quizzes in `sql/quiz/log.md` are retrieval notes. A bot `pass` does not move a row in this table.
 
@@ -51,7 +53,7 @@ Dell · teach mode · training partner · next proof: later-day season-rank redo
 | Windows / gap to leader | strong | 017 cold 2026-10-31, 20 rows, gaps correct | — |
 | Anti-join | strong | 014 cold 2026-10-30, 7 rows, `race_name` included | — |
 | Islands | strong | 015 cold 2026-10-31, 4 rows. Round span matched `count(*)`. | — |
-| Season rank | shaky | 018 cold 2026-10-31, 22 rows, result correct | Fluency. He overrode strong the same night: `rank()` order inside `OVER`, and `max(sum(points)) over ()`, were a fight. |
+| Season rank | strong | 019 cold 2026-11-01, 22 rows. Leclerc and Perez share rank 2 | — |
 | Join a fact to a dimension | shaky | 010 passed | `left join` where `inner` matched the question; dead `GROUP BY` |
 | Join two facts | shaky | 011 passed, 479 rows | `qualifying_position` omitted; dead `GROUP BY` again |
 | Two totals that should disagree (standings vs race points) | shaky | 016 passed 2026-10-31, 24 rows, sprint gap matches | Not redone cold on a later day. |
@@ -65,6 +67,8 @@ Dell · teach mode · training partner · next proof: later-day season-rank redo
 - 2026-10-31 — 016 standings versus race points, first pass, 24 rows. Sprint gap matches `fct_sprint_results`. Verdict stays shaky. `ORDER BY` omitted `driver_id`.
 - 2026-10-31 — 017 Abu Dhabi gap to leader, 20 rows, gaps correct. Verdict moves to strong. He overrode the missing `ORDER BY`: that miss is not a SQL skill gap.
 - 2026-10-31 — 018 season rank, cold pass, 22 rows. Race points only (Verstappen 530, standings 575). Ties at 6 points share rank 16. He overrode strong the same night: the result was right, and `rank()` plus `max(sum(points)) over ()` were not fluent. Verdict stays shaky.
+- 2026-11-01 — 019 season rank, later-day cold pass, 22 rows. Verdict moves to strong. 2022 race points (Verstappen 433, standings 454). Leclerc and Perez both 291, share rank 2. `rank()` order is inside `OVER`. Gap is `max(sum(points)) over ()`.
+- 2026-11-01 — He confirmed 019 is strong. First draft of the gap omitted `over ()`. That mechanic, and which window functions take an argument, go on the phone bank. They do not keep season rank shaky and they do not delay the two joins or the dbt test.
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
 

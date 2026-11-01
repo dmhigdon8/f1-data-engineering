@@ -1,5 +1,7 @@
 # Question bank
 
+Author practice notes. The project and stack are in [README.md](../../README.md).
+
 The phone agent sends only the question text for the id it picked.
 
 ## island-filter
@@ -25,3 +27,11 @@ A pull request from `working` into `main` is open. You make a new commit on `wor
 ## checkout-does-not-fetch
 
 You run `git checkout main` and do not pull. Which `main` do the files now match?
+
+## leader-max-needs-over
+
+After `group by driver_id`, the gap is written `max(sum(points)) - sum(points)` with no `over`. What total is that `max` able to see, and what does the gap need instead?
+
+## rank-takes-no-argument
+
+The driver with the most points should be rank 1. The call is written `rank(sum(points))`. What is wrong with that call, and where does the ordering go?
