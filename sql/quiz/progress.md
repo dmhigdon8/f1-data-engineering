@@ -6,7 +6,7 @@ The phone agent reads this file to choose. The Dell session rewrites it at the e
 
 ## Where he is
 
-Islands is strong. Standings versus race points passed once on 2026-10-31: 24 drivers, and the gap matched sprint points. The nit was `ORDER BY championship_points` with no `driver_id` tiebreak. The `GROUP BY` in that query was real. A dead `GROUP BY` still fails the next join grade. The next Dell proof is a cold gap-to-leader redo.
+Islands and gap to leader are strong. The Abu Dhabi gaps were a cold pass. A missing `ORDER BY` is not treated as a SQL gap. Standings versus race points passed once on 2026-10-31 and stays shaky until a later-day redo. A dead `GROUP BY` still fails the next join grade. The next Dell proof is a cold season-rank redo.
 
 ## Ask next
 
