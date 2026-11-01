@@ -6,7 +6,7 @@ The phone agent reads this file to choose. The Dell session rewrites it at the e
 
 ## Where he is
 
-Islands is strong after the 2026-10-31 cold fastest-lap query. He measured length as the round span, and that matched the row count this season. Anti-join is strong. The next Dell proof is standings points versus summed race points. The join nit that still fails a grade is a `GROUP BY` that does not change the grain.
+Islands is strong. Standings versus race points passed once on 2026-10-31: 24 drivers, and the gap matched sprint points. The nit was `ORDER BY championship_points` with no `driver_id` tiebreak. The `GROUP BY` in that query was real. A dead `GROUP BY` still fails the next join grade. The next Dell proof is a cold gap-to-leader redo.
 
 ## Ask next
 
