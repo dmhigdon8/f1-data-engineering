@@ -8,7 +8,7 @@ The phone agent reads this file to choose. The Dell session rewrites it at the e
 
 ## Where he is
 
-Islands, gap to leader, and season rank are strong. He confirmed the 2022 season-rank query on 2026-11-01. The first draft of the gap was `max(sum(points)) - sum(points)` with no window; the empty `over ()` is a revisit, not a reason to keep the pattern shaky. Standings versus race points passed once on 2026-10-31 and is a later-day retention check. A dead `GROUP BY` still fails the next join grade. The next Dell proof is a cold fact-to-dimension join. Window questions are reps. They do not delay that join or the dbt test.
+Islands, gap to leader, season rank, fact-to-dimension join, and join of two facts are strong. The 2024 sprint-to-race query was a cold pass on 2026-11-01: 120 rows, matched on season, round, and driver. Standings versus race points passed once on 2026-10-31 and is a later-day retention check. The next Dell proof is one dbt grain test on `dim_constructor` or `fct_qualifying_results`. Window questions are reps. They do not delay that test.
 
 ## Ask next
 

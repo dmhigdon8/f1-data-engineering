@@ -215,7 +215,7 @@ There is **no special app or CLI called summon**. Two different places:
 Example — open a new chat on the F1 repo and paste:
 
 ```text
-Dell · teach mode · training partner · next proof: cold fact-to-dimension join · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: one dbt grain test · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 That tells the agent: you’re on the Dell, you want coaching (not “just do it”), what’s in scope this session, and which plan sections to follow. Then you run the actual `psql` / `dbt` commands **in the Dell terminal** (or ask the agent to guide you step-by-step while you type them).
@@ -560,7 +560,7 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 
 1. ~~Drills 001–009 and the singular duplicate-driver-race test~~ — done.  
 2. ~~Drill 010, constructor points join~~ — written; grade was a pass with style nits (`inner join`, named `GROUP BY` / `ORDER BY`).  
-3. **Next SQL proof:** a cold fact-to-dimension join. Drill 019 (2026-11-01) is a later-day season-rank pass, 22 rows, and he confirmed that pattern is `strong`. His first gap expression omitted `over ()`. That trick, and which window functions take an argument, stay on the phone bank as revisits. They do not add a Dell proof. A dead `GROUP BY` still fails the join grade. One join of two facts comes after that, then the dbt grain test.  
+3. **Next proof:** one dbt grain test on `dim_constructor` or `fct_qualifying_results`. Drill 021 (2026-11-01) is a cold join of two facts, 120 rows, and that pattern is `strong`. The screen-SQL patterns in the skill log are strong. Window tricks stay on the phone bank and do not add a Dell proof.  
 4. **Next dbt proof:** one `unique` / `not_null` or relationship test on `dim_constructor` or `fct_qualifying_results`. After that test exists, use it as the review bar on the specialist’s dbt and API loads. Do not build pit stops for that practice.  
 5. When starting learning chats: link **How learning works here** (or say “teach mode”).
 6. Book map for this shelf: [`LEARNING_LIBRARY.md`](LEARNING_LIBRARY.md). Do not start a reading program ahead of the islands reps. The one book to buy for the SQL lane is Practical SQL, 2nd edition.

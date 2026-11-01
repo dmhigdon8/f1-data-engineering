@@ -25,7 +25,7 @@ Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure �
 3. Paste this as your **first message** (not a shell command):
 
 ```text
-Dell · teach mode · training partner · next proof: cold fact-to-dimension join · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: one dbt grain test · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 **AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
@@ -41,9 +41,9 @@ Dell · teach mode · training partner · next proof: cold fact-to-dimension joi
 **Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
-**In progress (Phase 1):** Season rank is strong. Drill 019 (2026-11-01) is a later-day cold pass: 22 drivers of 2022 race points, Leclerc and Perez share rank 2, leader gap 0. He confirmed strong. The first draft of the gap was `max(sum(points)) - sum(points)` with no window; the empty `over ()` is a phone revisit, not a Dell gate. Next proof is a cold fact-to-dimension join. A dead `GROUP BY` still fails that grade.
+**In progress (Phase 1):** Join of two facts is strong. Drill 021 (2026-11-01) is 120 rows. The screen-SQL patterns are strong. dbt is new to him. On 2026-11-01 he read `fct_qualifying_results` correctly: `ref('stg_qualifying')`, a table in `marts`, one row per driver per race. He named `unique` and `not_null` on `result_key`. He has not yet said what each catch would look like on that model. Teach that before he writes the file. The test, when it comes, is one grain test on `dim_constructor` or `fct_qualifying_results`.
 
-**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a cold fact-to-dimension join. Strong: grain, anti-join, islands, gap to leader, season rank. Two SQL grades remain before the dbt test: that join, then a join of two facts. A dead `GROUP BY` still fails those. Standings versus race points is a later-day retention check, not a gate. Window tricks stay on the phone bank: an empty `over ()` for the leader's max, and which functions take an argument (`rank()` does not). Those reps do not add a proof before the two joins or the dbt test. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
+**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is one dbt grain test on `dim_constructor` or `fct_qualifying_results`. Strong: grain, anti-join, islands, gap to leader, season rank, fact-to-dimension join, join of two facts. Standings versus race points is a later-day retention check, not a gate. Window tricks stay on the phone bank: an empty `over ()` for the leader's max, and which functions take an argument (`rank()` does not). Those reps do not add a proof before the dbt test. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
 
 **Skill log (update after every grade).** Verdicts: `strong` (correct cold redo on a later day), `shaky` (passed, nit repeated or not yet redone cold), `untested`. No numeric score. Next proof targets the shakiest screen pattern, then the syllabus. Rewrite the path line when the next proof changes. Append one line to the grade trail. Do not erase older lines. Phone quizzes in `sql/quiz/log.md` are retrieval notes. A bot `pass` does not move a row in this table.
 
@@ -54,8 +54,8 @@ Dell · teach mode · training partner · next proof: cold fact-to-dimension joi
 | Anti-join | strong | 014 cold 2026-10-30, 7 rows, `race_name` included | — |
 | Islands | strong | 015 cold 2026-10-31, 4 rows. Round span matched `count(*)`. | — |
 | Season rank | strong | 019 cold 2026-11-01, 22 rows. Leclerc and Perez share rank 2 | — |
-| Join a fact to a dimension | shaky | 010 passed | `left join` where `inner` matched the question; dead `GROUP BY` |
-| Join two facts | shaky | 011 passed, 479 rows | `qualifying_position` omitted; dead `GROUP BY` again |
+| Join a fact to a dimension | strong | 020 cold 2026-11-01, 22 rows. Inner join, no `GROUP BY` | — |
+| Join two facts | strong | 021 cold 2026-11-01, 120 rows. Season, round, and driver | — |
 | Two totals that should disagree (standings vs race points) | shaky | 016 passed 2026-10-31, 24 rows, sprint gap matches | Not redone cold on a later day. |
 | dbt grain test | untested | one singular test exists for race results | Not written for constructor or qualifying |
 
@@ -69,6 +69,8 @@ Dell · teach mode · training partner · next proof: cold fact-to-dimension joi
 - 2026-10-31 — 018 season rank, cold pass, 22 rows. Race points only (Verstappen 530, standings 575). Ties at 6 points share rank 16. He overrode strong the same night: the result was right, and `rank()` plus `max(sum(points)) over ()` were not fluent. Verdict stays shaky.
 - 2026-11-01 — 019 season rank, later-day cold pass, 22 rows. Verdict moves to strong. 2022 race points (Verstappen 433, standings 454). Leclerc and Perez both 291, share rank 2. `rank()` order is inside `OVER`. Gap is `max(sum(points)) over ()`.
 - 2026-11-01 — He confirmed 019 is strong. First draft of the gap omitted `over ()`. That mechanic, and which window functions take an argument, go on the phone bank. They do not keep season rank shaky and they do not delay the two joins or the dbt test.
+- 2026-11-01 — 020 winner names, cold pass, 22 rows. Verdict moves to strong. Inner join to `dim_driver`. `is_winner` already made one row per race, so there is no `GROUP BY`.
+- 2026-11-01 — 021 sprint and race, cold pass, 120 rows. Verdict moves to strong. Matched on season, round, and driver. All six columns are present. No `GROUP BY`. A `race_key`-only paste was the wrong version and is not the grade.
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
 
