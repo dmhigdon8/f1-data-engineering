@@ -60,3 +60,9 @@ models:
       - name: points
         tests:
           - not_null
+
+  - name: fct_qualifying_results
+    description: "One row per driver per race."
+    columns:
+      - name: result_key
+        tests: [unique, not_null]
