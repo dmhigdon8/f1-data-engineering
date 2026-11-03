@@ -25,7 +25,7 @@ Sports-centered roadmap with confirmed stack **SQL + dbt → AI infrastructure �
 3. Paste this as your **first message** (not a shell command):
 
 ```text
-Dell · teach mode · training partner · next proof: one dbt grain test · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: later-day cold grain test on dim_constructor · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 **AI / learning contract:** default **teach → pair**; ship only when named. Lean without an attempt → push for a proof.
@@ -41,9 +41,9 @@ Dell · teach mode · training partner · next proof: one dbt grain test · hold
 **Schemas (2026-10-07):** `macros/generate_schema_name.sql` uses the folder schema as written, so views are in `staging` and tables are in `marts`.
 
 
-**In progress (Phase 1):** Join of two facts is strong. Drill 021 (2026-11-01) is 120 rows. The screen-SQL patterns are strong. dbt is new to him. On 2026-11-01 he read `fct_qualifying_results` correctly: `ref('stg_qualifying')`, a table in `marts`, one row per driver per race. He named `unique` and `not_null` on `result_key`. He has not yet said what each catch would look like on that model. Teach that before he writes the file. The test, when it comes, is one grain test on `dim_constructor` or `fct_qualifying_results`.
+**In progress (Phase 1):** The qualifying grain test passed on 2026-11-02 and stays shaky. It was coached: `unique` and `not_null` on `fct_qualifying_results.result_key`, and `dbt build --select fct_qualifying_results` was PASS=3. Next proof is a later-day cold grain test on `dim_constructor`, written without the YAML being handed over. Then use a grain test as the review bar on the specialist’s models.
 
-**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is one dbt grain test on `dim_constructor` or `fct_qualifying_results`. Strong: grain, anti-join, islands, gap to leader, season rank, fact-to-dimension join, join of two facts. Standings versus race points is a later-day retention check, not a gate. Window tricks stay on the phone bank: an empty `over ()` for the leader's max, and which functions take an argument (`rank()` does not). Those reps do not add a proof before the dbt test. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
+**Path:** SQL screens, then one dbt grain test, then review the specialist’s models against that test. Next proof is a later-day cold grain test on `dim_constructor`. The 2026-11-02 qualifying test was coached, so the pattern stays shaky. Strong: grain, anti-join, islands, gap to leader, season rank, fact-to-dimension join, join of two facts. Standings versus race points is a later-day retention check, not a gate. Window tricks stay on the phone bank: an empty `over ()` for the leader's max, and which functions take an argument (`rank()` does not). Those reps do not add a proof before the dbt test. A missing `ORDER BY` is attention to detail. Name it. It is not an SQL skill gap and it does not keep a pattern shaky. Phone quiz is on demand. He asks in the Cursor app. The agent reads `sql/quiz/progress.md`. Reps are allowed. A phone pass does not move the table below. At the end of a Dell session, update `progress.md`.
 
 **Skill log (update after every grade).** Verdicts: `strong` (correct cold redo on a later day), `shaky` (passed, nit repeated or not yet redone cold), `untested`. No numeric score. Next proof targets the shakiest screen pattern, then the syllabus. Rewrite the path line when the next proof changes. Append one line to the grade trail. Do not erase older lines. Phone quizzes in `sql/quiz/log.md` are retrieval notes. A bot `pass` does not move a row in this table.
 
@@ -57,7 +57,7 @@ Dell · teach mode · training partner · next proof: one dbt grain test · hold
 | Join a fact to a dimension | strong | 020 cold 2026-11-01, 22 rows. Inner join, no `GROUP BY` | — |
 | Join two facts | strong | 021 cold 2026-11-01, 120 rows. Season, round, and driver | — |
 | Two totals that should disagree (standings vs race points) | shaky | 016 passed 2026-10-31, 24 rows, sprint gap matches | Not redone cold on a later day. |
-| dbt grain test | untested | one singular test exists for race results | Not written for constructor or qualifying |
+| dbt grain test | shaky | 2026-11-02 coached. `fct_qualifying_results.result_key` `unique` and `not_null`. `dbt build` PASS=3, 5089 rows | Not yet written cold on another model |
 
 **Grade trail** (append only):
 
@@ -71,6 +71,7 @@ Dell · teach mode · training partner · next proof: one dbt grain test · hold
 - 2026-11-01 — He confirmed 019 is strong. First draft of the gap omitted `over ()`. That mechanic, and which window functions take an argument, go on the phone bank. They do not keep season rank shaky and they do not delay the two joins or the dbt test.
 - 2026-11-01 — 020 winner names, cold pass, 22 rows. Verdict moves to strong. Inner join to `dim_driver`. `is_winner` already made one row per race, so there is no `GROUP BY`.
 - 2026-11-01 — 021 sprint and race, cold pass, 120 rows. Verdict moves to strong. Matched on season, round, and driver. All six columns are present. No `GROUP BY`. A `race_key`-only paste was the wrong version and is not the grade.
+- 2026-11-02 — qualifying grain test, coached pass. `unique` and `not_null` on `fct_qualifying_results.result_key`. `dbt build --select fct_qualifying_results`: PASS=3, 5089 rows. Verdict stays shaky. Same-session coaching, so not cold.
 
 **Grading bar (job screens):** a pass on the result is not the whole grade. On every grade, also critique structure and style: grain, nulls, whether the shape of the SQL matches the argument, names, `ORDER BY`, dead code, and Postgres-only syntax versus the Snowflake form he uses at work. End with one sentence he could say out loud in a screen. See LEARNING_PLAN “Grading phase.”
 
