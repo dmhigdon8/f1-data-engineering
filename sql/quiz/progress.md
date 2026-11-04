@@ -4,11 +4,13 @@ Author practice notes. The project and stack are in [README.md](../../README.md)
 
 updated: 2026-11-04
 
-The phone agent reads this file to choose. After each grade, the phone agent rewrites Ask next so passed ids move to rep-only.
+Shared file. Phone rewrites Ask next and phone-pass lines after each grade so the next quiz knows what is done. Dell rewrites Where he is for intensive work: shaky patterns, reinforcement targets, next proof, and new bank priorities. Phone passes do not move the skill log in `STATUS.md`.
 
 ## Where he is
 
-Islands, gap to leader, season rank, fact-to-dimension join, and join of two facts are strong. The 2024 sprint-to-race query was a cold pass on 2026-11-01: 120 rows, matched on season, round, and driver. Standings versus race points passed once on 2026-10-31 and is a later-day retention check. The qualifying grain test passed on 2026-11-02 and stays shaky because it was coached. The next Dell proof is a later-day cold grain test on `dim_constructor`. Window questions are reps. They do not delay that test. Phone passes: `dead-group-by` (2026-11-01, 2026-11-02), `leader-max-needs-over` (2026-11-03), `rank-takes-no-argument` (2026-11-04). Those do not move the skill log.
+Islands, gap to leader, season rank, fact-to-dimension join, and join of two facts are strong. The 2024 sprint-to-race query was a cold pass on 2026-11-01: 120 rows, matched on season, round, and driver. Standings versus race points passed once on 2026-10-31 and is a later-day retention check. The qualifying grain test passed on 2026-11-02 and stays shaky because it was coached. The next Dell proof is a later-day cold grain test on `dim_constructor`. Window questions are reps. They do not delay that test.
+
+Phone passes: `dead-group-by` (2026-11-01, 2026-11-02), `leader-max-needs-over` (2026-11-03), `rank-takes-no-argument` (2026-11-04).
 
 ## Ask next
 
