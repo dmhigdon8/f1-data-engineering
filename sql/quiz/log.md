@@ -20,3 +20,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "it's already at the grain you're grouping by"
 - gap: "none"
 - correction: "none"
+## 2026-11-03 leader-max-needs-over
+- question_id: leader-max-needs-over
+- rep: no
+- verdict: pass
+- answer: "It just sees that driver_id sum points"
+- reason: "the max is for only one number, the sum of points but grouped by that driver. You need the over () so that the window it's calculating the max from is all the drivers"
+- gap: "none"
+- correction: "none"
