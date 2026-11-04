@@ -2,7 +2,7 @@
 
 Author practice notes. The project and stack are in [README.md](../../README.md).
 
-Daniel asks for a question in the Cursor iPhone app. There is no schedule. The training partner on the Dell writes the bank and the progress file. This agent picks from those files only.
+Daniel asks for a question in the Cursor iPhone app. There is no schedule. The Dell session writes new bank cards. This agent picks from those files, grades into the log, and rewrites `progress.md` Ask next after each grade.
 
 When he says `quiz me`, `another`, `rep`, or names a topic, follow this file.
 
@@ -21,7 +21,7 @@ Do not open `LEARNING_PLAN.md`, `STATUS.md`, or any file in `sql/drills/`. Do no
 2. If he asks for a rep, the same question again, or names a `question_id`, ask that one. A rep is allowed after a pass. Do not refuse it.
 3. Otherwise ask the first id in the progress list that today's log does not already mark `pass` or `repaired`. If every id is already passed today, rep the most recent `miss`. If there is no miss, rep the first id.
 4. Send only that question's text from `card.md`. No hint, no choices, no SQL, no sentence from `key.md`.
-5. Stop. Do not edit files. Do not open a pull request.
+5. Stop. Do not edit files yet. Do not open a pull request.
 
 ## His reply: grade
 
@@ -46,7 +46,9 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 - correction: "one sentence from the key, or none"
 ```
 
-8. If the file write fails, still show the block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
+8. Rewrite `sql/quiz/progress.md` Ask next. On `pass` or `repaired`, move that id to the rep-only section at the bottom and put the next unfinished id first. Bump `updated:` to today. Do not edit `STATUS.md`.
+
+9. If a file write fails, still show the log block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
 
 ## What you must not do
 
