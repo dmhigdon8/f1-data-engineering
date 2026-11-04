@@ -36,3 +36,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "rank() with the ordering inside over"
 - gap: "none"
 - correction: "none"
+## 2026-11-04 island-filter
+- question_id: island-filter
+- rep: no
+- verdict: pass
+- answer: "The first and last round will both show the round the streak started"
+- reason: "in the where you've filtered for only that row"
+- gap: "none"
+- correction: "none"
