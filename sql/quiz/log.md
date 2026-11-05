@@ -44,3 +44,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "in the where you've filtered for only that row"
 - gap: "none"
 - correction: "none"
+## 2026-11-05 missing-column
+- question_id: missing-column
+- rep: no
+- verdict: pass
+- answer: "No"
+- reason: "you're not providing what was asked for in the results (qualifying_position)"
+- gap: "none"
+- correction: "none"
