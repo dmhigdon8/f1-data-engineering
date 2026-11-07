@@ -2,7 +2,7 @@
 
 Author practice notes. The project and stack are in [README.md](../../README.md).
 
-updated: 2026-11-05
+updated: 2026-11-06
 
 Shared file. Phone rewrites Ask next and phone-pass lines after each grade so the next quiz knows what is done. Dell rewrites Where he is for intensive work: shaky patterns, reinforcement targets, next proof, and new bank priorities. Phone passes do not move the skill log in `STATUS.md`.
 
@@ -12,11 +12,13 @@ Islands, gap to leader, season rank, fact-to-dimension join, and join of two fac
 
 Phone passes: `dead-group-by` (2026-11-01, 2026-11-02), `leader-max-needs-over` (2026-11-03), `rank-takes-no-argument` (2026-11-04), `island-filter` (2026-11-04), `missing-column` (2026-11-05).
 
+Phone miss: `push-names-the-branch` (2026-11-06) — thought `git push origin main` moved the current commit; it sends the laptop's `main`. Keep queued for reinforcement.
+
 ## Ask next
 
 Skip an id that today's log already marks `pass` or `repaired`, unless he asked for a rep.
 
-1. `push-names-the-branch` — `git push origin main` does not publish a commit that is on `working`. Ask this first.
+1. `push-names-the-branch` — miss on 2026-11-06. Keep first for reinforcement.
 2. `open-pr-follows-the-branch` — a new commit on an open pull request's branch updates that same request.
 3. `checkout-does-not-fetch` — checkout switches to the laptop's `main` and does not download GitHub.
 4. `missing-column` — passed on the phone 2026-11-05. Ask only if he wants a rep.
