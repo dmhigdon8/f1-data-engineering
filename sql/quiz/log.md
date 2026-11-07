@@ -60,3 +60,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "git push origin main moves this to origin/main (production)"
 - gap: "thought the push sent the current branch's commit; it sends laptop main"
 - correction: "The push names the branch it updates. The commit was on working, so only a push of working publishes it."
+## 2026-11-07 push-names-the-branch
+- question_id: push-names-the-branch
+- rep: yes
+- verdict: pass
+- answer: "Nowhere"
+- reason: "you pushed the main branch on your local"
+- gap: "none"
+- correction: "none"
