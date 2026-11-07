@@ -52,3 +52,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "you're not providing what was asked for in the results (qualifying_position)"
 - gap: "none"
 - correction: "none"
+## 2026-11-06 push-names-the-branch
+- question_id: push-names-the-branch
+- rep: no
+- verdict: miss
+- answer: "Nowhere, it's on the working branch"
+- reason: "git push origin main moves this to origin/main (production)"
+- gap: "thought the push sent the current branch's commit; it sends laptop main"
+- correction: "The push names the branch it updates. The commit was on working, so only a push of working publishes it."
