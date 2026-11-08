@@ -97,3 +97,39 @@ repair:
 - If he says the final `order by` sets the rank: ask `Does that final ORDER BY change the rank number, or only the order the rows are displayed?`
 
 correction: `rank`, `dense_rank`, and `row_number` take no argument. The order lives in `over`. `lag`, `lead`, and `ntile` do take an argument.
+
+## worktree-commit-stays-in-its-folder
+
+pass requires:
+- The original folder is unchanged. It still has `working` checked out.
+- The new commit is on `feature`, the branch checked out in the new folder.
+
+repair:
+- If he says both folders show the commit: ask `Which branch is checked out in the original folder?`
+- If he says the commit landed on `working`: ask `Which branch did the new folder get when it was created?`
+
+correction: A worktree is another folder with its own branch. The commit lands on the branch that folder has checked out. The original folder stays on `working`.
+
+## worktree-push-names-its-branch
+
+pass requires:
+- `git push origin main` does not publish the feature commit. It sends the laptop's `main`.
+- From that folder, `git push origin HEAD` or `git push origin feature` publishes `feature`.
+
+repair:
+- If he says the worktree folder makes the push send `feature`: ask `The command says origin main. Which branch does that word name?`
+- If he says the commit can only be pushed from the original folder: ask `HEAD in the feature folder is feature. What does git push origin HEAD send?`
+
+correction: The folder does not choose the remote branch. The push command does. From the worktree, name `feature` or `HEAD` to publish the commit that folder just made.
+
+## worktree-one-branch-one-checkout
+
+pass requires:
+- Git refuses. `working` is already checked out in the original folder.
+- The new folder needs its own branch. The original folder stays on `working`.
+
+repair:
+- If he says both folders now show `working`: ask `What would break if two folders committed to working at the same time?`
+- If he says the original folder switches off `working`: ask `Does git worktree add change the folder you were already in?`
+
+correction: One branch can be checked out in only one worktree. The new folder needs a new branch. The original folder stays put.

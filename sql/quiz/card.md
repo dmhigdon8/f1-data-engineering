@@ -35,3 +35,15 @@ After `group by driver_id`, the gap is written `max(sum(points)) - sum(points)` 
 ## rank-takes-no-argument
 
 The driver with the most points should be rank 1. The call is written `rank(sum(points))`. What is wrong with that call, and where does the ordering go?
+
+## worktree-commit-stays-in-its-folder
+
+The original folder has `working` checked out. You create a second folder with `git worktree add ../f1-feature -b feature` and commit there. What does `git status` show in the original folder, and which branch has the new commit?
+
+## worktree-push-names-its-branch
+
+You are inside that feature worktree and run `git push origin main`. Where does the new commit go, and which push publishes it?
+
+## worktree-one-branch-one-checkout
+
+The original folder has `working` checked out. You run `git worktree add ../f1-working working`. What happens?
