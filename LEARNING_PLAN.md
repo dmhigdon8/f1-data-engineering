@@ -217,7 +217,7 @@ There is **no special app or CLI called summon**. Two different places:
 Example — open a new chat on the F1 repo and paste:
 
 ```text
-Dell · teach mode · training partner · next proof: later-day review of fct_race_results and its load · when I wrap up, make me explain the git steps before the push · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: later-day review of fct_race_results and its load · when I wrap up, run the session-feedback-loop skill, then make me explain the git steps before the push · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 That tells the agent: you’re on the Dell, you want coaching (not “just do it”), what’s in scope this session, and which plan sections to follow. Then you run the actual `psql` / `dbt` commands **in the Dell terminal** (or ask the agent to guide you step-by-step while you type them).
