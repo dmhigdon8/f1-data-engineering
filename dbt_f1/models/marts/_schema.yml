@@ -19,6 +19,12 @@ models:
       - name: round_num
         tests: [not_null]
 
+  - name: dim_constructor
+    description: "one row per constructor."
+    columns:
+      - name: constructor_id
+        tests: [unique, not_null]
+
   - name: fct_race_results
     description: "One row per driver per race."
     columns:
