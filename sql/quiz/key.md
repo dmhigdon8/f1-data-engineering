@@ -74,6 +74,114 @@ repair:
 
 correction: Checkout switches the folder to the laptop's `main`. `git pull` is what brings in the GitHub commits that laptop does not have yet.
 
+## checkout-is-the-branch-this-folder-shows
+
+pass requires:
+- The new commit is on the laptop's `working`. GitHub does not have it yet.
+- Checked out means this folder is showing that branch. A commit made here lands on the branch this folder has checked out.
+
+repair:
+- If he says checked out means the files were downloaded from GitHub: ask `Before any pull, which copy of working are these files: the laptop's, or GitHub's?`
+- If he says the commit is already on origin: ask `Which command sends a commit to GitHub?`
+
+correction: Checked out is the branch this folder is showing. A commit in the folder lands on that branch on the laptop. Pull and push are what talk to GitHub.
+
+## pull-follows-the-checked-out-branch
+
+pass requires:
+- `git pull` with no arguments looks at `origin/working`, the remote of the branch that is checked out.
+- The folder stays on `working`. A newer `main` on GitHub is not what this pull brings.
+
+repair:
+- If he says it pulls `main` because `main` is newer: ask `Which branch is checked out in this folder?`
+- If he says the files now match GitHub `main`: ask `Which command switches this folder from working to main?`
+
+correction: `git pull` with no arguments updates the branch this folder has checked out, from that branch's remote. It does not switch the folder, and it does not fetch `main` just because `main` moved.
+
+## pull-brings-commits-not-untouched-files
+
+pass requires:
+- A pull brings commits that the remote of this branch has and the laptop's branch does not. It is not a file-by-file copy that skips edited files.
+- Uncommitted edits stay when those commits leave those lines alone. If an incoming commit changes the same lines, Git stops and refuses.
+
+repair:
+- If he says pull replaces the folder with origin's copies: ask `When a pull is already up to date, do the uncommitted edits stay modified?`
+- If he says Git always keeps your edits and takes theirs: ask `When a merge would overwrite a file you edited, did Git finish the merge or stop?`
+
+correction: A pull brings commits for the checked-out branch. Uncommitted edits sit on top of the current commit and stay when the new commits leave those lines alone. Same lines, and Git refuses instead of overwriting.
+
+## branch-is-a-label-on-a-commit
+
+pass requires:
+- `working` points at the new commit. That is the branch checked out in the folder where he committed.
+- `feature` still points at the old commit. A branch is a label on a commit. A new commit moves only the label of the branch that is checked out.
+
+repair:
+- If he says both labels move because they shared a commit: ask `Which branch is checked out in the folder where you committed?`
+- If he says `feature` keeps updating because it was created from `working`: ask `After the new commit, do the two labels still name the same commit?`
+
+correction: A branch is a label stuck to one commit. Two labels can share a commit. The next commit moves only the label of the branch checked out in that folder. The other label stays on the old commit.
+
+## commit-records-what-was-staged
+
+pass requires:
+- The commit records nothing new. `STATUS.md` was not staged, so the edit stays uncommitted.
+- `git add -A` stages every change, including the untracked `f1-feature/` folder. `git add STATUS.md` stages that file and leaves the folder out.
+
+repair:
+- If he says the commit includes every file he can see: ask `Which step puts a file into the commit: the edit, or git add?`
+- If he says `git add -A` and `git add STATUS.md` stage the same set: ask `Is f1-feature/ a tracked edit to STATUS.md, or a new untracked path?`
+
+correction: A commit records the staged snapshot. An edit stays out until it is added. `git add -A` also stages untracked paths, so a folder you did not mean, such as a worktree inside the repo, goes into the commit.
+
+## fetch-updates-the-remote-bookmark
+
+pass requires:
+- The files in the folder do not change. Fetch does not merge and does not switch the checkout.
+- `origin/working` is the laptop's bookmark for where GitHub's `working` was at this fetch. It is not the branch checked out in the folder, and it is not a live view of GitHub.
+
+repair:
+- If he says the files update to match GitHub: ask `Which command merges the fetched commits into the branch this folder has checked out?`
+- If he says `origin/working` is GitHub itself: ask `After the laptop goes offline, can that name still point at a commit?`
+
+correction: Fetch downloads new commits and moves the laptop's `origin/*` bookmarks. The folder keeps showing the branch that is checked out. Pull is fetch plus a merge of the checked-out branch.
+
+## merge-joins-with-two-parents
+
+pass requires:
+- The new commit is on `working`. It has two parents, the `working` line and the `origin/main` line, and that is where the graph joins.
+- GitHub `main` does not move. Merging the pull request is what moves `main`.
+
+repair:
+- If he says the merge switches this folder to `main`: ask `Which branch was checked out when you ran the merge?`
+- If he says GitHub `main` now includes the working commits: ask `Which action on GitHub moves main: the local merge, or merging the pull request?`
+
+correction: A merge commit joins two lines and sits on the branch that was checked out. `git merge origin/main` while on `working` updates `working`. GitHub `main` moves when the pull request is merged.
+
+## conflict-stops-until-you-commit
+
+pass requires:
+- Both sides changed the same lines in that file, and Git will not choose for him.
+- The merge is unfinished until the file is resolved and that resolution is committed.
+
+repair:
+- If he says the merge deleted his edits: ask `Did Git finish the merge, or did it stop and leave the file for you?`
+- If he says keeping one side is the same as keeping both meanings: ask `What happens to the phone's lines if the committed file has only the Dell side?`
+
+correction: A conflict means both sides touched the same lines, so Git stopped. The next commit on the checked-out branch is the resolution. Until that commit exists, the merge is not done.
+
+## rebase-replays-your-commits
+
+pass requires:
+- Rebase takes the commits that are on `working` and not on `main` and replays them on top of `main` as new commits. The `working` label moves to those new commits.
+- A merge keeps the old commits and adds one commit with two parents. That is what `git merge origin/main` did.
+
+repair:
+- If he says rebase and merge leave the same commits in place: ask `Do the replayed commits keep their old ids, or are they new commits?`
+- If he says rebase deletes `main`: ask `Which branch's unique commits get replayed on top of the other?`
+
+correction: Rebase copies this branch's unique commits onto the tip of the other branch as new commits, then points this branch at them. Merge adds one commit with two parents and leaves the old commits in place. Rebase of commits already on GitHub `main` rewrites history other people have.
+
 ## leader-max-needs-over
 
 pass requires:
