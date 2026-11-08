@@ -217,7 +217,7 @@ There is **no special app or CLI called summon**. Two different places:
 Example — open a new chat on the F1 repo and paste:
 
 ```text
-Dell · teach mode · training partner · next proof: review one model for grain, retry, late payload, and which test catches it · when I wrap up, make me explain the git steps before the push · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
+Dell · teach mode · training partner · next proof: later-day review of fct_race_results and its load · when I wrap up, make me explain the git steps before the push · hold me to the STATUS skill log · read sql/quiz/log.md before assigning the next proof
 ```
 
 That tells the agent: you’re on the Dell, you want coaching (not “just do it”), what’s in scope this session, and which plan sections to follow. Then you run the actual `psql` / `dbt` commands **in the Dell terminal** (or ask the agent to guide you step-by-step while you type them).
@@ -562,7 +562,7 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 
 1. ~~Drills 001–009 and the singular duplicate-driver-race test~~ — done.  
 2. ~~Drill 010, constructor points join~~ — written; grade was a pass with style nits (`inner join`, named `GROUP BY` / `ORDER BY`).  
-3. **Next proof:** the review bar. The 2026-11-08 `dim_constructor` test is a later-day cold pass (`unique` and `not_null` on `constructor_id`, `dbt build` PASS=3, 20 rows), so the dbt grain-test pattern is `strong`. Read one model and say the grain, what a retry would duplicate, what a late or changed payload would do, and which test would catch it. Do not build pit stops for that practice. Window tricks stay on the phone bank and do not add a Dell proof.  
+3. **Next proof:** a later-day review of `fct_race_results` and its load. The 2026-11-08 `dim_constructor` review is a first pass and stays `shaky`: grain, no duplicate on reload, a renamed constructor shows up on the next build, and `unique` catches a second id. The raw reload is an upsert on `(endpoint, season)`. Do not build pit stops for that practice. Window tricks stay on the phone bank and do not add a Dell proof.  
 4. **Next dbt proof:** one `unique` / `not_null` or relationship test on `dim_constructor` or `fct_qualifying_results`. After that test exists, use it as the review bar on the specialist’s dbt and API loads. Do not build pit stops for that practice.  
 5. When starting learning chats: link **How learning works here** (or say “teach mode”).
 6. Book map for this shelf: [`LEARNING_LIBRARY.md`](LEARNING_LIBRARY.md). Do not start a reading program ahead of the islands reps. The one book to buy for the SQL lane is Practical SQL, 2nd edition.
