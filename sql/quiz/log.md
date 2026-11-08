@@ -68,3 +68,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "you pushed the main branch on your local"
 - gap: "none"
 - correction: "none"
+## 2026-11-08 open-pr-follows-the-branch
+- question_id: open-pr-follows-the-branch
+- rep: no
+- verdict: pass
+- answer: "Nothing happens to main until the pull request is merged"
+- reason: "The pull request from working is updated with the new commit changes"
+- gap: "none"
+- correction: "none"
