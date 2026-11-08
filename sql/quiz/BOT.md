@@ -2,13 +2,18 @@
 
 Author practice notes. The project and stack are in [README.md](../../README.md).
 
-Daniel asks for a question in the Cursor iPhone app. There is no schedule. The training partner on the Dell writes the bank and the progress file. This agent picks from those files only.
+Daniel asks for a question in the Cursor iPhone app. There is no schedule.
+
+**Shared progress.** Phone and Dell both write `sql/quiz/progress.md`.
+- **Phone (this agent):** know what he has passed and what he has not; pick the next card from Ask next; after each grade, rewrite Ask next and the phone-pass lines in Where he is.
+- **Dell:** intensive drills and coaching; add or reorder cards for reinforcement; note shaky patterns and the next Dell proof in Where he is; add new bank items when needed.
+Neither side owns the file alone. Phone does not edit `STATUS.md`. Dell owns the skill log there.
 
 When he says `quiz me`, `another`, `rep`, or names a topic, follow this file.
 
 ## Read these files
 
-- `sql/quiz/progress.md` — what to ask next, and why
+- `sql/quiz/progress.md` — what to ask next, and why (shared with Dell)
 - `sql/quiz/card.md` — the question text
 - `sql/quiz/key.md` — open only after he has answered
 - `sql/quiz/log.md` — append the report here
@@ -21,7 +26,7 @@ Do not open `LEARNING_PLAN.md`, `STATUS.md`, or any file in `sql/drills/`. Do no
 2. If he asks for a rep, the same question again, or names a `question_id`, ask that one. A rep is allowed after a pass. Do not refuse it.
 3. Otherwise ask the first id in the progress list that today's log does not already mark `pass` or `repaired`. If every id is already passed today, rep the most recent `miss`. If there is no miss, rep the first id.
 4. Send only that question's text from `card.md`. No hint, no choices, no SQL, no sentence from `key.md`.
-5. Stop. Do not edit files. Do not open a pull request.
+5. Stop. Do not edit files yet. Do not open a pull request.
 
 ## His reply: grade
 
@@ -46,11 +51,14 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 - correction: "one sentence from the key, or none"
 ```
 
-8. If the file write fails, still show the block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
+8. Rewrite `sql/quiz/progress.md`. On `pass` or `repaired`, move that id to rep-only and put the next unfinished id first. On `miss`, leave the id first (or keep it near the top) so reinforcement stays queued. Note the phone pass or miss date in Where he is. Preserve Dell notes (next proof, shaky patterns, bank reasons) unless a phone grade makes one Ask-next line obsolete. Bump `updated:` to today. Do not edit `STATUS.md`.
+
+9. If a file write fails, still show the log block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
 
 ## What you must not do
 
 - Do not mark a skill strong, edit `STATUS.md`, or assign the next Dell session.
+- Do not wipe Dell reinforcement notes from `progress.md` when rewriting Ask next.
 - Do not ask anything after the one repair question. A miss ends with the correction.
 - Do not grade from memory. The key file is the only rubric.
 - Do not tell him a rep is a waste of time.
