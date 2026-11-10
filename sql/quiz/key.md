@@ -182,6 +182,78 @@ repair:
 
 correction: Rebase copies this branch's unique commits onto the tip of the other branch as new commits, then points this branch at them. Merge adds one commit with two parents and leaves the old commits in place. Rebase of commits already on GitHub `main` rewrites history other people have.
 
+## branch-is-not-a-folder
+
+pass requires:
+- No new directory appears. `working2` is a label, not a folder.
+- The same project directory is rewritten with `working2`'s snapshot.
+
+repair:
+- If he says each branch is its own folder: ask `After you switch from working to working2, is STATUS.md in a new directory or in ~/f1-data-engineering?`
+- If he says the files stay as they were: ask `Which snapshot does Git write into the project directory when you switch?`
+
+correction: A branch is a label on a commit. Switching writes that commit's snapshot into the one project directory. A second directory exists only after `git worktree add`.
+
+## origin-is-the-github-remote
+
+pass requires:
+- `origin` is the name of the remote, and that remote is GitHub. The laptop is local.
+- `git pull origin working` updates the laptop's `working` from GitHub's `working`.
+
+repair:
+- If he says the laptop is the remote: ask `In git pull origin working, which copy is the source and which copy changes?`
+- If he says the pull updates GitHub: ask `Which command sends the laptop's commits to GitHub?`
+
+correction: `origin` names the GitHub remote. A pull copies that remote's branch onto the laptop. A push copies the laptop's branch onto GitHub.
+
+## pull-main-merges-into-working
+
+pass requires:
+- `dimensions.py` becomes the version from `main`. The committed `features.py` stays his version. The result is both.
+- GitHub `main` does not change. The pull merged `main` into the laptop's `working`.
+
+repair:
+- If he says `features.py` is replaced by `main`: ask `Who changed features.py, and who changed dimensions.py?`
+- If he says GitHub `main` now has his commit: ask `What puts commits onto GitHub main: this pull, or merging the pull request?`
+
+correction: `git pull origin main` while the folder is filled from `working` merges GitHub `main` into `working`. His committed file stays. Their file comes in. GitHub `main` moves when the pull request is merged.
+
+## worktree-is-a-second-folder
+
+pass requires:
+- `feature` is a new label that starts on the same commit as `working`. It is its own branch after that.
+- The new thing on disk is a second folder, filled with that commit's files. The history is shared.
+
+repair:
+- If he says `feature` is a branch of `working` that keeps copying it: ask `After you commit in the feature folder, does the working label move?`
+- If he says only a new branch is created and the project folder switches: ask `What does git worktree add create that git checkout -b does not?`
+
+correction: A worktree is the second folder. The new branch is a new label on the commit you started from. A later commit moves only the label written into the folder where you committed.
+
+## worktree-keeps-uncommitted-work
+
+pass requires:
+- In one folder, he commits or stashes before the switch, or Git refuses when the files differ.
+- A worktree leaves those uncommitted edits in branch 1's folder while branch 2's folder is open.
+
+repair:
+- If he says a worktree means he never has to commit: ask `What saves the work once you are ready to push it?`
+- If he says both setups require a commit before he can look at branch 2: ask `Which setup leaves branch 1's files on disk while he opens branch 2?`
+
+correction: Switching branches rewrites the one folder, so uncommitted work has to be committed or stashed first. A worktree keeps that folder intact. He still commits when the work is ready to push.
+
+## feature-reaches-main-without-working
+
+pass requires:
+- He does not commit the change to `working` first. The commit in the feature folder is already on `feature`.
+- `git push origin feature` publishes it. A pull request from `feature` into `main`, then the merge, updates GitHub `main`.
+
+repair:
+- If he says the commit has to land on `working` before it can be pushed: ask `Which branch is written into the f1-feature folder?`
+- If he says `git push origin main` publishes the feature commit: ask `Which branch does that command name?`
+
+correction: Commit in the feature folder, then `git push origin feature`. The pull request from `feature` into `main` is the review. Merging it updates GitHub `main`. `working` is not a stop on the way.
+
 ## leader-max-needs-over
 
 pass requires:

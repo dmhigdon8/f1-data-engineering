@@ -64,6 +64,30 @@ You merge `origin/main` into `working` and Git stops on `sql/quiz/progress.md`. 
 
 You have seen `rebase` and you are not sure what it does. `working` has commits that `main` does not. What does rebasing `working` onto `main` do to those commits, and how is that different from the merge you made with `git merge origin/main`?
 
+## branch-is-not-a-folder
+
+In `~/f1-data-engineering` you create a branch named `working2` and switch to it. Does a new directory appear? Which files are in the project directory afterward?
+
+## origin-is-the-github-remote
+
+You describe `origin` as your laptop and GitHub as something else. Which machine is `origin`, and which copy does `git pull origin working` change?
+
+## pull-main-merges-into-working
+
+You are on `working`. You have committed a change to `features.py`. Someone else changed `dimensions.py` on `main`. You run `git pull origin main`. What happens to each file, and does GitHub `main` change?
+
+## worktree-is-a-second-folder
+
+From `working` you add a worktree named `feature`. Is `feature` a branch of `working`, and what new thing is on disk?
+
+## worktree-keeps-uncommitted-work
+
+You have uncommitted edits on branch 1 and you want to look at branch 2. In one project folder, what has to happen before the files switch? With a worktree for branch 2, what happens to those uncommitted edits?
+
+## feature-reaches-main-without-working
+
+You committed in the `f1-feature` folder and you want that commit on GitHub `main`. Do you commit it to `working` first, and which push publishes it?
+
 ## leader-max-needs-over
 
 After `group by driver_id`, the gap is written `max(sum(points)) - sum(points)` with no `over`. What total is that `max` able to see, and what does the gap need instead?
