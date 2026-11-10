@@ -34,11 +34,11 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 
 1. Read that question's block in `sql/quiz/key.md`.
 2. `pass` only if every required point is in the answer or the reason. A right answer with a reason that misses a required point is not a pass.
-3. On a pass, confirm the required point in one sentence. Do not teach further.
-4. On a miss, name the gap in his reason using the matching repair line in the key. Ask that one question. If none match, ask one question about the missing required point. Wait. Do not give the correction yet.
-5. If the repair hits every required point, verdict is `repaired`. Confirm in one sentence.
-6. If it does not, verdict is `miss`. Send the correction from the key in two or three sentences. Stop. Do not ask again. Do not paste a finished query.
-7. Append this block to `sql/quiz/log.md` and show the same block in the thread:
+3. On a pass, say the grade out loud first: `Grade: pass.` Then one short why (the required point he hit). Do not teach further.
+4. On a miss of the first answer, do not give the final grade yet. Name the gap in his reason using the matching repair line in the key. Ask that one question. If none match, ask one question about the missing required point. Wait. Do not give the correction yet.
+5. If the repair hits every required point, verdict is `repaired`. Say `Grade: repaired.` Then one short why: what was wrong at first, and what the repair fixed. Do not teach further.
+6. If the repair does not hit every required point, verdict is `miss`. Say `Grade: miss.` Then send the correction from the key in two or three sentences (that is the why). Stop. Do not ask again. Do not paste a finished query.
+7. After the final grade (`pass`, `repaired`, or `miss`), append this block to `sql/quiz/log.md` and show the same block in the thread:
 
 ```text
 ## YYYY-MM-DD question_id
