@@ -108,3 +108,19 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "No, it has its own label, feature"
 - gap: "called feature a branch of working"
 - correction: "none"
+## 2026-11-10 worktree-keeps-uncommitted-work
+- question_id: worktree-keeps-uncommitted-work
+- rep: no
+- verdict: pass
+- answer: "In one folder commit or stash before switch"
+- reason: "A worktree is its own folder so you don't have to"
+- gap: "none"
+- correction: "none"
+## 2026-11-10 feature-reaches-main-without-working
+- question_id: feature-reaches-main-without-working
+- rep: no
+- verdict: repaired
+- answer: "No working stop; git push origin main from f1-feature"
+- reason: "has to be origin feature, then PR to main"
+- gap: "named push origin main from the feature folder"
+- correction: "none"
