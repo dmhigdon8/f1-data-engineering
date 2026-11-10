@@ -76,3 +76,35 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "The pull request from working is updated with the new commit changes"
 - gap: "none"
 - correction: "none"
+## 2026-11-10 branch-is-not-a-folder
+- question_id: branch-is-not-a-folder
+- rep: no
+- verdict: pass
+- answer: "No, a new directory doesn't appear"
+- reason: "same directory but the files are repointed to the versions with the label working2"
+- gap: "none"
+- correction: "none"
+## 2026-11-10 origin-is-the-github-remote
+- question_id: origin-is-the-github-remote
+- rep: no
+- verdict: repaired
+- answer: "GitHub is origin, local machine is remote"
+- reason: "Origin is the source, local copy is what changes"
+- gap: "called the laptop the remote"
+- correction: "none"
+## 2026-11-10 pull-main-merges-into-working
+- question_id: pull-main-merges-into-working
+- rep: no
+- verdict: pass
+- answer: "GitHub main does not change"
+- reason: "dimensions.py updates from origin main; features.py stays his local working version"
+- gap: "none"
+- correction: "none"
+## 2026-11-10 worktree-is-a-second-folder
+- question_id: worktree-is-a-second-folder
+- rep: no
+- verdict: repaired
+- answer: "It is a branch of working, with its own file directory"
+- reason: "No, it has its own label, feature"
+- gap: "called feature a branch of working"
+- correction: "none"
