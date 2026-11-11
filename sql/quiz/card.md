@@ -64,6 +64,10 @@ You merge `origin/main` into `working` and Git stops on `sql/quiz/progress.md`. 
 
 You have seen `rebase` and you are not sure what it does. `working` has commits that `main` does not. What does rebasing `working` onto `main` do to those commits, and how is that different from the merge you made with `git merge origin/main`?
 
+## accept-merges-the-worktree-branch
+
+You accept a file written in `~/f1-agent` on `agent-check`. The commit is already on that branch. What command, run in the original folder, brings that file onto `working`, and what does copying the file by hand skip?
+
 ## branch-is-not-a-folder
 
 In `~/f1-data-engineering` you create a branch named `working2` and switch to it. Does a new directory appear? Which files are in the project directory afterward?
