@@ -124,3 +124,19 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "has to be origin feature, then PR to main"
 - gap: "named push origin main from the feature folder"
 - correction: "none"
+## 2026-11-11 accept-merges-the-worktree-branch
+- question_id: accept-merges-the-worktree-branch
+- rep: no
+- verdict: repaired
+- answer: "git merge agent-check working"
+- reason: "Copying by hand skips the commit; it stays on agent-check"
+- gap: "unsure what a hand copy skips"
+- correction: "none"
+## 2026-11-11 checkout-is-the-branch-this-folder-shows
+- question_id: checkout-is-the-branch-this-folder-shows
+- rep: no
+- verdict: miss
+- answer: "Working has the commit"
+- reason: "checked out means files from when the branch was created"
+- gap: "checked out is the branch the folder is showing now, not the create-time snapshot"
+- correction: "Checked out is the branch this folder is showing. A commit in the folder lands on that branch on the laptop."
