@@ -182,6 +182,18 @@ repair:
 
 correction: Rebase copies this branch's unique commits onto the tip of the other branch as new commits, then points this branch at them. Merge adds one commit with two parents and leaves the old commits in place. Rebase of commits already on GitHub `main` rewrites history other people have.
 
+## accept-merges-the-worktree-branch
+
+pass requires:
+- In the original folder, `git merge agent-check` brings the commit onto `working`.
+- Copying the file by hand skips the branch. The commit has to be on `agent-check` before the merge.
+
+repair:
+- If he says `git push origin working` brings the file over: ask `The file was committed on agent-check. Which branch is the original folder filled from before the merge?`
+- If he says copying the file is the same as the merge: ask `After a hand copy, which branch has the commit?`
+
+correction: Accepting means the commit stays on the worktree branch. `git merge agent-check` in the folder filled from `working` moves that commit onto `working`. A hand copy never puts the commit on a branch.
+
 ## branch-is-not-a-folder
 
 pass requires:
