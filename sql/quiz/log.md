@@ -140,3 +140,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "checked out means files from when the branch was created"
 - gap: "checked out is the branch the folder is showing now, not the create-time snapshot"
 - correction: "Checked out is the branch this folder is showing. A commit in the folder lands on that branch on the laptop."
+## 2026-11-12 checkout-is-the-branch-this-folder-shows
+- question_id: checkout-is-the-branch-this-folder-shows
+- rep: yes
+- verdict: pass
+- answer: "Working has the commit"
+- reason: "checked out means the directory's files match the current branch"
+- gap: "none"
+- correction: "none"
