@@ -562,7 +562,7 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 
 1. ~~Drills 001–009 and the singular duplicate-driver-race test~~ — done.  
 2. ~~Drill 010, constructor points join~~ — written; grade was a pass with style nits (`inner join`, named `GROUP BY` / `ORDER BY`).  
-3. **Next proof:** a later-day cold chief pass. He states the check without a walkthrough, the agent works only in a worktree, and he accepts or rejects the diff. The 2026-11-10 loop was coached: `023` was written in `~/f1-agent` and merged from `agent-check` into `working`. Do not build pit stops for that practice. Window tricks stay on the phone bank and do not add a Dell proof.  
+3. ~~**Chief pass**~~ — done 2026-11-11. He stated the check, the agent wrote `024` on `agent-check`, and he merged it into `working` (`fa70085`, 6 rows). A lookup of one expected row counts as a spot-check. Do not build pit stops for that practice. Window tricks stay on the phone bank and do not add a Dell proof.  
 4. **Next dbt proof:** one `unique` / `not_null` or relationship test on `dim_constructor` or `fct_qualifying_results`. After that test exists, use it as the review bar on the specialist’s dbt and API loads. Do not build pit stops for that practice.  
 5. When starting learning chats: link **How learning works here** (or say “teach mode”).
 6. Book map for this shelf: [`LEARNING_LIBRARY.md`](LEARNING_LIBRARY.md). Do not start a reading program ahead of the islands reps. The one book to buy for the SQL lane is Practical SQL, 2nd edition.
