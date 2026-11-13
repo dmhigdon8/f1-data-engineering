@@ -148,3 +148,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "checked out means the directory's files match the current branch"
 - gap: "none"
 - correction: "none"
+## 2026-11-12 branch-is-a-label-on-a-commit
+- question_id: branch-is-a-label-on-a-commit
+- rep: no
+- verdict: pass
+- answer: "Working points at the new commit"
+- reason: "feature doesn't change"
+- gap: "none"
+- correction: "none"
