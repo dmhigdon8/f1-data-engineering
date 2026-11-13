@@ -156,3 +156,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "feature doesn't change"
 - gap: "none"
 - correction: "none"
+## 2026-11-13 commit-records-what-was-staged
+- question_id: commit-records-what-was-staged
+- rep: no
+- verdict: pass
+- answer: "That commit records nothing"
+- reason: "git add -A stages all untracked; git add STATUS.md only that file"
+- gap: "none"
+- correction: "none"
