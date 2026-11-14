@@ -164,3 +164,11 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "git add -A stages all untracked; git add STATUS.md only that file"
 - gap: "none"
 - correction: "none"
+## 2026-11-14 pull-follows-the-checked-out-branch
+- question_id: pull-follows-the-checked-out-branch
+- rep: no
+- verdict: pass
+- answer: "It looks at working"
+- reason: "that's what's checked out; it does not switch to main"
+- gap: "none"
+- correction: "none"
