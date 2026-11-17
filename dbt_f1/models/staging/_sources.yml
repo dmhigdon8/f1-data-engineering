@@ -7,6 +7,11 @@ sources:
     tables:
       - name: jolpica_payloads
         description: "One row per extracted endpoint+season payload (JSONB)."
+        loaded_at_field: fetched_at
+        freshness:
+          warn_after:
+            count: 1
+            period: day
         columns:
           - name: id
             tests: [unique, not_null]

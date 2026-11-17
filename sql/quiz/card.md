@@ -111,3 +111,15 @@ You are inside that feature worktree and run `git push origin main`. Where does 
 ## worktree-one-branch-one-checkout
 
 The original folder has `working` checked out. You run `git worktree add ../f1-working working`. What happens?
+
+## singular-test-returns-bad-rows
+
+A singular test should fail when a race result has negative points. The query groups by season, round, driver, and points, with `having count(*) > 1`. One row has `points` of `-1` and no second row. Does that test fail, and what should the query return instead?
+
+## singular-test-select-is-the-failure-report
+
+A singular test is `where points < 0`, and the select list is `result_key` and `points`. The build is green. One sprint row then has `points` of `-1`. What does the failure print, and what do season, round, and driver tell you that `result_key` does not?
+
+## yaml-indent-is-the-tree
+
+In `_sources.yml`, `freshness` is indented under `columns` instead of beside `loaded_at_field`. What does dbt treat `freshness` as, and which indent makes it a property of the table?

@@ -8,7 +8,7 @@ Shared file. Phone rewrites Ask next and phone-pass lines after each grade so th
 
 ## Where he is
 
-Islands, gap to leader, season rank, fact-to-dimension join, and join of two facts are strong. The 2024 sprint-to-race query was a cold pass on 2026-11-01: 120 rows, matched on season, round, and driver. Standings versus race points was a cold pass on 2026-11-10, 24 rows, and is strong. The dbt grain test is strong. On 2026-11-08 `dim_constructor.constructor_id` got `unique` and `not_null`, and `dbt build` was PASS=3. The `dim_constructor` review passed once on 2026-11-08. The 2026-11-11 agent loop is strong. On 2026-11-15 the relationship test is strong. `fct_qualifying_results.constructor_id` must exist in `dim_constructor`. A missing key fails `relationships`. A null fails `not_null`. `dbt build` was PASS=51. On 2026-11-15 `assert_race_points_not_negative` passed after coaching and stays shaky. A negative `points` row is what the query returns. Next proof is a later-day cold singular test on a fact other than `fct_race_results`. The review of a model and its load is strong. On 2026-11-10 `fct_sprint_results` was a cold pass: one row per driver per sprint, a retry upserts on `(endpoint, season)`, the view is live, and the table waits for `dbt build`. The raw reload upserts on `(endpoint, season)`. Window questions are reps. They do not delay that proof. When he wraps up on the Dell, he explains the push and the `gh pr create` command before running them. On 2026-11-09 the folder was the unlock: he had treated a branch as its own folder. Cards ahead of the older ones: a branch is not a directory, `origin` is GitHub, `git pull origin main` merges into the current branch and leaves GitHub `main` put, a worktree is the second folder rather than a branch of a branch, uncommitted edits survive in that folder, and a feature commit reaches `main` without landing on `working` first.
+Islands, gap to leader, season rank, fact-to-dimension join, and join of two facts are strong. The 2024 sprint-to-race query was a cold pass on 2026-11-01: 120 rows, matched on season, round, and driver. Standings versus race points was a cold pass on 2026-11-10, 24 rows, and is strong. The dbt grain test is strong. On 2026-11-08 `dim_constructor.constructor_id` got `unique` and `not_null`, and `dbt build` was PASS=3. The `dim_constructor` review passed once on 2026-11-08. The 2026-11-11 agent loop is strong. On 2026-11-15 the relationship test is strong. `fct_qualifying_results.constructor_id` must exist in `dim_constructor`. A missing key fails `relationships`. A null fails `not_null`. `dbt build` was PASS=51. On 2026-11-16 the singular test is strong. `assert_sprint_points_not_negative` returns `fct_sprint_results` rows where `points < 0`. The select list is season, round, driver, and points. It passed inside PASS=53. On 2026-11-17 source freshness was coached and stays shaky. `raw.jolpica_payloads` warned because the newest `fetched_at` is 2026-09-19 and the window is 1 day. The review of a model and its load is strong. On 2026-11-10 `fct_sprint_results` was a cold pass: one row per driver per sprint, a retry upserts on `(endpoint, season)`, the view is live, and the table waits for `dbt build`. The raw reload upserts on `(endpoint, season)`. Window questions are reps. They do not delay that proof. When he wraps up on the Dell, he explains the push and the `gh pr create` command before running them. On 2026-11-09 the folder was the unlock: he had treated a branch as its own folder. Cards ahead of the older ones: a branch is not a directory, `origin` is GitHub, `git pull origin main` merges into the current branch and leaves GitHub `main` put, a worktree is the second folder rather than a branch of a branch, uncommitted edits survive in that folder, and a feature commit reaches `main` without landing on `working` first.
 
 Phone passes: `dead-group-by` (2026-11-01, 2026-11-02), `leader-max-needs-over` (2026-11-03), `rank-takes-no-argument` (2026-11-04), `island-filter` (2026-11-04), `missing-column` (2026-11-05), `push-names-the-branch` (2026-11-07 rep after 2026-11-06 miss), `open-pr-follows-the-branch` (2026-11-08), `branch-is-not-a-folder` (2026-11-10), `origin-is-the-github-remote` (2026-11-10 repaired), `pull-main-merges-into-working` (2026-11-10), `worktree-is-a-second-folder` (2026-11-10 repaired), `worktree-keeps-uncommitted-work` (2026-11-10), `feature-reaches-main-without-working` (2026-11-10 repaired), `accept-merges-the-worktree-branch` (2026-11-11 repaired), `checkout-is-the-branch-this-folder-shows` (2026-11-12 rep after 2026-11-11 miss), `branch-is-a-label-on-a-commit` (2026-11-12), `commit-records-what-was-staged` (2026-11-13), `pull-follows-the-checked-out-branch` (2026-11-14).
 
@@ -16,33 +16,36 @@ Phone passes: `dead-group-by` (2026-11-01, 2026-11-02), `leader-max-needs-over` 
 
 Skip an id that today's log already marks `pass` or `repaired`, unless he asked for a rep.
 
-1. `fetch-updates-the-remote-bookmark` — fetch moves `origin/*` on the laptop and does not change the files in the folder. Ask this first.
-2. `pull-brings-commits-not-untouched-files` — a pull brings commits. It does not skip files he has edited. Same lines, and Git refuses.
-3. `merge-joins-with-two-parents` — `git merge origin/main` on `working` adds a two-parent commit on `working`. GitHub `main` stays put.
-4. `conflict-stops-until-you-commit` — both sides touched the same lines. The merge finishes when the resolution is committed.
-5. `rebase-replays-your-commits` — rebase replays this branch's unique commits as new ones. Merge keeps the old commits and adds one join.
-6. `worktree-commit-stays-in-its-folder` — 2026-11-08. A second folder has its own branch. The original folder stays on `working`.
-7. `worktree-push-names-its-branch` — a push from inside the worktree still names the branch. `origin main` does not publish `feature`.
-8. `worktree-one-branch-one-checkout` — `working` cannot be checked out in two folders.
-9. `checkout-does-not-fetch` — checkout switches to the laptop's `main` and does not download GitHub.
-10. `pull-follows-the-checked-out-branch` — passed on the phone 2026-11-14. Ask only if he wants a rep.
-11. `commit-records-what-was-staged` — passed on the phone 2026-11-13. Ask only if he wants a rep.
-12. `branch-is-a-label-on-a-commit` — passed on the phone 2026-11-12. Ask only if he wants a rep.
-13. `checkout-is-the-branch-this-folder-shows` — passed on the phone 2026-11-12 (rep after miss). Ask only if he wants a rep.
-14. `accept-merges-the-worktree-branch` — repaired on the phone 2026-11-11. Ask only if he wants a rep.
-15. `feature-reaches-main-without-working` — repaired on the phone 2026-11-10. Ask only if he wants a rep.
-16. `worktree-keeps-uncommitted-work` — passed on the phone 2026-11-10. Ask only if he wants a rep.
-17. `worktree-is-a-second-folder` — repaired on the phone 2026-11-10. Ask only if he wants a rep.
-18. `pull-main-merges-into-working` — passed on the phone 2026-11-10. Ask only if he wants a rep.
-19. `origin-is-the-github-remote` — repaired on the phone 2026-11-10. Ask only if he wants a rep.
-20. `branch-is-not-a-folder` — passed on the phone 2026-11-10. Ask only if he wants a rep.
-21. `open-pr-follows-the-branch` — passed on the phone 2026-11-08. Ask only if he wants a rep.
-22. `push-names-the-branch` — passed on the phone 2026-11-07 (rep after miss). Ask only if he wants a rep.
-23. `missing-column` — passed on the phone 2026-11-05. Ask only if he wants a rep.
-24. `island-filter` — passed on the phone 2026-11-04. Ask only if he wants a rep.
-25. `leader-max-needs-over` — passed on the phone 2026-11-03. Ask only if he wants a rep.
-26. `rank-takes-no-argument` — passed on the phone 2026-11-04. Ask only if he wants a rep.
-27. `dead-group-by` — passed on the phone 2026-11-01 and 2026-11-02. Ask only if he wants a rep.
+1. `singular-test-select-is-the-failure-report` — 2026-11-16. The select list is the failure report. `result_key` is an md5. Ask this first.
+2. `yaml-indent-is-the-tree` — 2026-11-17. Indent decides which node a key belongs to.
+3. `singular-test-returns-bad-rows` — 2026-11-15. A singular test returns the bad rows. `having count(*) > 1` does not catch one negative `points` value.
+4. `fetch-updates-the-remote-bookmark` — fetch moves `origin/*` on the laptop and does not change the files in the folder.
+5. `pull-brings-commits-not-untouched-files` — a pull brings commits. It does not skip files he has edited. Same lines, and Git refuses.
+6. `merge-joins-with-two-parents` — `git merge origin/main` on `working` adds a two-parent commit on `working`. GitHub `main` stays put.
+7. `conflict-stops-until-you-commit` — both sides touched the same lines. The merge finishes when the resolution is committed.
+8. `rebase-replays-your-commits` — rebase replays this branch's unique commits as new ones. Merge keeps the old commits and adds one join.
+9. `worktree-commit-stays-in-its-folder` — 2026-11-08. A second folder has its own branch. The original folder stays on `working`.
+10. `worktree-push-names-its-branch` — a push from inside the worktree still names the branch. `origin main` does not publish `feature`.
+11. `worktree-one-branch-one-checkout` — `working` cannot be checked out in two folders.
+12. `checkout-does-not-fetch` — checkout switches to the laptop's `main` and does not download GitHub.
+13. `pull-follows-the-checked-out-branch` — passed on the phone 2026-11-14. Ask only if he wants a rep.
+14. `commit-records-what-was-staged` — passed on the phone 2026-11-13. Ask only if he wants a rep.
+15. `branch-is-a-label-on-a-commit` — passed on the phone 2026-11-12. Ask only if he wants a rep.
+16. `checkout-is-the-branch-this-folder-shows` — passed on the phone 2026-11-12 (rep after miss). Ask only if he wants a rep.
+17. `accept-merges-the-worktree-branch` — repaired on the phone 2026-11-11. Ask only if he wants a rep.
+18. `feature-reaches-main-without-working` — repaired on the phone 2026-11-10. Ask only if he wants a rep.
+19. `worktree-keeps-uncommitted-work` — passed on the phone 2026-11-10. Ask only if he wants a rep.
+20. `worktree-is-a-second-folder` — repaired on the phone 2026-11-10. Ask only if he wants a rep.
+21. `pull-main-merges-into-working` — passed on the phone 2026-11-10. Ask only if he wants a rep.
+22. `origin-is-the-github-remote` — repaired on the phone 2026-11-10. Ask only if he wants a rep.
+23. `branch-is-not-a-folder` — passed on the phone 2026-11-10. Ask only if he wants a rep.
+24. `open-pr-follows-the-branch` — passed on the phone 2026-11-08. Ask only if he wants a rep.
+25. `push-names-the-branch` — passed on the phone 2026-11-07 (rep after miss). Ask only if he wants a rep.
+26. `missing-column` — passed on the phone 2026-11-05. Ask only if he wants a rep.
+27. `island-filter` — passed on the phone 2026-11-04. Ask only if he wants a rep.
+28. `leader-max-needs-over` — passed on the phone 2026-11-03. Ask only if he wants a rep.
+29. `rank-takes-no-argument` — passed on the phone 2026-11-04. Ask only if he wants a rep.
+30. `dead-group-by` — passed on the phone 2026-11-01 and 2026-11-02. Ask only if he wants a rep.
 
 ## Reps
 
