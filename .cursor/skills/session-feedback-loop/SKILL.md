@@ -29,9 +29,11 @@ Use his words from this session. For each struggle, pick one class:
 
 A missing concept becomes a phone card: a question in `sql/quiz/card.md`, a key in `sql/quiz/key.md` with `pass requires`, `repair`, and `correction`, and an Ask-next line in `sql/quiz/progress.md` ahead of cards that use the word. Note the addition in one sentence in `LEARNING_PLAN.md` and in the `STATUS.md` path line.
 
+If the miss is confusing two ideas the bank already covers separately (fetch vs pull, checkout vs pull), add one contrast card only when no existing contrast id already asks that discrimination. Do not add a second card for the same gap. Do not widen the bank for comfort or syllabus coverage.
+
 Add a new proof or lane only when he cannot do the current one without it. Python, stats, DSA, a semantic layer, the sports product, pit stops, a new sport, herdr, reset, stash, and cherry-pick stay parked unless he asks for that lane.
 
-Do not mark a skill strong. A phone pass does not move the skill log. Do not invent a quiz question outside `card.md` during a phone quiz. This skill is the Dell step that writes cards.
+Do not mark a skill strong. A phone pass does not move the skill log. A same-day phone pass after a miss does not clear the spacing ladder in `progress.md`. Do not invent a quiz question outside `card.md` during a phone quiz. This skill is the Dell step that writes cards.
 
 Check the repo before looking outside it. Search the web only when the missing concept is not already defined in the plan, the quiz key, or the code he uses. Do not survey a course.
 

@@ -20,11 +20,26 @@ When he says `quiz me`, `another`, `rep`, or names a topic, follow this file.
 
 Do not open `LEARNING_PLAN.md`, `STATUS.md`, or any file in `sql/drills/`. Do not invent a question that is not in `card.md`.
 
+## Learning rules (efficacy)
+
+These override older “one pass parks forever” habits.
+
+1. **Retrieval first.** Free recall from `card.md`. No hint before the answer.
+2. **Spacing.** A same-day pass after a miss, repair, or teach-back does **not** clear the card. Mark it `needs-cold` with `due:` about 2–3 days out. A later-day cold `pass` or `repaired` schedules a week return (`due:` about 7 days out). A second later-day cold pass moves the card to Cleared (voluntary rep only).
+3. **Interleaving.** When rewriting Ask next, do not stack three or more cards from the same family in a row when other due families exist. Mix families: remote/bookmark, branch/label, worktree, SQL/window, contrast. Prefer a due spaced return or contrast card between two unfinished cards of the same family.
+4. **Cold clear ≠ learned tonight.** Same-session fluency after coaching is performance. Only a later-day cold ask clears a step on the spacing ladder.
+5. **Teach after miss is optional.** Final `miss` still ends with the key correction. If he then asks to explain, analogy, or coach more, teach once. That does not change the verdict or clear the card. Do not invent a new quiz question while teaching.
+6. **Bank growth stays tight.** New cards only for a missing underlying concept (Dell session-feedback-loop) or an approved contrast/discrimination card when near-misses show he confuses two ideas. Do not add cards for comfort or coverage.
+7. **Session habit.** Prefer 2–3 interleaved cards per quiz sit. After each final grade, if fewer than three cards have a final grade today and he has not said stop / done / write the log, ask once: `Another?` Then wait.
+
 ## Pick
 
 1. Read `sql/quiz/progress.md`.
 2. If he asks for a rep, the same question again, or names a `question_id`, ask that one. A rep is allowed after a pass. Do not refuse it.
-3. Otherwise ask the first id in the progress list that today's log does not already mark `pass` or `repaired`. If every id is already passed today, rep the most recent `miss`. If there is no miss, rep the first id.
+3. Otherwise pick the first **due** id in Ask next:
+   - Due now: open misses, `needs-cold` with `due:` on or before today, new unfinished cards, and spaced returns with `due:` on or before today.
+   - Skip an id that today's log already marks `pass`, `repaired`, or a later-day cold pass — unless he asked for a rep.
+   - If every due id is already graded today, pick the next not-yet-due unfinished id, or rep the most recent `miss`.
 4. Send only that question's text from `card.md`. No hint, no choices, no SQL, no sentence from `key.md`.
 5. Stop. Do not edit files yet. Do not open a pull request.
 
@@ -37,7 +52,7 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 3. On a pass, say the grade out loud first: `Grade: pass.` Then one short why (the required point he hit). Do not teach further.
 4. On a miss of the first answer, do not give the final grade yet. Name the gap in his reason using the matching repair line in the key. Ask that one question. If none match, ask one question about the missing required point. Wait. Do not give the correction yet.
 5. If the repair hits every required point, verdict is `repaired`. Say `Grade: repaired.` Then one short why: what was wrong at first, and what the repair fixed. Do not teach further.
-6. If the repair does not hit every required point, verdict is `miss`. Say `Grade: miss.` Then send the correction from the key in two or three sentences (that is the why). Stop. Do not ask again. Do not paste a finished query.
+6. If the repair does not hit every required point, verdict is `miss`. Say `Grade: miss.` Then send the correction from the key in two or three sentences (that is the why). Stop. Do not ask again. Do not paste a finished query. If he then asks for more explanation, teach once (rule 5 above). Still do not invent a quiz question.
 7. After the final grade (`pass`, `repaired`, or `miss`), append this block to `sql/quiz/log.md` and show the same block in the thread:
 
 ```text
@@ -51,14 +66,23 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 - correction: "one sentence from the key, or none"
 ```
 
-8. Rewrite `sql/quiz/progress.md`. On `pass` or `repaired`, move that id to rep-only and put the next unfinished id first. On `miss`, leave the id first (or keep it near the top) so reinforcement stays queued. Note the phone pass or miss date in Where he is. Preserve Dell notes (next proof, shaky patterns, bank reasons) unless a phone grade makes one Ask-next line obsolete. Bump `updated:` to today. Do not edit `STATUS.md`.
-
-9. If a file write fails, still show the log block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
+8. Rewrite `sql/quiz/progress.md`:
+   - On `miss`: keep the id in Due now (near the top).
+   - On same-day `pass` or `repaired` after a miss, repair, or teach-back that day: set `needs-cold` with `due:` in 2–3 days. Do not move to Cleared.
+   - On a later-day cold `pass` or `repaired` with no miss that day: set a week return `due:` about 7 days out (Spaced returns). Keep at most three spaced items with `due:` on or before today in Due now unless he asks for a long session.
+   - On a second later-day cold pass (week return hit): move to Cleared (voluntary rep only).
+   - Interleave families when ordering Due now and Unfinished.
+   - Note the phone pass, miss, `needs-cold`, or spaced `due:` in Where he is. Preserve Dell notes unless a phone grade makes one Ask-next line obsolete.
+   - Bump `updated:` to today. Do not edit `STATUS.md`.
+9. If fewer than three final grades today and he has not stopped, ask once: `Another?`
+10. If a file write fails, still show the log block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
 
 ## What you must not do
 
 - Do not mark a skill strong, edit `STATUS.md`, or assign the next Dell session.
 - Do not wipe Dell reinforcement notes from `progress.md` when rewriting Ask next.
-- Do not ask anything after the one repair question. A miss ends with the correction.
+- Do not ask anything after the one repair question until the final grade. After a `miss` correction, teach only if he asks.
+- Do not treat a same-day coached pass as a clear.
 - Do not grade from memory. The key file is the only rubric.
 - Do not tell him a rep is a waste of time.
+- Do not add bank cards during a phone quiz except by the Dell session-feedback-loop or an already approved contrast id in `card.md`.
