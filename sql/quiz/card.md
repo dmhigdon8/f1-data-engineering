@@ -123,3 +123,11 @@ A singular test is `where points < 0`, and the select list is `result_key` and `
 ## yaml-indent-is-the-tree
 
 In `_sources.yml`, `freshness` is indented under `columns` instead of beside `loaded_at_field`. What does dbt treat `freshness` as, and which indent makes it a property of the table?
+
+## fetch-vs-pull
+
+`working` is checked out. You run `git fetch`, then later you run `git pull` with no extra arguments. What does each command change about the files in this folder, and what does each do to the laptop's `origin/*` bookmarks?
+
+## checkout-vs-pull
+
+`working` is checked out. GitHub `main` has commits this laptop does not. You run `git checkout main` and stop. How is that different from staying on `working` and running `git pull`?

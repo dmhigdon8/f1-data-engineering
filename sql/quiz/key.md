@@ -364,3 +364,27 @@ repair:
 - If he says dbt ignores indent and uses the key name: ask `Two keys named name exist, the source and the table. What tells dbt which name belongs to which?`
 
 correction: YAML indent is how the file is read. Further indent belongs to the key above. The same indent is a sibling. Spaces only.
+
+## fetch-vs-pull
+
+pass requires:
+- Fetch leaves the folder files alone and updates the laptop's `origin/*` bookmarks.
+- Pull updates those bookmarks and merges the checked-out branch's remote commits into the folder. It is fetch plus that merge.
+
+repair:
+- If he says both commands change the folder files: ask `After fetch alone, did the files in the folder rewrite?`
+- If he says pull only downloads files you have not edited: ask `Does a pull bring whole commits for the checked-out branch, or a file-by-file copy?`
+
+correction: Fetch only refreshes the laptop's remote bookmarks. Pull does that and merges into the branch this folder has checked out, so the files can change.
+
+## checkout-vs-pull
+
+pass requires:
+- `git checkout main` switches this folder to the laptop's `main`. It does not download GitHub's newer commits by itself.
+- `git pull` on `working` stays on `working` and brings commits from `origin/working`. It does not switch the folder to `main`.
+
+repair:
+- If he says checkout pulls GitHub `main`: ask `Which command downloads commits the laptop does not have yet?`
+- If he says pull on working switches the folder to main: ask `Which branch stays checked out when you pull with no arguments?`
+
+correction: Checkout switches which local branch the folder shows. Pull updates the branch that is already checked out from its remote. Neither one does the other's job.
