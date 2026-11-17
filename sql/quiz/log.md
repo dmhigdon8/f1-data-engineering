@@ -196,3 +196,27 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "same-line differences need a declared version; repair guessed only unedited origin files"
 - gap: "pull framed as a file-by-file copy of untouched origin files, not commits for the branch"
 - correction: "A pull brings commits for the checked-out branch. Same lines, and Git refuses instead of overwriting."
+## 2026-11-16 pull-brings-commits-not-untouched-files
+- question_id: pull-brings-commits-not-untouched-files
+- rep: yes
+- verdict: pass
+- answer: "pull downloads latest commits of the branch on origin and merges; same lines and Git stops"
+- reason: "a commit is a snapshot; uncommitted changes sit on top of the local commit"
+- gap: "none"
+- correction: "none"
+## 2026-11-16 fetch-vs-pull
+- question_id: fetch-vs-pull
+- rep: no
+- verdict: repaired
+- answer: "fetch updates local snapshot of origin; pull merges origin commits into local; origin/* bookmarks update"
+- reason: "fetch is a snapshot not live; pull updates files to latest commits; repair: fetch alone does not rewrite folder files"
+- gap: "first answer omitted that fetch leaves folder files alone"
+- correction: "none"
+## 2026-11-16 checkout-vs-pull
+- question_id: checkout-vs-pull
+- rep: no
+- verdict: pass
+- answer: "pull on working fetches/merges origin/working; checkout main switches to local main"
+- reason: "checkout retargets which local versions the folder shows, not GitHub; pull updates that branch from origin's latest commits"
+- gap: "none"
+- correction: "none"
