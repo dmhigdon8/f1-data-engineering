@@ -111,3 +111,11 @@ You are inside that feature worktree and run `git push origin main`. Where does 
 ## worktree-one-branch-one-checkout
 
 The original folder has `working` checked out. You run `git worktree add ../f1-working working`. What happens?
+
+## fetch-vs-pull
+
+`working` is checked out. You run `git fetch`, then later you run `git pull` with no extra arguments. What does each command change about the files in this folder, and what does each do to the laptop's `origin/*` bookmarks?
+
+## checkout-vs-pull
+
+`working` is checked out. GitHub `main` has commits this laptop does not. You run `git checkout main` and stop. How is that different from staying on `working` and running `git pull`?
