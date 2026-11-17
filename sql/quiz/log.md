@@ -172,3 +172,27 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "that's what's checked out; it does not switch to main"
 - gap: "none"
 - correction: "none"
+## 2026-11-16 fetch-updates-the-remote-bookmark
+- question_id: fetch-updates-the-remote-bookmark
+- rep: no
+- verdict: miss
+- answer: "files show proposed pull changes but aren't changed; origin/working is latest pushed"
+- reason: "diff is remote versus local; did not know if origin/working survives offline"
+- gap: "origin/working treated as GitHub itself, not a laptop bookmark from the last fetch"
+- correction: "Fetch downloads new commits and moves the laptop's origin/* bookmarks. The folder keeps showing the branch that is checked out."
+## 2026-11-16 fetch-updates-the-remote-bookmark
+- question_id: fetch-updates-the-remote-bookmark
+- rep: yes
+- verdict: pass
+- answer: "files don't change; bookmarks update to latest from origin/working"
+- reason: "not a live GitHub connection; it's a snapshot"
+- gap: "none"
+- correction: "none"
+## 2026-11-16 pull-brings-commits-not-untouched-files
+- question_id: pull-brings-commits-not-untouched-files
+- rep: no
+- verdict: miss
+- answer: "pull brings latest origin files; conflict means pick a version"
+- reason: "same-line differences need a declared version; repair guessed only unedited origin files"
+- gap: "pull framed as a file-by-file copy of untouched origin files, not commits for the branch"
+- correction: "A pull brings commits for the checked-out branch. Same lines, and Git refuses instead of overwriting."
