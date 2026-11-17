@@ -326,6 +326,45 @@ repair:
 
 correction: One branch can be checked out in only one worktree. The new folder needs a new branch. The original folder stays put.
 
+## singular-test-returns-bad-rows
+
+pass requires:
+- The test does not fail. `having count(*) > 1` does not return that single row.
+- The query should return rows where `points < 0`. Zero rows is a pass.
+- `count(*) >= 1` is not the fix. That condition is true for every group.
+
+repair:
+- If he says change `> 1` to `>= 1`: ask `A group with points of 25 and a count of 1. Does that condition return it?`
+- If he says the green build proved a negative value fails: ask `Every points value is positive. What does this query return?`
+
+correction: A singular test fails by returning rows. Return the bad rows. `points < 0` is the bad condition. `having count(*) > 1` returns duplicate groups, and `count(*) >= 1` returns every group.
+
+## singular-test-select-is-the-failure-report
+
+pass requires:
+- Pass or fail is whether any row comes back. The select list does not decide that.
+- The failure prints `result_key` and `-1`. `result_key` is an md5, so the race and driver are not readable.
+- Season, round, and driver name the sprint that failed.
+
+repair:
+- If he says the hash is the season, round, and driver written out: ask `Can you read the round back out of that md5?`
+- If he says a green build means the select list does not matter: ask `The row with points of -1 fails. Which columns does dbt print?`
+
+correction: The filter decides pass or fail. The select list is the failure report. An md5 identifies the row and does not name the sprint. Season, round, and driver do.
+
+## yaml-indent-is-the-tree
+
+pass requires:
+- Indent is the tree. A key indented under `columns` belongs to a column.
+- `freshness` beside `loaded_at_field` is a property of the table.
+- A list may start at the same column as its key. Further indent still means nested inside.
+
+repair:
+- If he says indent is only readability: ask `If freshness is indented under columns, which node does dbt attach it to?`
+- If he says dbt ignores indent and uses the key name: ask `Two keys named name exist, the source and the table. What tells dbt which name belongs to which?`
+
+correction: YAML indent is how the file is read. Further indent belongs to the key above. The same indent is a sibling. Spaces only.
+
 ## fetch-vs-pull
 
 pass requires:
