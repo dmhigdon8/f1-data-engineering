@@ -220,3 +220,35 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "checkout retargets which local versions the folder shows, not GitHub; pull updates that branch from origin's latest commits"
 - gap: "none"
 - correction: "none"
+## 2026-11-17 singular-test-select-is-the-failure-report
+- question_id: singular-test-select-is-the-failure-report
+- rep: no
+- verdict: repaired
+- answer: "prints result_key and points; hash not readable; season, round, driver name where it failed"
+- reason: "a row coming back decides fail; select list is the failure report"
+- gap: "first answer omitted that pass/fail is whether any row comes back"
+- correction: "none"
+## 2026-11-17 yaml-indent-is-the-tree
+- question_id: yaml-indent-is-the-tree
+- rep: no
+- verdict: repaired
+- answer: "freshness belongs to columns from indent; same indent as loaded_at_field makes it a table property"
+- reason: "indent is the tree; same level as loaded_at_field is a sibling on the table"
+- gap: "first answer did not say same indent as loaded_at_field"
+- correction: "none"
+## 2026-11-17 push-names-the-branch
+- question_id: push-names-the-branch
+- rep: no
+- verdict: pass
+- answer: "Nowhere"
+- reason: "commit is on local working; push origin main sends laptop main, not working"
+- gap: "none"
+- correction: "none"
+## 2026-11-17 singular-test-returns-bad-rows
+- question_id: singular-test-returns-bad-rows
+- rep: no
+- verdict: pass
+- answer: "test does not fail; it's testing duplicates not negatives; should return points < 0"
+- reason: ">= 1 would include the -1 row but still tests group counts, not negatives; he overrode the miss — concept held, detail bar was too picky"
+- gap: "none"
+- correction: "none"
