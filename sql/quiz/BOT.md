@@ -6,7 +6,7 @@ Daniel asks for a question in the Cursor iPhone app. There is no schedule.
 
 **Shared progress.** Phone and Dell both write `sql/quiz/progress.md`.
 - **Phone (this agent):** know what he has passed and what he has not; pick the next card from Ask next; after each grade, rewrite Ask next and the phone-pass lines in Where he is.
-- **Dell:** intensive drills and coaching; add or reorder cards for reinforcement; note shaky patterns and the next Dell proof in Where he is; add new bank items when needed.
+- **Dell:** intensive drills and coaching; note shaky patterns and the next Dell proof in Where he is. A new card from a Dell miss goes under Needs cold, `due:` 2–3 days out, not the top of Due now. No card the same night he states the idea correctly. At session open, Dell reads `sql/quiz/log.md`. A phone pass does not change the proof. A phone miss changes it only when that card is the shaky pattern, or when nothing is shaky and the miss is a pattern marked strong.
 Neither side owns the file alone. Phone does not edit `STATUS.md`. Dell owns the skill log there.
 
 When he says `quiz me`, `another`, `rep`, or names a topic, follow this file.

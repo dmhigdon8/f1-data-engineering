@@ -27,11 +27,13 @@ Use his words from this session. For each struggle, pick one class:
 
 ## What may be added
 
-A missing concept becomes a phone card: a question in `sql/quiz/card.md`, a key in `sql/quiz/key.md` with `pass requires`, `repair`, and `correction`, and an Ask-next line in `sql/quiz/progress.md` ahead of cards that use the word. Note the addition in one sentence in `LEARNING_PLAN.md` and in the `STATUS.md` path line.
+A missing concept becomes a phone card: a question in `sql/quiz/card.md`, a key in `sql/quiz/key.md` with `pass requires`, `repair`, and `correction`, and an Ask-next line in `sql/quiz/progress.md` under Needs cold, `due:` 2–3 days out. Do not put it in Due now the night it was learned. No card the same night he states the idea correctly. Note the addition in one sentence in `LEARNING_PLAN.md`. Do not lengthen the `STATUS.md` path for it.
+
+At the start of a Dell session, read the latest misses in `sql/quiz/log.md`. A phone pass does not change the proof. A phone miss changes it only when the missed card is the shaky pattern, or when nothing is shaky and the miss is a pattern marked strong. Then he states that pattern cold before any new concept. A miss in another family stays on the phone.
 
 If the miss is confusing two ideas the bank already covers separately (fetch vs pull, checkout vs pull), add one contrast card only when no existing contrast id already asks that discrimination. Do not add a second card for the same gap. Do not widen the bank for comfort or syllabus coverage.
 
-Add a new proof or lane only when he cannot do the current one without it. Python, stats, DSA, a semantic layer, the sports product, pit stops, a new sport, herdr, reset, stash, and cherry-pick stay parked unless he asks for that lane.
+Add a new proof or lane only when he cannot do the current one without it. Python, stats, DSA, a semantic layer, the sports product, pit stops, a new sport, reset, stash, and cherry-pick stay parked unless he asks for that lane. herdr is out of the plan. Do not bring it back. Worktrees stay in the agent loop: one folder, one branch, he accepts or rejects the diff.
 
 Do not mark a skill strong. A phone pass does not move the skill log. A same-day phone pass after a miss does not clear the spacing ladder in `progress.md`. Do not invent a quiz question outside `card.md` during a phone quiz. This skill is the Dell step that writes cards.
 
@@ -45,7 +47,7 @@ Tell him, in this order:
 2. The concept underneath, and whether it was already on the plan or just added. Name the file.
 3. What you left off, and why.
 
-If he is also committing or pushing, stop before the command. He says the branch, the exact push command, what GitHub updates, and the `gh pr create` command. Then one question that ties the step to a worktree. `git push origin working` is the push while the commit is on `working`. `git push origin main` from that branch does not get run until he corrects it. Leave a nested worktree folder out of `git add`.
+If he is also committing or pushing, stop before the command. He says the branch, the exact push command, what GitHub updates, and the `gh pr create` command. Ask a worktree question only when the night's miss was git. `git push origin working` is the push while the commit is on `working`. `git push origin main` from that branch does not get run until he corrects it. Leave a nested worktree folder out of `git add`.
 
 ## Example
 
