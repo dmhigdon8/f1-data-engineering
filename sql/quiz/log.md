@@ -252,3 +252,35 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: ">= 1 would include the -1 row but still tests group counts, not negatives; he overrode the miss — concept held, detail bar was too picky"
 - gap: "none"
 - correction: "none"
+## 2026-11-18 origin-is-the-github-remote
+- question_id: origin-is-the-github-remote
+- rep: no
+- verdict: pass
+- answer: "Origin is the remote (GitHub); laptop is local. Pull brings origin working commits and merges with local."
+- reason: "origin is GitHub; git pull origin working updates laptop working from GitHub working"
+- gap: "none"
+- correction: "none"
+## 2026-11-18 merge-joins-with-two-parents
+- question_id: merge-joins-with-two-parents
+- rep: no
+- verdict: miss
+- answer: "combine origin/main with local working; then I don't know on parents / GitHub main"
+- reason: "on working so the merge lands on working; could not say two parents or that GitHub main stays put"
+- gap: "missed two-parent join and that GitHub main does not move"
+- correction: "A merge commit joins two lines and sits on the branch that was checked out. git merge origin/main while on working updates working. GitHub main moves when the pull request is merged."
+## 2026-11-18 dead-group-by
+- question_id: dead-group-by
+- rep: no
+- verdict: pass
+- answer: "Nothing"
+- reason: "grain is already at the group-by level so no change to results"
+- gap: "none"
+- correction: "none"
+## 2026-11-18 checkout-does-not-fetch
+- question_id: checkout-does-not-fetch
+- rep: no
+- verdict: pass
+- answer: "Your local main, not origin main"
+- reason: "checkout changes which files you see; it does not pull new commits"
+- gap: "none"
+- correction: "none"
