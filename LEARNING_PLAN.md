@@ -166,7 +166,7 @@ Honest critique of the plan you’re standing on — including ways *I* can fail
 **Decision (2026-11-17):** The lane is working. Do not add a curriculum. Enforce these, because the record and the learning research say the current extras are now the drag.
 
 1. One Dell proof a night. A coached introduction does not share the night with a cold redo.
-2. A later-day redo that only swaps the table or the column is not strong. He states what fails before opening the previous file, on a surface that is not the same query.
+2. A later-day redo that only swaps the table or the column is not strong. He states what fails before opening the previous answer, on a surface that is not the same query. Opening the source YAML, a schema, or the model under grade is allowed.
 3. Do not add a phone card the same night he restates the idea. Add it when a later retrieval misses.
 4. Git steps before a push stay. The mandatory end-of-night worktree question does not. Ask it only when the night's miss was git.
 5. Every SQL grade names the Snowflake difference, or "none." Every Dell session ends with one sentence on where the same check shows up in his work data.
@@ -177,6 +177,8 @@ Honest critique of the plan you’re standing on — including ways *I* can fail
 **Decision (2026-11-17, next product session):** After the freshness cold check, the next build is the path from the `cbb` warehouse to a post: a query he can defend, a sentence, then posting. Football can use the same College Basketball Data key and the same Patreon cap, and it waits until that path exists. Do not start it on the same night as the Dell proof. Auburn play-by-play is still missing because the free cap returned 429.
 
 **Decision (2026-11-17, stack):** herdr is out. Do not schedule it, park it, or wait for a second agent. Worktrees stay: one folder, one branch, he accepts or rejects the diff. The stack to get better at is the one already here: SQL, dbt, Python, ingestion, and AI workflows on that warehouse.
+
+**Decision (2026-11-17, freshness):** He may open `_sources.yml`. The grade is the comparison. `loaded_at_field` is the timestamp, `warn_after` is how old the newest value may be before a warn, and a warn still lets the command finish. Recalling the count, the period, or the load date from memory is not the proof. Strong still waits for a later day than the walkthrough.
 
 **Decision (2026-11-16):** Phone quiz efficacy. Same-day pass after a miss does not clear a card; it needs a later-day cold, then a ~7-day return, before Cleared. Ask next interleaves families and schedules spaced returns. After a final miss, optional teach-once if he asks; that does not clear. Prefer 2–3 cards per sit (`Another?`). Contrast cards `fetch-vs-pull` and `checkout-vs-pull` joined the bank for discrimination. Do not widen the bank for comfort — only missing concepts or approved contrast cards.
 
@@ -580,7 +582,7 @@ Protect SQL + dbt as first-class **in the near-term lane**; systems / AI craft /
 1. ~~Drills 001–009 and the singular duplicate-driver-race test~~ — done.  
 2. ~~Drill 010, constructor points join~~ — written; grade was a pass with style nits (`inner join`, named `GROUP BY` / `ORDER BY`).  
 3. ~~**Chief pass**~~ — done 2026-11-11. He stated the check, the agent wrote `024` on `agent-check`, and he merged it into `working` (`fa70085`, 6 rows). A lookup of one expected row counts as a spot-check. Do not build pit stops for that practice. Window tricks stay on the phone bank and do not add a Dell proof.  
-4. **Next dbt proof:** a later-day cold source freshness check. He states the window and whether the newest `fetched_at` warns, without the YAML. On 2026-11-17 `raw.jolpica_payloads` warned at 1 day because the newest load is 2026-09-19. That pass was coached and stays shaky. `singular-test-select-is-the-failure-report` and `yaml-indent-is-the-tree` are on the phone bank as needs-cold, not due the night they were written. Do not build pit stops for that practice.  
+4. **Next dbt proof:** a later-day source freshness check. He may open `_sources.yml`. He says what `loaded_at_field` and `warn_after` compare, and what the newest `fetched_at` will do. On 2026-11-17 `raw.jolpica_payloads` warned at 1 day because the newest load is 2026-09-19. That pass was coached and stays shaky. `singular-test-select-is-the-failure-report` and `yaml-indent-is-the-tree` are on the phone bank as needs-cold, not due the night they were written. Do not build pit stops for that practice.  
 5. When starting learning chats: link **How learning works here** (or say “teach mode”).
 6. Book map for this shelf: [`LEARNING_LIBRARY.md`](LEARNING_LIBRARY.md). Do not start a reading program ahead of the islands reps. The one book to buy for the SQL lane is Practical SQL, 2nd edition.
 7. Phone retrieval: [`sql/quiz/BOT.md`](sql/quiz/BOT.md). He opens the Cursor app and asks for a quiz. The agent reads [`sql/quiz/progress.md`](sql/quiz/progress.md), picks a due card (miss, needs-cold, spaced return, or unfinished), and prefers 2–3 interleaved cards per sit. Same-day pass after a miss does not clear. Reps are allowed. The reply is appended to `sql/quiz/log.md`. Read that log at the start of a Dell session, and update `progress.md` before the session ends. It does not change the skill log. See the 2026-11-16 decision.
