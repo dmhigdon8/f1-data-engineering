@@ -300,3 +300,27 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "fetch updates bookmarks of changes; pull brings new file state and merges on top of local; after fetch alone files do not rewrite"
 - gap: "first answer did not say fetch leaves folder files alone"
 - correction: "none"
+## 2026-11-19 leader-max-needs-over
+- question_id: leader-max-needs-over
+- rep: no
+- verdict: repaired
+- answer: "max at driver grain equals sum so gap is 0; need max of whole result; over attaches to max"
+- reason: "without over, max only sees that driver; sum stays at driver grain, max needs the whole window"
+- gap: "first answer put over on the sum: max(sum(points) over ())"
+- correction: "none"
+## 2026-11-19 pull-brings-commits-not-untouched-files
+- question_id: pull-brings-commits-not-untouched-files
+- rep: no
+- verdict: pass
+- answer: "pull brings latest origin commit for the checked-out branch; same-line edits and Git stops"
+- reason: "commits for the branch you have checked out; Git will not pick a version for you on the same lines"
+- gap: "none"
+- correction: "none"
+## 2026-11-19 singular-test-select-is-the-failure-report
+- question_id: singular-test-select-is-the-failure-report
+- rep: no
+- verdict: pass
+- answer: "prints result_key and -1; season/round/driver are human-readable; result_key is a hash"
+- reason: "season round driver name where to look; he overrode repaired — card asked the printout, not what decides fail"
+- gap: "none"
+- correction: "none"
