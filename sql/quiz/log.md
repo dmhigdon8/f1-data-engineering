@@ -284,3 +284,19 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "checkout changes which files you see; it does not pull new commits"
 - gap: "none"
 - correction: "none"
+## 2026-11-18 merge-joins-with-two-parents
+- question_id: merge-joins-with-two-parents
+- rep: yes
+- verdict: pass
+- answer: "GitHub main doesn't move; merge combines local working with origin/main commits; two parents: previous working commit and origin/main"
+- reason: "two parents join the working line and origin/main; GitHub main stays put"
+- gap: "none"
+- correction: "none"
+## 2026-11-18 fetch-vs-pull
+- question_id: fetch-vs-pull
+- rep: no
+- verdict: repaired
+- answer: "fetch updates local bookmarks for working; pull merges origin/working into local working"
+- reason: "fetch updates bookmarks of changes; pull brings new file state and merges on top of local; after fetch alone files do not rewrite"
+- gap: "first answer did not say fetch leaves folder files alone"
+- correction: "none"
