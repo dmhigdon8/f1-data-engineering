@@ -324,3 +324,19 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "season round driver name where to look; he overrode repaired — card asked the printout, not what decides fail"
 - gap: "none"
 - correction: "none"
+## 2026-11-20 fetch-updates-the-remote-bookmark
+- question_id: fetch-updates-the-remote-bookmark
+- rep: no
+- verdict: pass
+- answer: "bookmarks update to latest on origin; files unchanged"
+- reason: "fetch moves bookmarks; folder files stay put"
+- gap: "none"
+- correction: "none"
+## 2026-11-20 yaml-indent-is-the-tree
+- question_id: yaml-indent-is-the-tree
+- rep: no
+- verdict: miss
+- answer: "property of columns because nested under it"
+- reason: "table property = indented more than the table name"
+- gap: "more-than-table-name also fits under columns; need same indent as loaded_at_field"
+- correction: "Further indent belongs to the key above. Same indent is a sibling. freshness beside loaded_at_field is a table property."
