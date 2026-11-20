@@ -340,3 +340,19 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "table property = indented more than the table name"
 - gap: "more-than-table-name also fits under columns; need same indent as loaded_at_field"
 - correction: "Further indent belongs to the key above. Same indent is a sibling. freshness beside loaded_at_field is a table property."
+## 2026-11-20 rank-takes-no-argument
+- question_id: rank-takes-no-argument
+- rep: no
+- verdict: pass
+- answer: "rank() over (order by sum(points) desc)"
+- reason: "window fn; rank takes no arg; order in over ranks the whole result when no partition"
+- gap: "none"
+- correction: "none"
+## 2026-11-20 yaml-indent-is-the-tree
+- question_id: yaml-indent-is-the-tree
+- rep: yes
+- verdict: repaired
+- answer: "table property: child of table, sibling of loaded_at_field"
+- reason: "repair: more indent than columns = child of columns"
+- gap: "first answer skipped what under-columns means"
+- correction: "none"
