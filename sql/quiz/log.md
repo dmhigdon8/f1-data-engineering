@@ -356,3 +356,27 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "repair: more indent than columns = child of columns"
 - gap: "first answer skipped what under-columns means"
 - correction: "none"
+## 2026-11-21 merge-joins-with-two-parents
+- question_id: merge-joins-with-two-parents
+- rep: no
+- verdict: pass
+- answer: "GitHub main does not move; merge on working combines local with origin/main"
+- reason: "combines the working line with origin/main while on working; he overrode repaired — first answer already held the join"
+- gap: "none"
+- correction: "none"
+## 2026-11-21 leader-max-needs-over
+- question_id: leader-max-needs-over
+- rep: no
+- verdict: repaired
+- answer: "plain max sees driver grain; needs max(sum(points) over()) - sum(points)"
+- reason: "repair: max needs the over to look at the whole window"
+- gap: "first answer put over on the sum"
+- correction: "none"
+## 2026-11-21 checkout-is-the-branch-this-folder-shows
+- question_id: checkout-is-the-branch-this-folder-shows
+- rep: no
+- verdict: pass
+- answer: "working has the new commit; checked out = files/branch you are looking at in the directory"
+- reason: "folder on working; no push, so commit is local"
+- gap: "none"
+- correction: "none"

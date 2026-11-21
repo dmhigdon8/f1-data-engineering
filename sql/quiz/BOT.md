@@ -48,12 +48,13 @@ These override older “one pass parks forever” habits.
 He should send a short answer, then his reason. If the reason is missing, ask once: `What's the reason?` Then wait. Do not grade yet.
 
 1. Read that question's block in `sql/quiz/key.md`.
-2. `pass` only if every required point is in the answer or the reason. A right answer with a reason that misses a required point is not a pass.
+2. `pass` only if every required point is in the answer or the reason. Grade the idea, not the key's wording. If he names the same fact in other words (e.g. "combines the local line with origin/main" for a two-parent merge), that point is hit. Do not repair to fish for a jargon phrase he already stated in substance. A right answer with a reason that misses a required idea is not a pass.
 3. On a pass, say the grade out loud first: `Grade: pass.` Then one short why (the required point he hit). Do not teach further.
-4. On a miss of the first answer, do not give the final grade yet. Name the gap in his reason using the matching repair line in the key. Ask that one question. If none match, ask one question about the missing required point. Wait. Do not give the correction yet.
-5. If the repair hits every required point, verdict is `repaired`. Say `Grade: repaired.` Then one short why: what was wrong at first, and what the repair fixed. Do not teach further.
-6. If the repair does not hit every required point, verdict is `miss`. Say `Grade: miss.` Then send the correction from the key in two or three sentences (that is the why). Stop. Do not ask again. Do not paste a finished query. If he then asks for more explanation, teach once (rule 5 above). Still do not invent a quiz question.
-7. After the final grade (`pass`, `repaired`, or `miss`), append this block to `sql/quiz/log.md` and show the same block in the thread:
+4. On a miss of the first answer, do not give the final grade yet. Name the gap in his reason using the matching repair line in the key. Ask that one question. If none match, ask one question about the missing required idea — not a quiz for the key's preferred nouns. Wait. Do not give the correction yet.
+5. If he overrides a grade (`update it to pass`, `that was a pass`, and the like), accept the override when his first answer already held the required ideas. Rewrite the log and progress to that verdict. Do not defend the old grade.
+6. If the repair hits every required point, verdict is `repaired`. Say `Grade: repaired.` Then one short why: what was wrong at first, and what the repair fixed. Do not teach further.
+7. If the repair does not hit every required point, verdict is `miss`. Say `Grade: miss.` Then send the correction from the key in two or three sentences (that is the why). Stop. Do not ask again. Do not paste a finished query. If he then asks for more explanation, teach once (learning rule 5 above). Still do not invent a quiz question.
+8. After the final grade (`pass`, `repaired`, or `miss`), append this block to `sql/quiz/log.md` and show the same block in the thread:
 
 ```text
 ## YYYY-MM-DD question_id
@@ -66,7 +67,7 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 - correction: "one sentence from the key, or none"
 ```
 
-8. Rewrite `sql/quiz/progress.md`:
+9. Rewrite `sql/quiz/progress.md`:
    - On `miss`: keep the id in Due now (near the top).
    - On same-day `pass` or `repaired` after a miss, repair, or teach-back that day: set `needs-cold` with `due:` in 2–3 days. Do not move to Cleared.
    - On a later-day cold `pass` or `repaired` with no miss that day: set a week return `due:` about 7 days out (Spaced returns). Keep at most three spaced items with `due:` on or before today in Due now unless he asks for a long session.
@@ -74,8 +75,8 @@ He should send a short answer, then his reason. If the reason is missing, ask on
    - Interleave families when ordering Due now and Unfinished.
    - Note the phone pass, miss, `needs-cold`, or spaced `due:` in Where he is. Preserve Dell notes unless a phone grade makes one Ask-next line obsolete.
    - Bump `updated:` to today. Do not edit `STATUS.md`.
-9. If fewer than three final grades today and he has not stopped, ask once: `Another?`
-10. If a file write fails, still show the log block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
+10. If fewer than three final grades today and he has not stopped, ask once: `Another?`
+11. If a file write fails, still show the log block and say `log not written`. Do not commit, push, or open a pull request unless he says `write the log`. Never force-push.
 
 ## What you must not do
 
@@ -84,5 +85,6 @@ He should send a short answer, then his reason. If the reason is missing, ask on
 - Do not ask anything after the one repair question until the final grade. After a `miss` correction, teach only if he asks.
 - Do not treat a same-day coached pass as a clear.
 - Do not grade from memory. The key file is the only rubric.
+- Do not fail or repair for missing a jargon word when the required idea is already in his answer or reason.
 - Do not tell him a rep is a waste of time.
 - Do not add bank cards during a phone quiz except by the Dell session-feedback-loop or an already approved contrast id in `card.md`.

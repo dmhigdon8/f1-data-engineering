@@ -149,12 +149,13 @@ correction: Fetch downloads new commits and moves the laptop's `origin/*` bookma
 ## merge-joins-with-two-parents
 
 pass requires:
-- The new commit is on `working`. It has two parents, the `working` line and the `origin/main` line, and that is where the graph joins.
+- The new commit is on `working`. It joins the `working` line and the `origin/main` line (two parents, or the same idea in other words: combines / joins those two commits or lines). That is where the graph joins.
 - GitHub `main` does not move. Merging the pull request is what moves `main`.
 
 repair:
 - If he says the merge switches this folder to `main`: ask `Which branch was checked out when you ran the merge?`
 - If he says GitHub `main` now includes the working commits: ask `Which action on GitHub moves main: the local merge, or merging the pull request?`
+- Do not repair only because he said "combines" instead of "two parents."
 
 correction: A merge commit joins two lines and sits on the branch that was checked out. `git merge origin/main` while on `working` updates `working`. GitHub `main` moves when the pull request is merged.
 
