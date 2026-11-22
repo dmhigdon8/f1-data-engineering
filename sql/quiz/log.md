@@ -380,3 +380,27 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "folder on working; no push, so commit is local"
 - gap: "none"
 - correction: "none"
+## 2026-11-22 island-filter
+- question_id: island-filter
+- rep: no
+- verdict: pass
+- answer: "first and last round are always the round the streak started"
+- reason: "where streak_start = 1 collapses the set, so min and max round are that start round"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 missing-column
+- question_id: missing-column
+- rep: no
+- verdict: pass
+- answer: "No"
+- reason: "not returning qualifying_position means you are not providing what was asked, even if the rest of the shape is correct"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 branch-is-a-label-on-a-commit
+- question_id: branch-is-a-label-on-a-commit
+- rep: no
+- verdict: pass
+- answer: "working points at the new commit; feature stays on the old one"
+- reason: "committed on working, so that bookmark moves; feature's label does not"
+- gap: "none"
+- correction: "none"
