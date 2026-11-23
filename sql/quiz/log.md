@@ -428,3 +428,51 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "pull follows the checked-out branch"
 - gap: "none"
 - correction: "none"
+## 2026-11-22 open-pr-follows-the-branch
+- question_id: open-pr-follows-the-branch
+- rep: no
+- verdict: pass
+- answer: "PR updates with latest working commits; main unchanged until merge"
+- reason: "PR tracks working; main only moves when the PR is merged"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 branch-is-not-a-folder
+- question_id: branch-is-not-a-folder
+- rep: no
+- verdict: pass
+- answer: "no new directory; branch is a bookmark/pointer; same project dir"
+- reason: "branch labels a commit snapshot, not a folder"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 pull-main-merges-into-working
+- question_id: pull-main-merges-into-working
+- rep: no
+- verdict: pass
+- answer: "GitHub main unchanged; dimensions.py from remote main; features.py stays"
+- reason: "pull brings main into working; features.py unchanged so nothing to say; override from repaired"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 conflict-stops-until-you-commit
+- question_id: conflict-stops-until-you-commit
+- rep: no
+- verdict: miss
+- answer: "same-line conflict; you pick the version"
+- reason: "repair: file edits, rebase and merge"
+- gap: "thought finishing was rebase/merge again; needed resolve then commit"
+- correction: "Conflict means both sides touched the same lines so Git stopped; the next commit on the checked-out branch is the resolution."
+## 2026-11-22 leader-max-needs-over
+- question_id: leader-max-needs-over
+- rep: no
+- verdict: pass
+- answer: "plain max sees that driver only; need max(sum(points)) over() - sum(points)"
+- reason: "after group by, max without over is driver grain; empty over is the whole window"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 checkout-vs-pull
+- question_id: checkout-vs-pull
+- rep: no
+- verdict: miss
+- answer: "checkout switches to local main, no origin download; pull updates bookmarks for current branch"
+- reason: "repair: pull only updates origin/* bookmarks"
+- gap: "treated pull like fetch; pull also merges into the checked-out branch so files can change"
+- correction: "Checkout switches which local branch the folder shows. Pull updates the already checked-out branch from its remote. Neither does the other's job."
