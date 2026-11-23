@@ -404,3 +404,27 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "committed on working, so that bookmark moves; feature's label does not"
 - gap: "none"
 - correction: "none"
+## 2026-11-22 yaml-indent-is-the-tree
+- question_id: yaml-indent-is-the-tree
+- rep: no
+- verdict: pass
+- answer: "beside = table property; under columns = column property"
+- reason: "indent sets the parent; under = child of that key; beside = same parent as its siblings"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 commit-records-what-was-staged
+- question_id: commit-records-what-was-staged
+- rep: no
+- verdict: pass
+- answer: "commit records nothing staged, so STATUS.md stays out; -A stages untracked paths, add STATUS.md does not"
+- reason: "without git add the edit is not staged; -A picks up untracked like f1-feature/, named add leaves that folder out"
+- gap: "none"
+- correction: "none"
+## 2026-11-22 pull-follows-the-checked-out-branch
+- question_id: pull-follows-the-checked-out-branch
+- rep: no
+- verdict: pass
+- answer: "looks at working; folder stays on working, does not switch to main"
+- reason: "pull follows the checked-out branch"
+- gap: "none"
+- correction: "none"
