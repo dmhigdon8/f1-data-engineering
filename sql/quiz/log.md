@@ -476,3 +476,43 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "repair: pull only updates origin/* bookmarks"
 - gap: "treated pull like fetch; pull also merges into the checked-out branch so files can change"
 - correction: "Checkout switches which local branch the folder shows. Pull updates the already checked-out branch from its remote. Neither does the other's job."
+## 2026-11-23 checkout-vs-pull
+- question_id: checkout-vs-pull
+- rep: no
+- verdict: pass
+- answer: "checkout switches working→main; pull brings latest for working and merges"
+- reason: "checkout just switches; pull stays on working, bookmarks + merge; override from repaired"
+- gap: "none"
+- correction: "none"
+## 2026-11-23 conflict-stops-until-you-commit
+- question_id: conflict-stops-until-you-commit
+- rep: no
+- verdict: pass
+- answer: "same-line conflict origin/main vs working; resolve the file and commit"
+- reason: "Git will not choose the version; you decide and commit"
+- gap: "none"
+- correction: "none"
+## 2026-11-23 worktree-is-a-second-folder
+- question_id: worktree-is-a-second-folder
+- rep: no
+- verdict: miss
+- answer: "not exactly a branch; worktree gets its own directory"
+- reason: "branch shares one directory; worktree is independent directory; repair: new tree and parent"
+- gap: "denied feature is a branch; feature is a new label on the start commit, plus a second folder"
+- correction: "A worktree is the second folder. The new branch is a new label on the commit you started from."
+## 2026-11-23 worktree-keeps-uncommitted-work
+- question_id: worktree-keeps-uncommitted-work
+- rep: no
+- verdict: pass
+- answer: "stash or commit on branch 1; worktree leaves those edits alone"
+- reason: "one folder would lose them on switch; worktree is its own folder so branch 1 edits stay"
+- gap: "none"
+- correction: "none"
+## 2026-11-23 rebase-replays-your-commits
+- question_id: rebase-replays-your-commits
+- rep: no
+- verdict: miss
+- answer: "merge combines two parents; rebase uses one version of the file"
+- reason: "said that's what the commands do; asked for coach on repair"
+- gap: "rebase replays working's unique commits as new commits on top of main; not file-version pick"
+- correction: "Rebase copies this branch's unique commits onto the tip of the other as new commits, then points this branch at them. Merge adds one two-parent commit and leaves the old commits."
