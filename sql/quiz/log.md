@@ -516,3 +516,35 @@ The bot appends one block per answer. A `pass` here does not change the skill lo
 - reason: "said that's what the commands do; asked for coach on repair"
 - gap: "rebase replays working's unique commits as new commits on top of main; not file-version pick"
 - correction: "Rebase copies this branch's unique commits onto the tip of the other as new commits, then points this branch at them. Merge adds one two-parent commit and leaves the old commits."
+## 2026-11-24 worktree-is-a-second-folder
+- question_id: worktree-is-a-second-folder
+- rep: no
+- verdict: pass
+- answer: "yes a branch; own directory"
+- reason: "feature is a branch; worktree creates its own folder; override from repaired"
+- gap: "none"
+- correction: "none"
+## 2026-11-24 rebase-replays-your-commits
+- question_id: rebase-replays-your-commits
+- rep: no
+- verdict: miss
+- answer: "no idea"
+- reason: "repair: commits get copied onto main"
+- gap: "had the copy onto main; missed new commits + working label move, and merge keeps old commits with a two-parent commit"
+- correction: "Rebase copies this branch's unique commits onto the tip of the other as new commits, then points this branch at them. Merge adds one two-parent commit and leaves the old commits."
+## 2026-11-24 singular-test-returns-bad-rows
+- question_id: singular-test-returns-bad-rows
+- rep: no
+- verdict: pass
+- answer: "should fail but doesn't; having count > 1 skips the lone -1 row; use where points < 0"
+- reason: "one row is not greater than 1 so the having returns nothing; singular test should return bad rows"
+- gap: "none"
+- correction: "none"
+## 2026-11-24 push-names-the-branch
+- question_id: push-names-the-branch
+- rep: no
+- verdict: pass
+- answer: "To working, no change to origin main"
+- reason: "push origin main sends laptop main; commit stays on working; override from repaired"
+- gap: "none"
+- correction: "none"
